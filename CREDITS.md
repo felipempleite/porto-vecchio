@@ -42,3 +42,4 @@ Générées avec Higgsfield (modèle gpt_image_2_6), novembre 2026 — l'API Gem
 - Rue du Docteur-Camille-de-Rocca-Serra, July 2011 — Patrick Nouhailler, CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Rue_du_Docteur_Camille_de_Rocaserra,_Porto-Vecchio,_Corse_-_panoramio_(1).jpg (resized, WebP, car licence plate blurred).
 - Maps: drawn from OpenStreetMap data, © OpenStreetMap contributors, ODbL (https://www.openstreetmap.org/copyright).
 - Narration voice: ElevenLabs text-to-speech (eleven_v4, voice « Atma »).
+- Hero loop (round 3): AI animation generated with Kling 3.0 pro (Higgsfield, 10.5 credits) from the CC0 photo « Portivechju vistu da e saline » (Annacquaghjolu), used as first and last frame; tail crossfaded into head and pasted back into the still's 3:2 frame (tools/hero_loop_crossfade.py). Seedance 2.5 720p was tried side by side (42 credits) and not used.

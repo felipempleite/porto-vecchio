@@ -250,5 +250,23 @@
   "h": 1536,
   "desc": "Porto-Vecchio vu de l'Ospédale",
   "artist_clean": "JAn Dudík"
+ },
+ {
+  "slug": "hero-loop",
+  "title": "Portivechju vistu da e saline.jpg",
+  "artist": "Annacquaghjolu",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Portivechju_vistu_da_e_saline.jpg",
+  "w": 6000,
+  "h": 4000,
+  "desc": "Boucle vidéo d’ouverture : animation générée par IA (Kling 3.0 pro, via Higgsfield) à partir de la photo « Portivechju vu des salines »",
+  "artist_clean": "Annacquaghjolu",
+  "generated": true,
+  "model": "Kling 3.0 pro (Higgsfield)",
+  "files": [
+   "assets/video/hero-loop.webm",
+   "assets/video/hero-loop.mp4"
+  ]
  }
 ]

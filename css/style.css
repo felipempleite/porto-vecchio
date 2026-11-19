@@ -2029,3 +2029,5 @@ html.js-fallback .timeline::after {
 }
 .hero__video.is-playing { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
+.hero__credit-anim { display: none; }
+.hero.has-video .hero__credit-anim { display: inline; }

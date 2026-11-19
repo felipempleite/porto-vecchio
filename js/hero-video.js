@@ -16,10 +16,11 @@
   });
   if (!v.querySelector('source')) return;
   v.muted = true;
-  v.addEventListener('playing', function () { v.classList.add('is-playing'); });
+  var hero = v.closest('.hero');
+  v.addEventListener('playing', function () { v.classList.add('is-playing'); if (hero) hero.classList.add('has-video'); });
   v.addEventListener('error', function () { v.remove(); }, true);
 
-  function stop() { v.pause(); v.classList.remove('is-playing'); }
+  function stop() { v.pause(); v.classList.remove('is-playing'); if (hero) hero.classList.remove('has-video'); }
   function start() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
   if (reduced.addEventListener) reduced.addEventListener('change', function (e) { if (e.matches) stop(); });
 

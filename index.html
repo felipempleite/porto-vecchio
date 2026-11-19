@@ -84,9 +84,9 @@
              loading="eager" fetchpriority="high" decoding="async"
              alt="La vieille ville de Porto-Vecchio, posée sur sa colline boisée au pied des montagnes, se reflète avec les nuages dans l’eau immobile des anciennes salines.">
         <!-- Boucle vidéo optionnelle (animation générée à partir de la photo ci-dessus).
-             Inactive tant que data-ready n'est pas présent : aucune requête réseau.
-             Pour l'activer : déposer assets/video/hero-loop.webm + .mp4 (< 3 Mo), puis ajouter data-ready. -->
-        <video class="hero__video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"
+             Kling 3.0 pro (Higgsfield), photo CC0 en première et dernière image ; bouclage : tools/hero_loop_crossfade.py,
+             encodage : tools/encode_hero_loop.sh. Sans data-ready : aucune requête réseau. -->
+        <video data-ready class="hero__video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"
                poster="assets/img/saline-reflet-1920.webp"
                data-webm="assets/video/hero-loop.webm" data-mp4="assets/video/hero-loop.mp4"></video>
       </div>
@@ -97,7 +97,7 @@
         <p class="hero__dedication reveal" style="--d:.6s">Aux Rocca Serra et aux Abbatucci, et à tous ceux qui en descendent</p>
       </div>
       <a class="scroll-cue" href="#lettre"><span>Ouvrir la lettre</span><i aria-hidden="true"></i></a>
-      <p class="hero__credit">Portivechju vu des salines — Annacquaghjolu, CC0</p>
+      <p class="hero__credit">Portivechju vu des salines — Annacquaghjolu, CC0<span class="hero__credit-anim"> · animation discrète générée par IA (Kling) à partir de cette photo</span></p>
     </section>
 
     <!-- ============ I. LA LETTRE ============ -->
@@ -865,6 +865,7 @@
           <h3 id="t-photos">Photographies et documents</h3>
           <p>Wikimedia Commons. Images redimensionnées et converties au format WebP&nbsp;; les licences CC BY-SA s’appliquent à ces versions modifiées.</p>
           <ul class="credits__list" id="credits-list">
+            <li><span class="cr-desc">Boucle vidéo d’ouverture&nbsp;: animation générée par IA (Kling 3.0, via Higgsfield) à partir de la photo «&nbsp;Portivechju vu des salines&nbsp;»</span> <span class="cr-meta">photo&nbsp;: Annacquaghjolu · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a> · <a href="https://commons.wikimedia.org/wiki/File:Portivechju_vistu_da_e_saline.jpg">source</a></span></li>
             <li><span class="cr-desc">La rue du Docteur-Camille-de-Rocca-Serra (plaque d’immatriculation floutée)</span> <span class="cr-meta">Patrick Nouhailler · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Rue_du_Docteur_Camille_de_Rocaserra,_Porto-Vecchio,_Corse_-_panoramio_(1).jpg">source</a></span></li>
             <li><span class="cr-desc">Plage de Palombaggia, vue aérienne</span> <span class="cr-meta">dronepicr · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Palombaggia_Beach,_Corsica,_France_(52724214180).jpg">source</a></span></li>
             <li><span class="cr-desc">Portivechju vu des salines</span> <span class="cr-meta">Annacquaghjolu · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a> · <a href="https://commons.wikimedia.org/wiki/File:Portivechju_vistu_da_e_saline.jpg">source</a></span></li>
