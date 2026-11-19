@@ -27,7 +27,7 @@ ONLY use facts from CONTENT.md. Do not invent dates, names, anecdotes or family 
 
 ## Images
 All in `assets/img/<slug>-1920.webp` and `<slug>-960.webp`. Use `<img srcset>` with `sizes`, `loading="lazy"` (except hero: eager + fetchpriority=high), `decoding="async"`, width/height attributes to avoid layout shift, meaningful French alt text. Mark generated images with a small caption « Évocation (illustration générée) ». Captions for photos with author + licence in small type.
-Sizes: citadelle-ceccia, ospedale-lac, huningue are max 1280 wide; generated ones 1344 (lettre 1024).
+Sizes: see `assets/dims.json` for the intrinsic width×height of each `-1920.webp` file (the -960 files are half-scale or smaller).
 
 ## Design
 - Fonts (Google Fonts): Cormorant Garamond (display + body serif, italics) + a clean sans such as Inter or Manrope for labels/captions/nav.
