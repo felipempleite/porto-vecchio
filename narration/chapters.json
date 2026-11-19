@@ -1,0 +1,77 @@
+[
+ {
+  "id": "ouverture",
+  "start": 0.0,
+  "end": 8.16
+ },
+ {
+  "id": "lettre",
+  "start": 9.56,
+  "end": 79.94
+ },
+ {
+  "id": "citadelle",
+  "start": 81.34,
+  "end": 157.9
+ },
+ {
+  "id": "paoli",
+  "start": 159.3,
+  "end": 203.86
+ },
+ {
+  "id": "sel",
+  "start": 205.26,
+  "end": 251.9
+ },
+ {
+  "id": "liege",
+  "start": 253.3,
+  "end": 300.5
+ },
+ {
+  "id": "montagne",
+  "start": 301.9,
+  "end": 354.3
+ },
+ {
+  "id": "mer",
+  "start": 355.7,
+  "end": 393.54
+ },
+ {
+  "id": "crepuscule",
+  "start": 394.94,
+  "end": 442.3
+ },
+ {
+  "id": "langue",
+  "start": 443.7,
+  "end": 463.62
+ },
+ {
+  "id": "rocca-serra",
+  "start": 465.02,
+  "end": 503.82
+ },
+ {
+  "id": "abbatucci",
+  "start": 505.22,
+  "end": 563.46
+ },
+ {
+  "id": "deux-lignees",
+  "start": 564.86,
+  "end": 627.9
+ },
+ {
+  "id": "maison",
+  "start": 629.3,
+  "end": 694.26
+ },
+ {
+  "id": "envoi",
+  "start": 695.66,
+  "end": 741.34
+ }
+]

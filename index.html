@@ -28,11 +28,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/narration.css">
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/map.js" defer></script>
+  <script src="js/narration.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -40,6 +42,11 @@
 
   <header class="site-header">
     <a class="brand" href="#ouverture">Portivechju</a>
+    <div class="header-actions">
+    <button class="listen-btn" type="button" data-narration-toggle aria-label="Écouter la lettre" hidden>
+      <svg class="listen-btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><g class="i-pause"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg>
+      <span class="listen-btn__label">Écouter</span>
+    </button>
     <nav class="toc" aria-label="Sommaire">
       <details>
         <summary>Sommaire</summary>
@@ -62,6 +69,7 @@
         </ol>
       </details>
     </nav>
+    </div>
   </header>
 
   <main id="contenu" tabindex="-1">
@@ -109,6 +117,12 @@
             <p class="reveal">C’est là que je voudrais vous conduire&nbsp;: à Portivechju, le «&nbsp;port vieux&nbsp;» — un nom qui sonne déjà comme un retour. Non pour vous montrer un paysage&nbsp;; vous en avez vu d’autres, et de plus vastes. Mais pour vous rendre ce qui vous appartient déjà&nbsp;: une mer, une montagne, et deux lignées corses qui, chacune à sa manière, ont tenu à cette île comme on tient une promesse.</p>
             <p class="reveal letter__coda">Lisez lentement. L’île n’a jamais été pressée&nbsp;: elle sait que l’on revient toujours.</p>
           </div>
+          <p class="listen-cta reveal" hidden>
+            <button class="listen-cta__btn" type="button" data-narration-toggle>
+              <span class="listen-cta__disc" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><g class="i-pause"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg></span>
+              <span><strong>Écouter la lettre</strong><small>lue à voix haute · 12&nbsp;min</small></span>
+            </button>
+          </p>
         </div>
       </div>
     </section>
@@ -768,6 +782,28 @@
     </section>
   </main>
 
+  <!-- Lecteur « Écouter la lettre » — jamais de lecture automatique -->
+  <div class="narrator" id="narrator" role="region" aria-label="Lecture de la lettre" hidden>
+    <script type="application/json" id="narration-chapters">[{"id":"ouverture","start":0.0,"end":8.16},{"id":"lettre","start":9.56,"end":79.94},{"id":"citadelle","start":81.34,"end":157.9},{"id":"paoli","start":159.3,"end":203.86},{"id":"sel","start":205.26,"end":251.9},{"id":"liege","start":253.3,"end":300.5},{"id":"montagne","start":301.9,"end":354.3},{"id":"mer","start":355.7,"end":393.54},{"id":"crepuscule","start":394.94,"end":442.3},{"id":"langue","start":443.7,"end":463.62},{"id":"rocca-serra","start":465.02,"end":503.82},{"id":"abbatucci","start":505.22,"end":563.46},{"id":"deux-lignees","start":564.86,"end":627.9},{"id":"maison","start":629.3,"end":694.26},{"id":"envoi","start":695.66,"end":741.34}]</script>
+    <audio id="narration-audio" preload="none">
+      <source src="assets/audio/lettre.webm" type="audio/webm; codecs=opus">
+      <source src="assets/audio/lettre.mp3" type="audio/mpeg">
+    </audio>
+    <button class="narrator__play" type="button" data-narration-toggle aria-label="Lecture">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><g class="i-pause"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg>
+    </button>
+    <div class="narrator__meta">
+      <p class="narrator__now"><span class="narrator__kicker">Écouter la lettre</span> <span class="narrator__chapter" aria-live="polite">Ouverture</span></p>
+      <div class="narrator__bar">
+        <input class="narrator__seek" type="range" min="0" max="741" step="1" value="0" aria-label="Position dans la lecture">
+        <span class="narrator__ticks" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="narrator__time"><span class="narrator__cur">0:00</span><span aria-hidden="true"> / </span><span class="narrator__dur">12:21</span></p>
+    <label class="narrator__follow"><input type="checkbox" checked> <span>Suivre</span></label>
+    <button class="narrator__close" type="button" aria-label="Fermer le lecteur">×</button>
+  </div>
+
   <!-- Carte flottante, liée au défilement (données © OpenStreetMap, ODbL) -->
   <aside class="map-inset" id="map-inset" aria-label="Carte du sud de la Corse">
     <button class="map-inset__toggle" type="button" aria-expanded="false" aria-controls="map-inset" aria-label="Carte : agrandir ou réduire">
@@ -866,7 +902,7 @@
 
           <section aria-labelledby="t-fabrique">
             <h3 id="t-fabrique">Fabrique</h3>
-            <p>Caractères&nbsp;: Cormorant Garamond et Manrope (Google Fonts). Animations&nbsp;: GSAP et ScrollTrigger. Ni audio, ni mesure d’audience.</p>
+            <p>Caractères&nbsp;: Cormorant Garamond et Manrope (Google Fonts). Animations&nbsp;: GSAP et ScrollTrigger. Voix de la lecture&nbsp;: synthèse vocale ElevenLabs (lecture légèrement abrégée). Aucune mesure d’audience.</p>
           </section>
         </div>
       </div>
