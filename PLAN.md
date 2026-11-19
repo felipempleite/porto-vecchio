@@ -19,6 +19,11 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 4. [x] Review + hand edits (facts, credits, legibility, OG tags, mobile title), screenshots desktop 1440 / mobile 390
 5. [x] Polish pass, final commit (local preview only)
 
+## Round 2 (approved by Felipe)
+6. [ ] A — Narration « Écouter la lettre » (ElevenLabs, user-triggered, play/pause + progress, optional soft bed, section highlight)
+7. [ ] B — Illustrated scroll-linked SVG map (OSM data, ODbL attribution), works on mobile, reduced motion
+8. [ ] C — Cinematic hero loop: code path ready (muted, playsinline, poster, off for reduced motion / data-saver); video generation waits for Felipe's Higgsfield credit cap
+
 ## Status
 Published 2026-11-19 on GitHub Pages.
 
