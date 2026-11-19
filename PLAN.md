@@ -20,7 +20,7 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 5. [x] Polish pass, final commit (local preview only)
 
 ## Status
-Local preview done (http://localhost:8765/). Not published.
+Published 2026-11-19 on GitHub Pages.
 
 ## Next step
 Live at https://felipempleite.github.io/porto-vecchio/ (public repo felipempleite/porto-vecchio, GitHub Pages from main). Await Felipe's feedback; iterate on workflow/models.
