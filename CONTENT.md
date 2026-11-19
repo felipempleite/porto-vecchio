@@ -42,3 +42,8 @@ Règle absolue : n'écrire AUCUN fait historique, date, nom ou lien familial qui
 
 ## Le lien entre les deux familles
 Il n'existe pas de lien documenté entre les deux familles dans nos sources. Le site parle de « deux lignées corses » : l'une de la mer (Rocca Serra, Porto-Vecchio), l'autre de la montagne (Abbatucci, Zicavo), qui se rejoignent dans le cœur de celui ou celle qui lit — sans affirmer d'alliance. Le seul point de contact historique : le printemps 1769, Paoli, Porto-Vecchio.
+
+## La maison (round 2)
+- The family apartment is on the Rue du Docteur-Camille-de-Rocca-Serra (OSM: « Carrughju Dr Camille de Rocca Serra », ways 26275123 + 41664693), in the old town, between rue Joseph-Terrazzoni / Place de la République and the rue du Général-Abbatucci. **Never publish the house number.**
+- Namesake: « le docteur Camille de Rocca Serra » = Camille (1880-1963), physician, mayor 1922-1943 (u sgiò Cameddu). Wikipédia (Jean-Paul de Rocca Serra) calls Jean-Paul « fils du docteur Camille de Rocca Serra, lui-même député-maire de Porto-Vecchio ». The only doctor Camille in the line is the 1880 one → well-supported inference; no plaque text was checked.
+- Rue du Général-Abbatucci (OSM « Carrughju Abbatucci ») shares its end node with the rue du Docteur-Camille-de-Rocca-Serra: the two streets continue one into the other (OSM geometry). Which General Abbatucci the street honours was not verified, so the text names only « la rue du Général-Abbatucci ».

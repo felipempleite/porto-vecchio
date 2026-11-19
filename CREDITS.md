@@ -37,3 +37,8 @@ Générées avec Higgsfield (modèle gpt_image_2_6), novembre 2026 — l'API Gem
 | assets/img/sauniers-*.webp | Évocation des sauniers dans les salines |
 | assets/img/demasclage-*.webp | Évocation du démasclage du liège |
 | assets/img/lettre-*.webp | Nature morte : lettre, myrte, ciste, liège, sel |
+
+## Round 2 additions
+- Rue du Docteur-Camille-de-Rocca-Serra, July 2011 — Patrick Nouhailler, CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Rue_du_Docteur_Camille_de_Rocaserra,_Porto-Vecchio,_Corse_-_panoramio_(1).jpg (resized, WebP, car licence plate blurred).
+- Maps: drawn from OpenStreetMap data, © OpenStreetMap contributors, ODbL (https://www.openstreetmap.org/copyright).
+- Narration voice: ElevenLabs text-to-speech (eleven_v4, voice « Atma »).
