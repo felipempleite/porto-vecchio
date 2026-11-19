@@ -35,6 +35,7 @@
   <script src="js/main.js" defer></script>
   <script src="js/map.js" defer></script>
   <script src="js/narration.js" defer></script>
+  <script src="js/hero-video.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -82,6 +83,12 @@
              sizes="100vw" width="1920" height="1280"
              loading="eager" fetchpriority="high" decoding="async"
              alt="La vieille ville de Porto-Vecchio, posée sur sa colline boisée au pied des montagnes, se reflète avec les nuages dans l’eau immobile des anciennes salines.">
+        <!-- Boucle vidéo optionnelle (animation générée à partir de la photo ci-dessus).
+             Inactive tant que data-ready n'est pas présent : aucune requête réseau.
+             Pour l'activer : déposer assets/video/hero-loop.webm + .mp4 (< 3 Mo), puis ajouter data-ready. -->
+        <video class="hero__video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"
+               poster="assets/img/saline-reflet-1920.webp"
+               data-webm="assets/video/hero-loop.webm" data-mp4="assets/video/hero-loop.mp4"></video>
       </div>
       <div class="hero__inner">
         <p class="hero__eyebrow reveal">Porto-Vecchio · Corse-du-Sud</p>

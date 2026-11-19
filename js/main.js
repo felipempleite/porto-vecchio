@@ -264,8 +264,9 @@
         );
       });
 
-      var heroImg = hero.querySelector('.hero__media img');
-      if (heroImg) {
+      /* l'image et l'éventuelle boucle vidéo bougent ensemble */
+      var heroImg = hero.querySelectorAll('.hero__media img, .hero__media video');
+      if (heroImg.length) {
         gsap.fromTo(
           heroImg,
           { scale: 1.04, yPercent: -3 },
