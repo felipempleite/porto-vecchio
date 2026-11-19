@@ -15,12 +15,18 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 ## Milestones
 1. [x] Research + fact sheet (CONTENT.md)
 2. [x] Images sourced/generated, compressed to webp, credits (CREDITS.md)
-3. [ ] First build with agy (main model)
-4. [ ] Review + hand edits, screenshots desktop 1440 / mobile 390
-5. [ ] Polish pass, final commit
+3. [x] First build with agy (claude-opus-5-5-high: index.html + prose; Claude quota hit → gemini-4-neon-high: CSS/JS)
+4. [x] Review + hand edits (facts, credits, legibility, OG tags, mobile title), screenshots desktop 1440 / mobile 390
+5. [x] Polish pass, final commit (local preview only)
 
 ## Status
-In progress.
+Local preview done (http://localhost:8765/). Not published.
 
 ## Next step
-Run agy for the main build.
+Felipe reviews the preview, then picks a host (Cloudflare Pages / Netlify / GitHub Pages / Origin+Vercel) and okays publishing.
+
+## Workflow log
+- Research: web search + Wikipédia / Assemblée nationale / POP-Mérimée / Wiktionnaire → CONTENT.md (only allowed facts).
+- Images: 20 Wikimedia Commons files (API + 1920/960 WebP via Pillow, CREDITS.md + assets/credits.json). Gemini image API returned 402 (prepaid credits depleted) → 4 illustrations on Higgsfield gpt_image_2_6 (0.25 credit each, ~1 credit total).
+- Code: agy headless with `--mode accept-edits` (no dangerous flag; shell tools denied, so prompts say "file tools only"). Opus 5.5 high wrote index.html (~13 min, then hit Claude quota, resets ~4h); Gemini 4 Neon high wrote css/js (~6 min).
+- QA: Playwright (playwright-core + system Chrome), desktop 1440 / mobile 390, console + HTTP errors, overflow, reduced-motion visibility check.

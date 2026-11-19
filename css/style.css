@@ -2016,3 +2016,7 @@ html.js-fallback .timeline::after {
 
 /* Forge review: calmer maquis backdrop so the Corsican words stay legible */
 .sticky-bg--maquis img { filter: blur(3px) saturate(0.75) brightness(0.85); transform: scale(1.04); }
+
+@media (max-width: 480px) {
+  .hero__title { font-size: clamp(3.6rem, 19vw, 5rem); }
+}
