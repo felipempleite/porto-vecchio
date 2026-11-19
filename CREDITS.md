@@ -9,7 +9,7 @@
 | assets/img/vieille-ville-*.webp | La vieille ville de Porto-Vecchio | Pascal POGGI | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Porto-Vecchio_vieille_ville.jpg |
 | assets/img/citadelle-ceccia-*.webp | Porto-Vecchio vu de Ceccia | Julian Nyča | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Porto-Vecchio_from_Ceccia.jpg |
 | assets/img/aube-baie-*.webp | Lever de soleil sur la baie de Porto-Vecchio | marsupilami51 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Lev%C3%A9_de_soleil_sur_la_baie_de_Porto_Vecchio_-_panoramio.jpg |
-| assets/img/voie-lactee-*.webp | Voie lactée sur les rochers de Corse | Jérémy Sauterel | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Voie_lact%C3%A9e_(49424337807).jpg |
+| assets/img/voie-lactee-*.webp | La Voie lactée sur la plage de Tamaricciu (Porto-Vecchio) | Jérémy Sauterel | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Voie_lact%C3%A9e_(49424337807).jpg |
 | assets/img/chene-liege-*.webp | Chêne-liège en Corse | JCMEL | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Ch%C3%AAne_li%C3%A8ge_Corse.jpg |
 | assets/img/porte-genoise-*.webp | La Porte génoise | Patrick Nouhailler | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:La_Porte_G%C3%A9noise_,_Porto-Vecchio,_corse_-_panoramio.jpg |
 | assets/img/bastion-de-france-*.webp | Le Bastion de France | Air fans | CC0 | https://commons.wikimedia.org/wiki/File:Bastion_de_France_(Porto_Vecchio)_1.jpg |

@@ -29,7 +29,7 @@ Règle absolue : n'écrire AUCUN fait historique, date, nom ou lien familial qui
 - Selon Wikipédia, les Rocca Serra ont occupé presque sans interruption la mairie de Porto-Vecchio du Premier Empire à nos jours (liste des maires : Vincente Maria Rocca Serra 1803-1814, Anton « Camillo » Rocca Serra 1821-1826, Leopoldo 1839-1845, Giulio Maria 1848-1854, Horace de Rocca Serra 1872-1876...).
 - Camille de Rocca Serra (1880-1963) : médecin, maire de Porto-Vecchio (1922-1943), député de la Corse, président du Conseil général de la Corse. Surnommé « u sgiò Cameddu ».
 - Jean-Paul de Rocca Serra (1911-1998), son fils : né à Bonifacio, médecin, maire de Porto-Vecchio de 1950 à 1997 (47 ans), sénateur puis député de la Corse et de la Corse-du-Sud (1962-1998), président de l'Assemblée de Corse. Un lycée de Porto-Vecchio porte son nom.
-- Camille de Rocca Serra (né en 1954), fils de Jean-Paul : maire de Porto-Vecchio de 1997 à 2004, député de la Corse-du-Sud depuis 2002, président de l'Assemblée de Corse.
+- Camille de Rocca Serra (né en 1954), fils de Jean-Paul : maire de Porto-Vecchio de 1997 à 2004, né à Porto-Vecchio, député de la Corse-du-Sud de 2002 à 2017, président de l'Assemblée de Corse de 2004 à 2010.
 - Louis-Ferdinand de Rocca Serra (1936-2021), sénateur de la Corse-du-Sud (autre membre de la famille).
 
 ## La famille Abbatucci (lignée de Zicavo, Taravo / Haut-Taravo)
