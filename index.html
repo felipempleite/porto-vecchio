@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portivechju — Lettre à ceux qui reviennent</title>
+  <meta name="description" content="Portivechju, Porto-Vecchio : une lettre aux descendants des Rocca Serra et des Abbatucci, deux lignées corses, l’une de la mer, l’autre de la montagne.">
+  <meta name="theme-color" content="#14181c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314181c'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%23e2b07a'%3EP%3C/text%3E%3C/svg%3E">
+
+  <script>
+    /* Amélioration progressive : le texte n’est masqué avant révélation que si JS tourne. */
+    (function (d) {
+      d.classList.remove('no-js');
+      d.classList.add('js');
+      setTimeout(function () { if (!window.__pvReady) d.classList.add('js-fallback'); }, 3500);
+    })(document.documentElement);
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;display=swap">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header">
+    <a class="brand" href="#ouverture">Portivechju</a>
+    <nav class="toc" aria-label="Sommaire">
+      <details>
+        <summary>Sommaire</summary>
+        <ol>
+          <li><a href="#lettre"><span>I</span>La lettre</a></li>
+          <li><a href="#citadelle"><span>II</span>1539 — La citadelle</a></li>
+          <li><a href="#paoli"><span>III</span>1769 — Le départ de Paoli</a></li>
+          <li><a href="#sel"><span>IV</span>Le sel</a></li>
+          <li><a href="#liege"><span>V</span>Le liège</a></li>
+          <li><a href="#montagne"><span>VI</span>La montagne</a></li>
+          <li><a href="#mer"><span>VII</span>La mer</a></li>
+          <li><a href="#crepuscule"><span>VIII</span>Le crépuscule</a></li>
+          <li><a href="#langue"><span>IX</span>La langue</a></li>
+          <li><a href="#rocca-serra"><span>X</span>Les Rocca Serra</a></li>
+          <li><a href="#abbatucci"><span>XI</span>Les Abbatucci</a></li>
+          <li><a href="#deux-lignees"><span>XII</span>Deux lignées, une île</a></li>
+          <li><a href="#envoi"><span>—</span>Envoi</a></li>
+          <li><a href="#credits"><span>—</span>Crédits</a></li>
+        </ol>
+      </details>
+    </nav>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+
+    <!-- ============ OUVERTURE ============ -->
+    <section class="hero" id="ouverture" aria-labelledby="titre">
+      <div class="hero__media">
+        <img src="assets/img/saline-reflet-1920.webp"
+             srcset="assets/img/saline-reflet-960.webp 960w, assets/img/saline-reflet-1920.webp 1920w"
+             sizes="100vw" width="1920" height="1280"
+             loading="eager" fetchpriority="high" decoding="async"
+             alt="La vieille ville de Porto-Vecchio, posée sur sa colline boisée au pied des montagnes, se reflète avec les nuages dans l’eau immobile des anciennes salines.">
+      </div>
+      <div class="hero__inner">
+        <p class="hero__eyebrow reveal">Porto-Vecchio · Corse-du-Sud</p>
+        <h1 id="titre" class="hero__title reveal" style="--d:.15s">Portivechju</h1>
+        <p class="hero__subtitle reveal" style="--d:.35s">Lettre à ceux qui reviennent</p>
+        <p class="hero__dedication reveal" style="--d:.6s">Aux Rocca Serra et aux Abbatucci, et à tous ceux qui en descendent</p>
+      </div>
+      <a class="scroll-cue" href="#lettre"><span>Ouvrir la lettre</span><i aria-hidden="true"></i></a>
+      <p class="hero__credit">Portivechju vu des salines — Annacquaghjolu, CC0</p>
+    </section>
+
+    <!-- ============ I. LA LETTRE ============ -->
+    <section class="chapter chapter--letter" id="lettre" aria-labelledby="t-lettre">
+      <div class="wrap letter-grid">
+        <figure class="figure letter-figure reveal">
+          <img src="assets/img/lettre-960.webp"
+               srcset="assets/img/lettre-960.webp 960w, assets/img/lettre-1920.webp 1024w"
+               sizes="(min-width: 960px) 46vw, 100vw" width="1024" height="688"
+               loading="lazy" decoding="async"
+               alt="Nature morte sur un muret de granit : une lettre manuscrite jaunie, un rameau de myrte chargé de baies, deux fleurs de ciste roses, un morceau d’écorce de liège et quelques cristaux de sel, devant une mer turquoise.">
+          <figcaption><span class="tag">Évocation (illustration générée)</span> <span class="cap__desc">Lettre, myrte, ciste, liège et sel</span></figcaption>
+        </figure>
+
+        <div class="letter">
+          <header class="chapter__head">
+            <p class="chapter__num reveal">Chapitre I · La lettre</p>
+            <h2 id="t-lettre" class="reveal">À vous qui revenez</h2>
+          </header>
+          <div class="prose letter__body">
+            <p class="reveal">Vous qui portez l’un de ces noms, ou qui n’en gardez qu’un écho — une inflexion dans la voix d’une grand-mère, un mot corse resté au fond d’une phrase française —, cette lettre est pour vous.</p>
+            <p class="reveal">Je ne sais pas d’où vous la lisez. D’une ville du continent, peut-être, d’un autre pays, d’une autre langue. Cela n’a guère d’importance. Ici, personne ne vous demandera d’où vous venez&nbsp;; on vous demandera seulement si vous avez fait bon voyage.</p>
+            <p class="reveal">Fermez les yeux un instant. Il y a d’abord l’odeur&nbsp;: le maquis chauffé par le jour, le myrte, le ciste, l’immortelle, cette amertume douce qui reste dans les vêtements longtemps après le départ. Puis le sel sur les lèvres. Puis le granit, encore tiède sous la paume, quand le soir descend sur la vieille ville.</p>
+            <p class="reveal">C’est là que je voudrais vous conduire&nbsp;: à Portivechju, le «&nbsp;port vieux&nbsp;» — un nom qui sonne déjà comme un retour. Non pour vous montrer un paysage&nbsp;; vous en avez vu d’autres, et de plus vastes. Mais pour vous rendre ce qui vous appartient déjà&nbsp;: une mer, une montagne, et deux lignées corses qui, chacune à sa manière, ont tenu à cette île comme on tient une promesse.</p>
+            <p class="reveal letter__coda">Lisez lentement. L’île n’a jamais été pressée&nbsp;: elle sait que l’on revient toujours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ II. 1539 — LA CITADELLE ============ -->
+    <section class="chapter chapter--citadelle" id="citadelle" aria-labelledby="t-citadelle">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre II</p>
+          <h2 id="t-citadelle" class="reveal"><span class="year">1539</span> La citadelle</h2>
+          <p class="lede reveal">Avant la ville, il y eut la plaine — et la fièvre.</p>
+        </header>
+
+        <div class="prose prose--cols" data-stagger>
+          <p class="reveal">Une plaine fertile, et pourtant désertée&nbsp;: au Moyen Âge, la malaria y régnait comme une saison qui ne finit jamais. Du <span class="sc">XIII</span><sup>e</sup> au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle, les seigneurs de la Rocca tenaient la contrée&nbsp;; seuls les bergers de la montagne y descendaient l’hiver, avec leurs troupeaux.</p>
+          <p class="reveal">Puis la seigneurie de la Rocca passa sous l’administration de l’Office de Saint-Georges, à Gênes. En 1539, les Génois fondèrent ici une colonie et une forteresse, pour se garder des Barbaresques.</p>
+          <p class="reveal">Cinq bastions, une porte. La citadelle fut détruite, relevée, détruite encore&nbsp;; les murs que vous toucherez datent de 1589. Le Bastion de France et la Porte génoise sont toujours debout, et la pierre, sous la main, garde la tiédeur des siècles.</p>
+        </div>
+      </div>
+
+      <figure class="figure figure--wide wrap reveal">
+        <img src="assets/img/memoire-citadelle-960.webp"
+             srcset="assets/img/memoire-citadelle-960.webp 960w, assets/img/memoire-citadelle-1920.webp 1344w"
+             sizes="(min-width: 1240px) 1112px, 100vw" width="1344" height="752"
+             loading="lazy" decoding="async"
+             alt="Évocation peinte d’une citadelle aux murs ocre sur un promontoire rocheux, au bord d’une baie calme bordée de marais, au coucher du soleil ; deux navires à voile croisent devant les montagnes.">
+        <figcaption><span class="tag">Évocation (illustration générée)</span> <span class="cap__desc">La citadelle génoise, telle qu’on peut l’imaginer au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="duo" data-stagger>
+          <figure class="figure reveal">
+            <img src="assets/img/porte-genoise-960.webp"
+                 srcset="assets/img/porte-genoise-960.webp 960w, assets/img/porte-genoise-1920.webp 1920w"
+                 sizes="(min-width: 720px) 46vw, 100vw" width="1920" height="1440"
+                 loading="lazy" decoding="async"
+                 alt="La Porte génoise : une arche de pierre percée dans l’épais mur de la citadelle, ouvrant sur une ruelle de la vieille ville.">
+            <figcaption><span class="cap__desc">La Porte génoise</span> <span class="cap__credit">Patrick Nouhailler · CC BY-SA 3.0</span></figcaption>
+          </figure>
+          <figure class="figure reveal">
+            <img src="assets/img/bastion-de-france-960.webp"
+                 srcset="assets/img/bastion-de-france-960.webp 960w, assets/img/bastion-de-france-1920.webp 1920w"
+                 sizes="(min-width: 720px) 46vw, 100vw" width="1920" height="1440"
+                 loading="lazy" decoding="async"
+                 alt="Le Bastion de France : murs de granit et tour crénelée de la citadelle, dans la lumière dorée de la fin du jour.">
+            <figcaption><span class="cap__desc">Le Bastion de France</span> <span class="cap__credit">Air fans · CC0</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="split split--map">
+          <figure class="figure figure--map reveal">
+            <img src="assets/img/plan-bellin-960.webp"
+                 srcset="assets/img/plan-bellin-960.webp 960w, assets/img/plan-bellin-1920.webp 1100w"
+                 sizes="(min-width: 900px) 42vw, 100vw" width="1100" height="1297"
+                 loading="lazy" decoding="async"
+                 alt="Plan gravé de la baie de Porto-Vecchio au XVIIIe siècle : cartouche orné, rose des vents, le fort au fond de la baie, le cap de la Chiappa et ses îlots.">
+            <figcaption><span class="cap__desc">Plan de Porto Vecchio, par Jacques-Nicolas Bellin, <span class="sc">XVIII</span><sup>e</sup>&nbsp;siècle</span> <span class="cap__credit">Domaine public</span></figcaption>
+          </figure>
+          <div class="prose" data-stagger>
+            <p class="reveal">La colonie, pourtant, échoua d’abord. La malaria, les corsaires, l’hostilité du pays eurent raison des premiers venus.</p>
+            <p class="reveal">Alors Gênes se tourna vers la montagne. Elle favorisa l’installation de familles venues d’en haut — de Quenza, essentiellement. Au <span class="sc">XVII</span><sup>e</sup>&nbsp;siècle, la ville était peuplée de montagnards&nbsp;; et pendant des générations, chaque été, ils remontaient vers les hauteurs pour fuir le paludisme.</p>
+            <p class="reveal emphasis">Retenez cela, c’est le premier secret de Portivechju&nbsp;: elle est née d’un va-et-vient. On y descend de la montagne, on y remonte, on y revient.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ III. 1769 — LE DÉPART DE PAOLI ============ -->
+    <section class="chapter chapter--paoli is-dark" id="paoli" aria-labelledby="t-paoli">
+      <div class="paoli__bg" data-parallax="6">
+        <img src="assets/img/aube-baie-960.webp"
+             srcset="assets/img/aube-baie-960.webp 960w, assets/img/aube-baie-1920.webp 1920w"
+             sizes="100vw" width="1920" height="1280"
+             loading="lazy" decoding="async"
+             alt="Vu des hauteurs avant le lever du soleil, le golfe de Porto-Vecchio luit comme de l’argent sous un ciel strié de nuages roses et orangés.">
+      </div>
+      <div class="wrap paoli__inner">
+        <p class="chapter__num reveal">Chapitre III · Interlude</p>
+        <h2 id="t-paoli" class="reveal"><span class="year">1769</span> Le départ de Paoli</h2>
+        <p class="paoli__date reveal">13 juin 1769</p>
+        <div class="paoli__text" data-stagger>
+          <p class="reveal">La bataille de Ponte Novu est perdue.</p>
+          <p class="reveal">Pasquale Paoli s’embarque à Porto-Vecchio sur un navire anglais, avec quelque trois cents fidèles. Livourne d’abord&nbsp;; puis l’exil.</p>
+          <p class="reveal">On imagine le golfe, ce jour-là, immobile comme une pierre. On imagine les visages tournés vers le large, et cette côte qui s’éloigne sans qu’on puisse la retenir.</p>
+          <p class="reveal paoli__tradition">Selon la tradition familiale des Abbatucci, Jacques Pierre Abbatucci, qui avait couvert la retraite de Paoli, l’aurait escorté jusqu’ici.</p>
+          <p class="reveal">Une statue de Paoli se dresse aujourd’hui sur la Marine. Chaque 13&nbsp;juin, une cérémonie rappelle ce départ — car ici, même les adieux finissent par devenir des rendez-vous.</p>
+        </div>
+        <p class="bg-credit">Lever de soleil sur la baie de Porto-Vecchio — marsupilami51, CC BY 3.0</p>
+      </div>
+    </section>
+
+    <!-- ============ IV. LE SEL ============ -->
+    <section class="chapter chapter--sel" id="sel" aria-labelledby="t-sel">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre IV</p>
+          <h2 id="t-sel" class="reveal">Le sel</h2>
+          <p class="lede reveal">On l’appelle «&nbsp;la cité du sel&nbsp;».</p>
+        </header>
+      </div>
+
+      <figure class="bleed reveal reveal--clip" data-parallax="7">
+        <div class="bleed__media">
+          <img src="assets/img/sauniers-960.webp"
+               srcset="assets/img/sauniers-960.webp 960w, assets/img/sauniers-1920.webp 1344w"
+               sizes="100vw" width="1344" height="752"
+               loading="lazy" decoding="async"
+               alt="Évocation peinte de sauniers ratissant le sel dans des bassins aux reflets roses ; des tas de sel blanc s’alignent au bord de l’eau, et la ville se dresse au loin sur sa colline.">
+        </div>
+        <figcaption><span class="tag">Évocation (illustration générée)</span> <span class="cap__desc">Les sauniers dans les salines</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="split split--rev">
+          <figure class="figure reveal">
+            <img src="assets/img/saline-reflet-960.webp"
+                 srcset="assets/img/saline-reflet-960.webp 960w, assets/img/saline-reflet-1920.webp 1920w"
+                 sizes="(min-width: 900px) 46vw, 100vw" width="1920" height="1280"
+                 loading="lazy" decoding="async"
+                 alt="Depuis les salines, la vieille ville et sa colline verte se dédoublent dans l’eau calme ; quelques oiseaux blancs flottent à la surface.">
+            <figcaption><span class="cap__desc">Portivechju vu des salines</span> <span class="cap__credit">Annacquaghjolu · CC0</span></figcaption>
+          </figure>
+          <div class="prose" data-stagger>
+            <p class="reveal">Au pied de la vieille ville, les marais salants couvrent une dizaine d’hectares. Entre 1795 et 1815, ils ont donné quelque mille tonnes de sel par an&nbsp;: mille tonnes de lumière arrachée à la mer, année après année.</p>
+            <p class="reveal">Aujourd’hui, les salines sont à l’abandon. Mais l’eau y demeure, et elle a gardé son plus beau talent&nbsp;: depuis les marais du Stabiacciu, elle tend à la vieille ville son propre visage. C’est l’une des vues les plus célèbres de Portivechju — celle, peut-être, que l’on emporte en partant, et qui fait revenir.</p>
+            <p class="reveal emphasis">Le sel conserve. C’est son plus vieil office&nbsp;: empêcher que les choses se perdent. Peut-être est-ce pour cela que cette ville garde si bien ce qu’on lui confie.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ V. LE LIÈGE ============ -->
+    <section class="chapter chapter--liege" id="liege" aria-labelledby="t-liege">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre V</p>
+          <h2 id="t-liege" class="reveal">Le liège</h2>
+          <p class="lede reveal">Il est un arbre qui se laisse dévêtir sans mourir.</p>
+        </header>
+
+        <div class="split">
+          <div class="prose" data-stagger>
+            <p class="reveal">On appelle cela le démasclage. Quand on lui ôte son écorce, le chêne-liège découvre un tronc rouge-orangé, couleur de braise, couleur de tuile — et l’on dirait que l’arbre rougit d’être vu.</p>
+            <p class="reveal">À partir du milieu du <span class="sc">XIX</span><sup>e</sup>&nbsp;siècle, le liège devient une industrie&nbsp;: des industriels varois, puis catalans, viennent l’exploiter. En 1876, l’usine Saint-Joseph est fondée sur la Marine. On y fabrique des bouchons, des flotteurs pour les filets de pêche, des isolants — tout ce qui flotte, tout ce qui protège, tout ce qui garde.</p>
+          </div>
+          <figure class="figure reveal">
+            <img src="assets/img/chene-liege-960.webp"
+                 srcset="assets/img/chene-liege-960.webp 960w, assets/img/chene-liege-1920.webp 1440w"
+                 sizes="(min-width: 900px) 46vw, 100vw" width="1440" height="960"
+                 loading="lazy" decoding="async"
+                 alt="Un grand chêne-liège au tronc noueux et à la vaste ramure, sous un ciel bleu d’été.">
+            <figcaption><span class="cap__desc">Chêne-liège en Corse</span> <span class="cap__credit">JCMEL · CC BY-SA 4.0</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <figure class="bleed bleed--tall reveal reveal--clip" data-parallax="7">
+        <div class="bleed__media">
+          <img src="assets/img/demasclage-960.webp"
+               srcset="assets/img/demasclage-960.webp 960w, assets/img/demasclage-1920.webp 1344w"
+               sizes="100vw" width="1344" height="752"
+               loading="lazy" decoding="async"
+               alt="Évocation peinte d’une forêt de chênes-lièges : des ouvriers retirent l’écorce et découvrent des troncs rouge-orangé ; les plaques de liège s’empilent au sol, un mulet attend sa charge.">
+        </div>
+        <figcaption><span class="tag">Évocation (illustration générée)</span> <span class="cap__desc">Le démasclage du liège</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="prose prose--center" data-stagger>
+          <p class="reveal">En 1975, l’usine ferme ses portes&nbsp;: le plastique a gagné. Mais les murs n’ont pas voulu se taire. L’ancienne usine abrite aujourd’hui une compagnie de théâtre, I&nbsp;Chjachjaroni — et il y a quelque justice à ce qu’un lieu qui fabriquait des bouchons serve désormais à libérer des voix.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VI. LA MONTAGNE : L'OSPÉDALE ============ -->
+    <section class="chapter chapter--montagne is-dark" id="montagne" aria-labelledby="t-montagne">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre VI</p>
+          <h2 id="t-montagne" class="reveal">La montagne&nbsp;: l’Ospédale</h2>
+          <p class="lede reveal">Levez les yeux. Au-dessus de la ville, la montagne veille.</p>
+        </header>
+        <div class="prose prose--cols" data-stagger>
+          <p class="reveal">C’est l’Ospédale — <i lang="co">U&nbsp;Spidali</i> —, un village et une forêt accrochés au granit, où les pins laricio se mêlent aux hêtres. Plus haut encore, la Punta di a Vacca Morta, à 1&nbsp;312&nbsp;mètres, domine toute la commune.</p>
+          <p class="reveal">Ici, l’air change de langue. Le sel s’efface, la résine prend le relais&nbsp;; et le golfe, tout en bas, n’est plus qu’une lame d’argent posée sur la plaine.</p>
+        </div>
+      </div>
+
+      <figure class="bleed reveal reveal--clip" data-parallax="7">
+        <div class="bleed__media">
+          <img src="assets/img/vue-ospedale-960.webp"
+               srcset="assets/img/vue-ospedale-960.webp 960w, assets/img/vue-ospedale-1920.webp 1920w"
+               sizes="100vw" width="1920" height="1440"
+               loading="lazy" decoding="async" style="object-position:50% 55%"
+               alt="Depuis la forêt de l’Ospédale, la plaine et le golfe de Porto-Vecchio s’étendent en contrebas, sous un ciel voilé.">
+        </div>
+        <figcaption><span class="cap__desc">Porto-Vecchio vu de l’Ospédale</span> <span class="cap__credit">JAn Dudík · CC BY-SA 3.0</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="split split--water">
+          <div class="water-figures">
+            <figure class="figure reveal">
+              <img src="assets/img/ospedale-lac-960.webp"
+                   srcset="assets/img/ospedale-lac-960.webp 960w, assets/img/ospedale-lac-1920.webp 1280w"
+                   sizes="(min-width: 900px) 30vw, 60vw" width="1280" height="952"
+                   loading="lazy" decoding="async"
+                   alt="Le lac de l’Ospédale : une eau sombre et immobile où se reflètent des rochers de granit clair et des pins.">
+              <figcaption><span class="cap__desc">Le lac de l’Ospédale</span> <span class="cap__credit">Dennis Kleine · CC BY-SA 2.0</span></figcaption>
+            </figure>
+            <figure class="figure reveal" style="--d:.15s">
+              <img src="assets/img/piscia-di-gallu-960.webp"
+                   srcset="assets/img/piscia-di-gallu-960.webp 960w, assets/img/piscia-di-gallu-1920.webp 1100w"
+                   sizes="(min-width: 900px) 22vw, 40vw" width="1100" height="1467"
+                   loading="lazy" decoding="async"
+                   alt="La cascade de Piscia di Gallu tombe d’une haute paroi de granit rose, sous un ciel bleu.">
+              <figcaption><span class="cap__desc">Piscia di Gallu</span> <span class="cap__credit">JAn Dudík · CC BY-SA 3.0</span></figcaption>
+            </figure>
+          </div>
+          <div class="prose" data-stagger>
+            <p class="reveal">En 1979, on a retenu l’eau de la montagne dans un lac de barrage, vers 945&nbsp;mètres d’altitude&nbsp;; c’est lui qui alimente aujourd’hui la région. En aval, l’eau reprend sa liberté et se jette du haut du granit&nbsp;: c’est la cascade de Piscia di Ghjaddu, que l’on appelle aussi Piscia di Gallu.</p>
+            <p class="reveal">Ainsi, l’eau que l’on boit au bord de la mer est d’abord descendue de la montagne. Tout le pays tient dans ce trajet.</p>
+            <blockquote class="proverb reveal">
+              <p lang="co">L’acqua và à u mare.</p>
+              <p class="proverb__tr">L’eau va à la mer.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VII. LA MER ============ -->
+    <section class="chapter chapter--mer" id="mer" aria-labelledby="t-mer">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre VII</p>
+          <h2 id="t-mer" class="reveal">La mer</h2>
+          <p class="lede reveal">Et puis il y a la mer.</p>
+        </header>
+      </div>
+
+      <figure class="bleed bleed--tall reveal reveal--clip" data-parallax="7">
+        <div class="bleed__media">
+          <img src="assets/img/palombaggia-aerien-960.webp"
+               srcset="assets/img/palombaggia-aerien-960.webp 960w, assets/img/palombaggia-aerien-1920.webp 1920w"
+               sizes="100vw" width="1920" height="1279"
+               loading="lazy" decoding="async"
+               alt="Vue aérienne de la plage de Palombaggia : une longue courbe de sable clair, une eau turquoise semée de bateaux, des pins et des rochers rouges au premier plan.">
+        </div>
+        <figcaption><span class="cap__desc">Palombaggia</span> <span class="cap__credit">dronepicr · CC BY 2.0</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="split">
+          <div class="prose" data-stagger>
+            <p class="reveal">Palombaggia, Santa Giulia, Cala Rossa&nbsp;: prononcez ces noms à voix haute, ils ont déjà le bruit de l’eau sur le sable.</p>
+            <p class="reveal">Le golfe s’ouvre sur la mer Tyrrhénienne comme une main qui se desserre. L’eau y passe du turquoise au vert de verre, puis au bleu profond&nbsp;; et sur les rochers, le soir allume des couleurs de braise.</p>
+            <p class="reveal">Depuis les années 1980, la troisième ville de Corse est devenue un grand centre touristique, et l’on comprend pourquoi. Mais vous, vous ne venez pas voir cette mer&nbsp;: vous venez la retrouver. Ce n’est pas tout à fait la même chose.</p>
+          </div>
+          <figure class="figure reveal">
+            <img src="assets/img/santa-giulia-960.webp"
+                 srcset="assets/img/santa-giulia-960.webp 960w, assets/img/santa-giulia-1920.webp 1920w"
+                 sizes="(min-width: 900px) 46vw, 100vw" width="1920" height="1282"
+                 loading="lazy" decoding="async"
+                 alt="La plage de Santa Giulia en fin de journée : sable clair, eau calme et transparente, petits bateaux amarrés et colline boisée au fond.">
+            <figcaption><span class="cap__desc">Santa Giulia</span> <span class="cap__credit">Pierre Bona · CC BY-SA 4.0</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <figure class="figure figure--wide figure--pano wrap reveal">
+        <img src="assets/img/golfe-960.webp"
+             srcset="assets/img/golfe-960.webp 960w, assets/img/golfe-1920.webp 1920w"
+             sizes="(min-width: 1240px) 1112px, 100vw" width="1920" height="886"
+             loading="lazy" decoding="async"
+             alt="Le golfe de Porto-Vecchio : une eau turquoise si transparente qu’on en voit le fond, la côte boisée et la ligne des montagnes à l’horizon.">
+        <figcaption><span class="cap__desc">Le golfe de Porto-Vecchio</span> <span class="cap__credit">Edison McCullen · CC BY 4.0</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ VIII. LE CRÉPUSCULE ============ -->
+    <section class="chapter chapter--crepuscule is-dark" id="crepuscule" aria-labelledby="t-crepuscule">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre VIII</p>
+          <h2 id="t-crepuscule" class="reveal">Le crépuscule sur la vieille ville</h2>
+          <p class="lede reveal">À l’heure où le soleil quitte le golfe, la vieille ville prend la couleur de l’ocre.</p>
+        </header>
+      </div>
+
+      <figure class="bleed bleed--dusk reveal reveal--clip" data-parallax="7">
+        <div class="bleed__media">
+          <img src="assets/img/vieille-ville-960.webp"
+               srcset="assets/img/vieille-ville-960.webp 960w, assets/img/vieille-ville-1920.webp 1920w"
+               sizes="100vw" width="1920" height="1275"
+               loading="lazy" decoding="async" style="object-position:50% 40%"
+               alt="La vieille ville de Porto-Vecchio : maisons aux toits de tuiles, clocher et rempart de pierre au sommet d’une colline couverte de verdure ; des mâts de voiliers au premier plan.">
+        </div>
+        <figcaption><span class="cap__desc">La vieille ville</span> <span class="cap__credit">Pascal POGGI · CC BY-SA 2.0</span></figcaption>
+      </figure>
+
+      <div class="wrap">
+        <div class="split">
+          <div class="prose" data-stagger>
+            <p class="reveal">Montez par les ruelles. La pierre rend lentement la chaleur qu’elle a bue tout le jour&nbsp;; les volets se rouvrent, les voix passent d’une fenêtre à l’autre, en corse, en français, parfois dans la même phrase.</p>
+            <p class="reveal">Dans la vieille ville se dresse l’église Saint-Jean-Baptiste. C’est sur sa place que l’on fête, la nuit du 31&nbsp;juillet au 1<sup>er</sup>&nbsp;août, <i lang="co">Luddareddu</i>&nbsp;: un mannequin de paille et de liège, qui figure le mois de juillet, y est jugé, puis brûlé.</p>
+            <p class="reveal">Juillet part en fumée&nbsp;; août peut commencer. Il y a dans ce rite une sagesse simple&nbsp;: on ne retient pas l’été. On le juge, on le remercie, et on le laisse partir.</p>
+            <p class="reveal emphasis">Restez jusqu’à la nuit. Le ciel passe du rose au violet, puis à ce bleu d’encre qui semble n’exister qu’au-dessus des îles.</p>
+          </div>
+          <figure class="figure reveal">
+            <img src="assets/img/citadelle-ceccia-960.webp"
+                 srcset="assets/img/citadelle-ceccia-960.webp 960w, assets/img/citadelle-ceccia-1920.webp 1280w"
+                 sizes="(min-width: 900px) 46vw, 100vw" width="1280" height="853"
+                 loading="lazy" decoding="async"
+                 alt="Vue de loin, dans une lumière chaude, la vieille ville et son clocher posés sur la colline, au-dessus du bleu profond du golfe.">
+            <figcaption><span class="cap__desc">Porto-Vecchio vu de Ceccia</span> <span class="cap__credit">Julian Nyča · CC BY-SA 3.0</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ IX. LA LANGUE ============ -->
+    <section class="chapter chapter--langue has-sticky-bg is-dark" id="langue" aria-labelledby="t-langue">
+      <div class="sticky-bg sticky-bg--maquis">
+        <img src="assets/img/ciste-960.webp"
+             srcset="assets/img/ciste-960.webp 960w, assets/img/ciste-1920.webp 1440w"
+             sizes="100vw" width="1440" height="1080"
+             loading="lazy" decoding="async"
+             alt="Un buisson de ciste en fleurs, aux pétales roses, dans le maquis.">
+      </div>
+      <div class="wrap sticky-content">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre IX</p>
+          <h2 id="t-langue" class="reveal">La langue</h2>
+          <p class="lede reveal">Il y a des mots qu’on n’apprend pas&nbsp;: on les reçoit.</p>
+        </header>
+
+        <dl class="lexicon" data-stagger>
+          <div class="reveal"><dt lang="co">a casa</dt><dd>la maison</dd></div>
+          <div class="reveal"><dt lang="co">u paese</dt><dd>le village</dd></div>
+          <div class="reveal"><dt lang="co">a machja</dt><dd>le maquis</dd></div>
+          <div class="reveal"><dt lang="co">u mare</dt><dd>la mer</dd></div>
+          <div class="reveal"><dt lang="co">l’isula</dt><dd>l’île</dd></div>
+          <div class="reveal"><dt lang="co">Pace è salute</dt><dd>paix et santé — on se salue ainsi, on trinque ainsi</dd></div>
+        </dl>
+        <p class="lexicon__note reveal">Dites-les lentement. Chacun ouvre une porte.</p>
+
+        <ul class="proverbs" data-stagger aria-label="Proverbes corses">
+          <li class="reveal"><p class="proverbs__co" lang="co">Chì và è volta, bon viaghju face.</p><p class="proverbs__fr">Celui qui part et revient a fait un bon voyage.</p></li>
+          <li class="reveal"><p class="proverbs__co" lang="co">A casa piglia, a casa rende.</p><p class="proverbs__fr">La maison rend toujours ce qu’elle prend.</p></li>
+          <li class="reveal"><p class="proverbs__co" lang="co">Hè megliu ghjente cà arghjentu.</p><p class="proverbs__fr">Mieux vaut des siens que de l’argent.</p></li>
+          <li class="reveal"><p class="proverbs__co" lang="co">L’acqua và à u mare.</p><p class="proverbs__fr">L’eau va à la mer.</p></li>
+        </ul>
+
+        <div class="hymn">
+          <div class="prose" data-stagger>
+            <p class="reveal">Et puis il y a le chant. <i lang="co">Dio vi salvi Regina</i> est un cantique marial&nbsp;; la Consulta d’Orezza l’adopta en 1735, et il est devenu l’hymne de la Corse. Quand il s’élève, on ne sait plus très bien si l’on prie ou si l’on prête serment.</p>
+          </div>
+          <div class="hymn__stanza reveal">
+            <p class="hymn__co" lang="co">Dio vi salvi Regina<br>E Madre universale<br>Per cui favor si sale<br>Al Paradiso.</p>
+            <p class="hymn__fr">Que Dieu vous garde, Reine<br>et Mère universelle<br>par la grâce de qui l’on monte<br>jusqu’au Paradis.</p>
+          </div>
+        </div>
+
+        <p class="bg-credit">Ciste en fleurs, le maquis — Pierre Bona, CC BY-SA 3.0 · Proverbes&nbsp;: Wiktionnaire</p>
+      </div>
+    </section>
+
+    <!-- ============ X. LES ROCCA SERRA ============ -->
+    <section class="chapter chapter--rocca" id="rocca-serra" aria-labelledby="t-rocca">
+      <div class="wrap">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre X</p>
+          <h2 id="t-rocca" class="reveal">Les Rocca Serra <span class="h2-sub">la lignée de la mer</span></h2>
+          <svg class="ornament ornament--wave reveal" viewBox="0 0 240 20" aria-hidden="true" focusable="false"><path d="M0 10 Q15 0 30 10 T60 10 T90 10 T120 10 T150 10 T180 10 T210 10 T240 10"/></svg>
+        </header>
+
+        <div class="split split--blazon">
+          <div class="prose" data-stagger>
+            <p class="reveal">La première lignée regarde la mer. Les Rocca Serra sont une famille noble corse, maintenue noble en 1772 sur des preuves de 1556, et qui revendique une ascendance della Rocca. Leur histoire a jeté l’ancre dans la région de Porto-Vecchio, et ne l’a plus levée.</p>
+            <p class="reveal">Leurs armes portent une tour, et une aigle de sable tenant une balance. La pierre qui tient bon, la justice qui pèse&nbsp;: on ne saurait mieux dire ce que l’on attend de ceux qui veillent sur une ville.</p>
+          </div>
+          <figure class="blazon reveal">
+            <svg viewBox="0 0 120 140" role="img" aria-labelledby="blazon-title" focusable="false">
+              <title id="blazon-title">Ornement au trait évoquant une tour et une balance</title>
+              <path class="blazon__shield" d="M12 10 H108 V70 C108 104 86 124 60 134 C34 124 12 104 12 70 Z"/>
+              <path d="M38 34 H82"/>
+              <circle cx="60" cy="31" r="2.2"/>
+              <path d="M60 34 V50"/>
+              <path d="M40 34 L33 47 M40 34 L47 47 M30 47 Q40 54 50 47"/>
+              <path d="M80 34 L73 47 M80 34 L87 47 M70 47 Q80 54 90 47"/>
+              <path d="M44 112 V62 H48 V56 H54 V62 H58 V56 H62 V62 H66 V56 H72 V62 H76 V112"/>
+              <path d="M54 112 V100 A6 6 0 0 1 66 100 V112"/>
+              <path d="M58 76 V84 M62 76 V84"/>
+              <path d="M40 112 H80"/>
+            </svg>
+            <figcaption>
+              <span class="blazon__text">«&nbsp;Une tour, une aigle de sable tenant une balance.&nbsp;»</span>
+              <span class="cap__credit">Ornement librement inspiré de la description des armes — ni portrait, ni blason authentique.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <ol class="timeline timeline--sea">
+          <li class="tl-item reveal">
+            <p class="tl-date"><span class="sc">XVI</span><sup>e</sup>&nbsp;siècle</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Serra-di-Scopamène</h3>
+              <p class="tl-rel">Alta Rocca</p>
+              <p>Dans la montagne de l’Alta Rocca, la descendance de Giovan Paolo della Rocca prend le nom de «&nbsp;della Serra&nbsp;», puis celui de «&nbsp;Rocca Serra&nbsp;».</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">14 janvier 1772</p>
+            <div class="tl-body">
+              <h3 class="tl-name">La branche de Porto-Vecchio</h3>
+              <p>Un arrêt confirme notamment la noblesse de la branche de Porto-Vecchio.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1803</p>
+            <div class="tl-body">
+              <h3 class="tl-name">La mairie</h3>
+              <p>Vincente Maria Rocca Serra devient maire de Porto-Vecchio. D’autres suivront&nbsp;:</p>
+              <ul class="mayors">
+                <li><span>Vincente Maria Rocca Serra</span><span>1803–1814</span></li>
+                <li><span>Anton «&nbsp;Camillo&nbsp;» Rocca Serra</span><span>1821–1826</span></li>
+                <li><span>Leopoldo</span><span>1839–1845</span></li>
+                <li><span>Giulio Maria</span><span>1848–1854</span></li>
+                <li><span>Horace de Rocca Serra</span><span>1872–1876</span></li>
+                <li><span>…</span><span></span></li>
+              </ul>
+              <p>Selon Wikipédia, la famille a occupé presque sans interruption la mairie de Porto-Vecchio du Premier Empire à nos jours.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1880 – 1963</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Camille de Rocca Serra</h3>
+              <p class="tl-rel">«&nbsp;<i lang="co">u sgiò Cameddu</i>&nbsp;»</p>
+              <p>Médecin. Maire de Porto-Vecchio de 1922 à 1943, député de la Corse, président du Conseil général de la Corse. C’est ainsi qu’on l’appelait, d’un nom qui tient à la fois du respect et de la tendresse.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1911 – 1998</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Jean-Paul de Rocca Serra</h3>
+              <p class="tl-rel">Fils de Camille</p>
+              <p>Né à Bonifacio, médecin lui aussi. Maire de Porto-Vecchio de 1950 à 1997&nbsp;: quarante-sept ans. Sénateur, puis député de la Corse et de la Corse-du-Sud (1962-1998), président de l’Assemblée de Corse.</p>
+              <p>Les marécages avaient été asséchés au <span class="sc">XIX</span><sup>e</sup>&nbsp;siècle, la plaine assainie après la Seconde Guerre mondiale&nbsp;; c’est sous son administration que la ville prend son essor. Un lycée de Porto-Vecchio porte aujourd’hui son nom.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">né en 1954</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Camille de Rocca Serra</h3>
+              <p class="tl-rel">Fils de Jean-Paul</p>
+              <p>Maire de Porto-Vecchio de 1997 à 2004, député de la Corse-du-Sud depuis 2002, président de l’Assemblée de Corse.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="aside reveal">Autre membre de la famille&nbsp;: Louis-Ferdinand de Rocca Serra (1936-2021), sénateur de la Corse-du-Sud.</p>
+        <p class="closing reveal">Une lignée de la mer, donc&nbsp;: celle qui, deux siècles durant, a veillé sur le port.</p>
+      </div>
+    </section>
+
+    <!-- ============ XI. LES ABBATUCCI ============ -->
+    <section class="chapter chapter--abbatucci has-sticky-bg is-dark" id="abbatucci" aria-labelledby="t-abbatucci">
+      <div class="sticky-bg sticky-bg--mountain">
+        <img src="assets/img/coscione-960.webp"
+             srcset="assets/img/coscione-960.webp 960w, assets/img/coscione-1920.webp 1920w"
+             sizes="100vw" width="1920" height="1440"
+             loading="lazy" decoding="async"
+             alt="Le plateau du Coscione au coucher du soleil : un arbre isolé se découpe sur le ciel doré, au-dessus d’une lande rase.">
+      </div>
+      <div class="wrap sticky-content">
+        <header class="chapter__head">
+          <p class="chapter__num reveal">Chapitre XI</p>
+          <h2 id="t-abbatucci" class="reveal">Les Abbatucci <span class="h2-sub">la lignée de la montagne</span></h2>
+          <svg class="ornament ornament--ridge reveal" viewBox="0 0 240 20" aria-hidden="true" focusable="false"><path d="M0 18 L26 9 L40 13 L66 3 L86 14 L106 7 L126 15 L150 5 L170 12 L196 4 L216 13 L240 18"/></svg>
+        </header>
+
+        <div class="prose prose--intro" data-stagger>
+          <p class="reveal">L’autre lignée descend de la montagne. Les Abbatucci sont originaires de Zicavo, dans le Haut-Taravo, au pied du Monte Incudine et du plateau du Coscione — là-haut, où l’herbe est rase, le vent constant, et le ciel si proche qu’on croirait le toucher. C’est l’une des grandes familles de Corse.</p>
+        </div>
+
+        <ol class="timeline timeline--mountain">
+          <li class="tl-item reveal">
+            <p class="tl-date">1723 – 1813</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Jacques Pierre Abbatucci</h3>
+              <p class="tl-rel">«&nbsp;Le vieux général&nbsp;»</p>
+              <div class="tl-with-media">
+                <div>
+                  <p>Né à Zicavo, mort à Zicavo. Docteur en médecine à Padoue, en 1746. Général de la nation corse dans le Sud, il bat les Français à Borgo en 1768.</p>
+                  <p>Après Ponte Novu, il couvre la retraite de Paoli&nbsp;; et, selon la tradition familiale — des sources manuscrites que cite Wikipédia —, il l’escorte jusqu’à Porto-Vecchio en 1769. Il sera plus tard général de division de la Révolution.</p>
+                </div>
+                <figure class="figure figure--portrait">
+                  <img src="assets/img/jp-abbatucci-960.webp"
+                       srcset="assets/img/jp-abbatucci-960.webp 960w, assets/img/jp-abbatucci-1920.webp 1100w"
+                       sizes="(min-width: 900px) 240px, 60vw" width="1100" height="1276"
+                       loading="lazy" decoding="async"
+                       alt="Portrait gravé de Jacques Pierre Abbatucci, en perruque poudrée et habit à col brodé.">
+                  <figcaption><span class="cap__desc">Jacques Pierre Abbatucci</span> <span class="cap__credit">Galletti · Domaine public</span></figcaption>
+                </figure>
+              </div>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1770 – 1796</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Jean-Charles Abbatucci</h3>
+              <p class="tl-rel">Fils du vieux général</p>
+              <p>Général de la Révolution. Il est tué à vingt-six ans en défendant la tête de pont de Huningue. Ses derniers mots, rapporte-t-on, furent&nbsp;: «&nbsp;Pour la patrie&nbsp;». Son nom est inscrit sous l’Arc de triomphe.</p>
+              <div class="tl-media">
+                <figure class="figure figure--portrait">
+                  <img src="assets/img/jc-abbatucci-960.webp"
+                       srcset="assets/img/jc-abbatucci-960.webp 960w, assets/img/jc-abbatucci-1920.webp 1100w"
+                       sizes="(min-width: 900px) 240px, 45vw" width="1100" height="1143"
+                       loading="lazy" decoding="async"
+                       alt="Portrait gravé du général Jean-Charles Abbatucci, cheveux longs, uniforme à haut col brodé.">
+                  <figcaption><span class="cap__desc">Jean-Charles Abbatucci</span> <span class="cap__credit">Auteur inconnu · Domaine public</span></figcaption>
+                </figure>
+                <figure class="figure">
+                  <img src="assets/img/huningue-960.webp"
+                       srcset="assets/img/huningue-960.webp 960w, assets/img/huningue-1920.webp 1280w"
+                       sizes="(min-width: 900px) 320px, 45vw" width="1280" height="1221"
+                       loading="lazy" decoding="async"
+                       alt="Gravure ancienne : la défense de la tête de pont de Huningue et la mort d’Abbatucci, au milieu des soldats, des baïonnettes et de la fumée.">
+                  <figcaption><span class="cap__desc">Défense de la tête de pont de Huningue — mort d’Abbatucci, 1796</span> <span class="cap__credit">Auteur inconnu · Domaine public</span></figcaption>
+                </figure>
+              </div>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1791 – 1857</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Jacques-Pierre-Charles Abbatucci</h3>
+              <p class="tl-rel">Petit-fils du vieux général</p>
+              <p>Né à Zicavo. Garde des Sceaux, ministre de la Justice de Napoléon&nbsp;III de 1852 à 1857.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <p class="tl-date">1821 – 1888</p>
+            <div class="tl-body">
+              <h3 class="tl-name">Séverin Abbatucci</h3>
+              <p>Maire de Zicavo et député de la Corse.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="closing reveal">Une lignée de la montagne&nbsp;: de celles qui savent que la pente se gravit lentement, et qu’on ne redescend jamais tout à fait le même.</p>
+        <p class="bg-credit">Plateau du Coscione au coucher du soleil (Zicavo) — Rémih, CC BY-SA 4.0</p>
+      </div>
+    </section>
+
+    <!-- ============ XII. DEUX LIGNÉES, UNE ÎLE ============ -->
+    <section class="chapter chapter--confluence" id="deux-lignees" aria-labelledby="t-deux">
+      <div class="wrap">
+        <header class="chapter__head chapter__head--center">
+          <p class="chapter__num reveal">Chapitre XII</p>
+          <h2 id="t-deux" class="reveal">Deux lignées, une île</h2>
+          <p class="lede reveal">Il faut être honnête avec ceux qu’on aime.</p>
+        </header>
+
+        <div class="confluence reveal">
+          <div class="confluence__pole confluence__pole--mont">
+            <span class="confluence__kicker">La montagne</span>
+            <strong>Zicavo</strong>
+            <span>les Abbatucci</span>
+          </div>
+          <svg class="confluence__line" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path pathLength="1" d="M0 104 L48 52 L74 74 L118 18 L160 70 L196 50 L232 88 C270 104 300 64 340 70 S400 98 440 72 S520 96 560 74 S590 80 600 78"/>
+          </svg>
+          <div class="confluence__pole confluence__pole--mer">
+            <span class="confluence__kicker">La mer</span>
+            <strong>Portivechju</strong>
+            <span>les Rocca Serra</span>
+          </div>
+          <p class="confluence__legend"><span>l’hiver, les bergers descendent</span><span>l’été, les montagnards remontent</span></p>
+        </div>
+
+        <div class="prose prose--center" data-stagger>
+          <p class="reveal">Rien, dans les sources que nous avons lues, ne relie ces deux familles. Cette lettre ne leur inventera pas d’alliance&nbsp;; elle dit seulement qu’il existe deux lignées corses, l’une de la mer, l’autre de la montagne.</p>
+          <p class="reveal">Mais entre la mer et la montagne, il y a un chemin, et ce chemin est bien réel. C’est celui de la transhumance, que les bergers prenaient l’hiver pour descendre vers la plaine avec leurs troupeaux. C’est celui des familles de Quenza venues peupler la ville génoise, et qui le remontaient chaque été pour fuir la fièvre. Pendant des siècles, dans ce pays, la montagne et la mer ont respiré au même rythme&nbsp;: descendre, remonter, revenir.</p>
+          <p class="reveal">Il y a aussi ce jour de juin 1769 où, selon la tradition des Abbatucci, un homme de Zicavo accompagna Paoli jusqu’au port de Porto-Vecchio. C’est le seul endroit où l’histoire de la montagne et celle du port se touchent — et encore&nbsp;: du bout des doigts, sur la foi d’un souvenir de famille.</p>
+          <p class="reveal emphasis">Le reste se passe en vous. Que vous descendiez de l’une ou de l’autre, vous êtes ce lieu où la montagne rejoint la mer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENVOI ============ -->
+    <section class="envoi has-sticky-bg is-dark" id="envoi" aria-labelledby="t-envoi">
+      <div class="sticky-bg sticky-bg--night">
+        <img src="assets/img/voie-lactee-960.webp"
+             srcset="assets/img/voie-lactee-960.webp 960w, assets/img/voie-lactee-1920.webp 1920w"
+             sizes="100vw" width="1920" height="1270"
+             loading="lazy" decoding="async"
+             alt="La Voie lactée s’élève dans la nuit au-dessus de rochers de granit, au bord de la mer, en Corse.">
+      </div>
+      <div class="wrap sticky-content envoi__inner">
+        <p class="chapter__num reveal">Envoi</p>
+        <h2 id="t-envoi" class="reveal">Un jour, vous reviendrez.</h2>
+        <div class="envoi__text" data-stagger>
+          <p class="reveal">Peut-être par la mer, quand le golfe s’ouvre devant l’étrave. Peut-être par la montagne, en descendant de l’Ospédale, quand la ville apparaît tout en bas, posée sur son reflet de sel.</p>
+          <p class="reveal envoi__strong">Vous ne reconnaîtrez rien, et tout vous reconnaîtra.</p>
+          <p class="reveal">Le maquis aura la même odeur. Le granit sera aussi tiède. Quelqu’un, sur une place, lèvera son verre en disant <i lang="co">Pace è salute</i>, et vous saurez quoi répondre.</p>
+          <p class="reveal">Car la maison n’oublie rien&nbsp;: <i lang="co">a casa piglia, a casa rende</i> — la maison rend toujours ce qu’elle prend.</p>
+        </div>
+        <p class="envoi__last reveal">Ici commence toujours le retour.</p>
+        <blockquote class="envoi__proverb reveal">
+          <p lang="co">Chì và è volta, bon viaghju face.</p>
+          <p class="envoi__proverb-tr">Celui qui part et revient a fait un bon voyage.</p>
+        </blockquote>
+        <p class="envoi__salute reveal"><span lang="co">Pace è salute</span></p>
+        <p class="bg-credit">Voie lactée sur les rochers de Corse — Jérémy Sauterel, CC BY 2.0</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ CRÉDITS ============ -->
+  <footer class="credits is-dark" id="credits" aria-labelledby="t-credits">
+    <div class="wrap">
+      <h2 id="t-credits">Crédits &amp; sources</h2>
+
+      <div class="credits__grid">
+        <section aria-labelledby="t-photos">
+          <h3 id="t-photos">Photographies et documents</h3>
+          <p>Wikimedia Commons. Images redimensionnées et converties au format WebP&nbsp;; les licences CC BY-SA s’appliquent à ces versions modifiées.</p>
+          <ul class="credits__list" id="credits-list">
+            <li><span class="cr-desc">Plage de Palombaggia, vue aérienne</span> <span class="cr-meta">dronepicr · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Palombaggia_Beach,_Corsica,_France_(52724214180).jpg">source</a></span></li>
+            <li><span class="cr-desc">Portivechju vu des salines</span> <span class="cr-meta">Annacquaghjolu · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a> · <a href="https://commons.wikimedia.org/wiki/File:Portivechju_vistu_da_e_saline.jpg">source</a></span></li>
+            <li><span class="cr-desc">La vieille ville de Porto-Vecchio</span> <span class="cr-meta">Pascal POGGI · <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Porto-Vecchio_vieille_ville.jpg">source</a></span></li>
+            <li><span class="cr-desc">Porto-Vecchio vu de Ceccia</span> <span class="cr-meta">Julian Nyča · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Porto-Vecchio_from_Ceccia.jpg">source</a></span></li>
+            <li><span class="cr-desc">Lever de soleil sur la baie de Porto-Vecchio</span> <span class="cr-meta">marsupilami51 · <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Lev%C3%A9_de_soleil_sur_la_baie_de_Porto_Vecchio_-_panoramio.jpg">source</a></span></li>
+            <li><span class="cr-desc">Voie lactée sur les rochers de Corse</span> <span class="cr-meta">Jérémy Sauterel · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Voie_lact%C3%A9e_(49424337807).jpg">source</a></span></li>
+            <li><span class="cr-desc">Chêne-liège en Corse</span> <span class="cr-meta">JCMEL · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Ch%C3%AAne_li%C3%A8ge_Corse.jpg">source</a></span></li>
+            <li><span class="cr-desc">La Porte génoise</span> <span class="cr-meta">Patrick Nouhailler · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:La_Porte_G%C3%A9noise_,_Porto-Vecchio,_corse_-_panoramio.jpg">source</a></span></li>
+            <li><span class="cr-desc">Le Bastion de France</span> <span class="cr-meta">Air fans · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a> · <a href="https://commons.wikimedia.org/wiki/File:Bastion_de_France_(Porto_Vecchio)_1.jpg">source</a></span></li>
+            <li><span class="cr-desc">Le lac de l’Ospédale (Ritinuta di u Spidali)</span> <span class="cr-meta">Dennis Kleine · <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Ritinuta_di_u_Spidali.jpg">source</a></span></li>
+            <li><span class="cr-desc">La cascade de Piscia di Gallu</span> <span class="cr-meta">JAn Dudík · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Piscia_di_Gallo54.JPG">source</a></span></li>
+            <li><span class="cr-desc">Plage de Santa Giulia</span> <span class="cr-meta">Pierre Bona · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Porto-Vecchio_plage_de_Santa_Giulia.jpg">source</a></span></li>
+            <li><span class="cr-desc">Plan de Porto Vecchio, par Jacques-Nicolas Bellin (XVIIIe s.)</span> <span class="cr-meta">Jacques-Nicolas Bellin (1703-1772) · Domaine public · <a href="https://commons.wikimedia.org/wiki/File:Plan_de_Porto_Vecchio_-_(par_Bellin)_-_btv1b8592678f.jpg">source</a></span></li>
+            <li><span class="cr-desc">Portrait de Jacques Pierre Abbatucci</span> <span class="cr-meta">Galletti · Domaine public · <a href="https://commons.wikimedia.org/wiki/File:Abbatucci,_Jacques_Pierre.jpg">source</a></span></li>
+            <li><span class="cr-desc">Portrait du général Jean-Charles Abbatucci</span> <span class="cr-meta">Auteur inconnu · Domaine public · <a href="https://commons.wikimedia.org/wiki/File:General_Jean_Charles_Abbatucci.jpg">source</a></span></li>
+            <li><span class="cr-desc">Défense de la tête de pont de Huningue — mort d’Abbatucci, 1796</span> <span class="cr-meta">Auteur inconnu · Domaine public · <a href="https://commons.wikimedia.org/wiki/File:Defense_of_the_Huningue_bridgehead_-_Death_of_Abatucci,_1796.jpg">source</a></span></li>
+            <li><span class="cr-desc">Plateau du Coscione au coucher du soleil (Zicavo)</span> <span class="cr-meta">Rémih · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Plateau_du_Coscione_coucher_de_soleil_Bergerie_d%27I_Croci.jpg">source</a></span></li>
+            <li><span class="cr-desc">Ciste en fleurs, le maquis</span> <span class="cr-meta">Pierre Bona · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Santo-Pietro-di-Tenda_Cistus_creticus.jpg">source</a></span></li>
+            <li><span class="cr-desc">Le golfe de Porto-Vecchio</span> <span class="cr-meta">Edison McCullen · <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Golfe_de_Porto-Vecchio.jpg">source</a></span></li>
+            <li><span class="cr-desc">Porto-Vecchio vu de l’Ospédale</span> <span class="cr-meta">JAn Dudík · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Porto-Vecchio_from_L%27Osp%C3%A9dale.JPG">source</a></span></li>
+          </ul>
+        </section>
+
+        <div class="credits__side">
+          <section aria-labelledby="t-evocations">
+            <h3 id="t-evocations">Évocations</h3>
+            <p>Quatre images de ce site sont des illustrations générées par intelligence artificielle. Ce sont des évocations, non des documents historiques&nbsp;; aucune ne représente une personne réelle identifiée.</p>
+            <ul class="credits__plain">
+              <li>La citadelle génoise au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle <span class="slug">memoire-citadelle</span></li>
+              <li>Les sauniers dans les salines <span class="slug">sauniers</span></li>
+              <li>Le démasclage du liège <span class="slug">demasclage</span></li>
+              <li>Nature morte&nbsp;: lettre, myrte, ciste, liège, sel <span class="slug">lettre</span></li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="t-sources">
+            <h3 id="t-sources">Sources du texte</h3>
+            <ul class="credits__plain">
+              <li><a href="https://fr.wikipedia.org/wiki/Porto-Vecchio">Wikipédia</a></li>
+              <li><a href="https://www.assemblee-nationale.fr/">Assemblée nationale</a></li>
+              <li><a href="https://pop.culture.gouv.fr/">Mérimée / POP — ministère de la Culture</a></li>
+              <li><a href="https://fr.wiktionary.org/">Wiktionnaire</a> (proverbes corses)</li>
+            </ul>
+            <p>Là où seule parle la mémoire familiale, la lettre le dit.</p>
+          </section>
+
+          <section aria-labelledby="t-fabrique">
+            <h3 id="t-fabrique">Fabrique</h3>
+            <p>Caractères&nbsp;: Cormorant Garamond et Manrope (Google Fonts). Animations&nbsp;: GSAP et ScrollTrigger. Ni audio, ni mesure d’audience.</p>
+          </section>
+        </div>
+      </div>
+
+      <p class="credits__end"><span>Portivechju</span> — Lettre à ceux qui reviennent</p>
+    </div>
+  </footer>
+</body>
+</html>
