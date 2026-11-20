@@ -30,4 +30,24 @@ node tools/check_relief.mjs
 
 Le premier script réutilise les textures et les emprises du fichier Blender. Il appelle `tools/waterfront.py` pour remplacer le secteur du port, puis exporte le modèle web, les planches et la scène indépendante `rivages.blend`. Pour le cadre régional, il télécharge les dalles WGS84G de l’IGN une seule fois dans le répertoire de sortie. Les planches `golfe-*` et `ville-*` conservent la vue d’ensemble et le cadrage sur la ville. Les trois planches `port-*` montrent la rive vue depuis la mer. Encoder ces vues en WebP avec `cwebp -q 85 -m 5`. Les textures `carte-*.webp` proviennent des quatre images incorporées, ramenées à 1536 pixels de large. Le module web se sert des noms de matériaux, des noms d’objets et des coordonnées UV du modèle compacté.
 
-Le module facultatif est compilé depuis `tools/relief-viewer.js` avec three@0.180.0 et esbuild@0.25.11 (`esbuild tools/relief-viewer.js --bundle --format=esm --minify --legal-comments=eof --outfile=js/relief-viewer.min.js`). Le GLB est compacté avec gltfpack@0.25.0. L’option `-vtf` préserve les coordonnées de la photographie commune aux différentes pièces. Le contrôle Node utilise la même version de Three.js que le lecteur et vérifie la position de chaque sommet à un pixel près. L’atlas charge le module et le modèle à l’ouverture de la vue 3D, puis la carte de l’époque si la vue l’utilise.
+Le GLB est compacté avec gltfpack@0.25.0. L’option `-vtf` préserve les coordonnées de la photographie commune aux différentes pièces. Le contrôle Node (`npm run check`) utilise la même version de Three.js que la page et vérifie la position de chaque sommet à un pixel près.
+
+## La maquette de la page
+
+La page est une seule scène Three.js placée derrière le texte. Les sources sont dans `src/` : `scenes.js` (la partition : caméra, lumière, époque et légendes de chaque étape), `stage.js` (la maquette) et `main.js` (le défilement, les photographies, les légendes, la version en images fixes). Elles sont compilées en un fichier, `js/lettre.min.js`, qui est versionné puisque le site est servi tel quel.
+
+```sh
+npm install
+npm run build   # three@0.180.0 et esbuild@0.25.11
+npm run dev     # serveur local avec recompilation ; relancer `npm run build` avant de valider
+```
+
+La page charge `portivechju.glb`, puis les cartes `carte-*.webp` à mesure que le récit les demande. Le Terrier et les trois photographies aériennes s’impriment sur le même relief ; les rives de 1951–52, 1975 et 2024 se relaient au même moment. Les volumes des bâtiments sont posés sur le terrain dans le navigateur, ce qui permet de les faire monter.
+
+Le pays autour de la dalle vient de `assets/relief/region.png`, de Quenza à Santa Giulia (9,08–9,42° E, 41,50–41,80° N, environ 50 m par point). `tools/build_region.py` le produit à partir des dalles d’altitude de l’IGN (RGE ALTI, WMTS `ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES`, WGS84G niveau 11). Les altitudes sont stockées sur 16 bits, octet fort dans le rouge et octet faible dans le vert, par pas de 0,25 m. Les hauteurs sont doublées, comme sur la dalle.
+
+```sh
+python3 tools/build_region.py   # numpy ; met les dalles en cache dans .cache-ign/
+```
+
+Sans WebGL 2, avec `prefers-reduced-motion` ou avec `?fixe` dans l’adresse, la page montre les planches de `assets/relief/` et les photographies à la place de la maquette. `?net` supprime l’amortissement du défilement, pour les captures.

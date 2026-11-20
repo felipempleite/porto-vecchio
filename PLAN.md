@@ -1,18 +1,21 @@
-# Porto-Vecchio — « Lettre aux descendants »
+# Portivechju — « Lettre à ceux qui reviennent »
 
 ## Goal
-A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-du-Sud), written as a letter to descendants of the Abbatucci and Rocca Serra families.
+A French-language scrollytelling page about Porto-Vecchio (Corse-du-Sud): a homage to the Rocca Serra and Abbatucci lineages, written for their descendants. Main message: « Ici, partir n'a jamais été le contraire d'appartenir. »
 
-## Scope
-- Single-page scrollytelling, plain HTML/CSS/JS (pinned CDN libs only: GSAP + ScrollTrigger, Lenis).
-- Sections: ouverture, la citadelle (1539), les salines, le liège, l'Ospédale, les plages et le golfe, le crépuscule dans la vieille ville, langue et chants corses, Rocca Serra, Abbatucci, envoi final, crédits.
-- Real, freely licensed photos (Wikimedia Commons) + max 6 generated illustrations (no real named people).
-- Responsive (390px), accessible (alt, reduced motion), fast (webp, lazy-load).
+## Scope (since round 6)
+- One page, one fixed WebGL scene behind real HTML text. The scroll moves a camera over a plaster relief of the gulf from dawn to night; the Plan Terrier and the 1951, 1975 and 2024 aerials print onto it; today's buildings rise; the two family streets light up.
+- Twelve sections: ouverture, le rocher, la citadelle, ceux d'en haut, 13 juin 1769, le sel, le liège, la fièvre, l'été, le soir, la maison, envoi; then sources.
+- Sources in `src/` (scenes.js = the score, stage.js = the maquette, main.js = scroll, photos, labels, stills). `npm run build` bundles them with three into `js/lettre.min.js`, which is committed: GitHub Pages serves the repo as is. No GSAP, no CDN script.
+- Fallback: without WebGL 2, with reduced motion, or with `?fixe`, each step shows a still plate instead.
+- Facts only from CONTENT.md. No living private person is named, no house number, no detail about descendants.
 
 ## Out of scope
-- Public hosting/deploy (needs Felipe's OK), audio, CMS, analytics, genealogy of private individuals.
+- CMS, analytics, genealogy of private individuals, 20th-century political quarrels.
 
-## Milestones
+## History
+Rounds 1 to 5 built a long illustrated page (GSAP, narration, SVG map, hero video, separate 3D viewer). Round 6 replaced it; their notes are kept for the record.
+
 1. [x] Research + fact sheet (CONTENT.md)
 2. [x] Images sourced/generated, compressed to webp, credits (CREDITS.md)
 3. [x] First build with agy (claude-opus-5-5-high: index.html + prose; Claude quota hit → gemini-4-neon-high: CSS/JS)
@@ -32,5 +35,15 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 
 Published 2026-11-19 on GitHub Pages. Round 2 (narration, OSM map, 'La maison') live 2026-11-20. Kling hero loop live 2026-11-20 (073d22d).
 
+## Round 6 — scrollytelling rebuild (branch `scrollytelling`)
+13. [x] Research: the two families are joined (Dr Camille born in Zicavo, Abbatucci mother); salt 1795–2000; malaria campaign; Luddareddu; Ventimiglia la Nuova. CONTENT.md corrected.
+14. [x] New text, about 1,700 words, 24 steps. Margin notes kept: Abbatucci, Rocca Serra, mûriers, maisons d'Américains.
+15. [x] Stage: regional relief from IGN elevation (tools/build_region.py), ink-bleed print of the four maps, buildings rising from the ground, day-to-night light, night windows, street ribbons, 31 July fire, projected labels.
+16. [x] Checked in headless Chrome with a real GPU at 1024×640 and 473×1024, and in stills mode. Not checked: Safari, a real phone, WebGL context loss.
+17. [x] Removed the old page code (js/main.js, relief.js, map.js, narration.js, hero-video.js, relief-viewer, four stylesheets).
+18. [ ] Family review of the text, then merge to main (this publishes).
+19. [ ] Narration: the old recording no longer matches the text and is not linked. Re-record once the text is approved.
+20. [ ] Citadel walls: no wall geometry yet (OSM returned none); the 16th-century town is shown with today's volumes, and the text says so.
+
 ## Next step
-Live at https://felipempleite.github.io/porto-vecchio/ (public repo felipempleite/porto-vecchio, GitHub Pages from main). Waiting on personal family material (photos, names, stories) for idea 1; iterate on workflow/models.
+Live site (rounds 1–5) at https://felipempleite.github.io/porto-vecchio/, GitHub Pages from main. Round 6 waits on the family's review. To confirm with the family: the marriage that joins the lineages, presenting the salt pans as the family's, which General Abbatucci the street honours, and the generic line about reopened shutters.

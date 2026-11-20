@@ -1,0 +1,11 @@
+{
+ "west": 9.08,
+ "south": 41.5,
+ "east": 9.42,
+ "north": 41.8,
+ "width": 744,
+ "height": 656,
+ "metresPerUnit": 0.25,
+ "highest": 1512.9,
+ "source": "IGN, RGE ALTI, WMTS ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES, WGS84G niveau 11"
+}
