@@ -34,9 +34,25 @@
 
   <div class="progress" aria-hidden="true"><span></span></div>
 
+  <!-- Le film : la même lettre, dite à voix haute ; la page défile seule tant qu’on ne la touche pas. -->
+  <div class="film" id="film" hidden>
+    <div class="film__words">
+      <p class="film__chapter"></p>
+      <p class="film__line"></p>
+      <p class="film__sub"></p>
+    </div>
+    <div class="film__bar">
+      <button type="button" data-film="toggle">Pause</button>
+      <span class="film__time" aria-hidden="true"></span>
+      <button type="button" data-film="sound" aria-pressed="false">Son</button>
+      <button type="button" data-film="close">Fermer le film</button>
+    </div>
+  </div>
+
   <header class="site-header">
     <a class="brand" href="#ouverture">Portivechju</a>
     <nav class="toc" aria-label="Sommaire">
+      <button type="button" class="film-open" data-film="open" hidden>Film</button>
       <details>
         <summary>Sommaire</summary>
         <ol>
@@ -66,7 +82,8 @@
           <p class="kicker">Lettre à ceux qui reviennent</p>
           <h1 id="titre">Portivechju</h1>
           <p class="lede">À vous qui portez ce pays dans un nom, dans une maison, ou seulement dans une façon de dire «&nbsp;là-bas&nbsp;».</p>
-          <p class="hint">Faites défiler doucement&nbsp;: le jour va se lever, passer, puis tomber sur la ville.</p>
+          <p class="start"><button type="button" class="play" data-film="start"><span>Regarder le film</span> <small><span data-film-length>8 min</span>, avec le son</small></button></p>
+          <p class="hint"><span class="hint__or">ou faites défiler pour lire à votre rythme&nbsp;:</span> le jour va se lever, passer, puis tomber sur la ville.</p>
           <p class="credit">La vieille ville vue des salines. Photographie&nbsp;: Annacquaghjolu, CC0.</p>
         </div>
       </div>
@@ -394,6 +411,7 @@
             <li>Chêne-liège en Corse — JCMEL · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Ch%C3%AAne_li%C3%A8ge_Corse.jpg">source</a></li>
             <li>Plage de Palombaggia, vue aérienne — dronepicr · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Palombaggia_Beach,_Corsica,_France_(52724214180).jpg">source</a></li>
             <li>La rue du Docteur-Camille-de-Rocca-Serra (plaque d’immatriculation floutée) — Patrick Nouhailler · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Rue_du_Docteur_Camille_de_Rocaserra,_Porto-Vecchio,_Corse_-_panoramio_(1).jpg">source</a></li>
+            <li>Portraits de Jacques Pierre Abbatucci (gravure, Galletti) et de Jean-Charles Abbatucci (auteur inconnu) — domaine public · <a href="https://commons.wikimedia.org/wiki/File:Abbatucci,_Jacques_Pierre.jpg">source</a>, <a href="https://commons.wikimedia.org/wiki/File:General_Jean_Charles_Abbatucci.jpg">source</a></li>
             <li>La Voie lactée sur la plage de Tamaricciu (version en images fixes) — Jérémy Sauterel · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Voie_lact%C3%A9e_(49424337807).jpg">source</a></li>
           </ul>
         </section>
@@ -416,7 +434,7 @@
 
         <section aria-labelledby="t-fabrique">
           <h3 id="t-fabrique">Fabrique</h3>
-          <p>Une seule scène en trois dimensions (three.js) reste derrière le texte&nbsp;; le défilement règle la caméra, l’époque et l’heure. Sans WebGL, ou si vous avez demandé moins de mouvement, la lettre se lit avec des images fixes rendues dans Blender.</p>
+          <p>Une seule scène en trois dimensions (three.js) reste derrière le texte&nbsp;; le défilement règle la caméra, l’époque et l’heure. Le film dit une version abrégée de la lettre et fait défiler la page à sa place&nbsp;; sa voix est une voix de synthèse (<a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a>, voix «&nbsp;siwis&nbsp;», tirée de la <a href="https://datashare.ed.ac.uk/handle/10283/2353">base SIWIS</a>, CC BY 4.0). Sans WebGL, ou si vous avez demandé moins de mouvement, la lettre se lit avec des images fixes rendues dans Blender.</p>
           <p>Caractères&nbsp;: Cormorant Garamond et Manrope (Google Fonts). Aucune mesure d’audience.</p>
         </section>
       </div>

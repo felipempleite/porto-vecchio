@@ -56,6 +56,7 @@ const IN_THE_STREET = {eye: STREET_HOME[3], alt: .0017, heading: 219.6, pitch: 5
 
    stretch: 1 shows the heights doubled, as the maquette is built; .5 shows them true.
    walls, salt: 0 to 1. rail: 0 to 1 draws the line, 1 to 2 takes it away. folk, sail, guests: beads that travel.
+   pins: pictures and figures set on the maquette (PINS below).
    hold: the share of the way out during which a photograph fades while the camera waits.
    arrive: the share of the way in kept for what happens once the camera has landed. */
 export const SCENES = [
@@ -63,21 +64,21 @@ export const SCENES = [
   {id: 'maquette', cam: FROM_THE_PANS, look: 'aube', stretch: .5, rise: 1, core: 1, walls: 1, still: 'relief/depuis-les-salines', labels: ['ville']},
   {id: 'rocher', cam: {at: [9.298, 41.597], lift: 0, az: 104, el: 21, dist: 11.5}, look: 'matin', still: 'relief/ospedale-golfe', labels: ['ville', 'mare', 'machja']},
   {id: 'port-vieux', cam: {at: [9.2835, 41.5915], lift: .02, az: 62, el: 19, dist: 3.4}, look: 'matin', still: 'relief/ville-rocher', labels: ['ville']},
-  {id: 'citadelle', arrive: .55, core: 1, walls: 1, cam: {at: HEART, lift: .03, az: 118, el: 33, dist: 1.25}, look: 'matin', still: 'relief/ville-rocher'},
+  {id: 'citadelle', arrive: .55, core: 1, walls: 1, pins: ['bastion'], cam: {at: HEART, lift: .03, az: 118, el: 33, dist: 1.25}, look: 'matin', still: 'relief/ville-rocher'},
   {id: 'ventimiglia', core: .3, walls: 1, cam: {at: HEART, lift: .03, az: 176, el: 36, dist: 1.0}, look: 'matin', still: 'relief/detail-bastion'},
   {id: 'ceux-d-en-haut', core: 1, walls: 1, folk: 1, cam: {at: [9.222, 41.652], lift: .2, az: 122, el: 24, dist: 25}, tall: {at: [9.215, 41.66], az: 132, dist: 27}, look: 'midi', still: 'relief/ospedale-golfe', labels: ['ville', 'quenza', 'zonza', 'levie', 'ospedale']},
   {id: 'estive', core: 1, walls: 1, folk: 1, tide: 1, cam: {at: [9.236, 41.632], lift: .1, az: 140, el: 23, dist: 17}, tall: {at: [9.215, 41.66], az: 132, el: 24, dist: 27}, look: 'midi', still: 'relief/ospedale-golfe', labels: ['ville', 'quenza', 'zonza', 'levie', 'ospedale']},
   {id: 'paoli', core: 1, walls: 1, sail: 1, era: 1, cam: {at: [9.305, 41.6], lift: .03, az: 258, el: 20, dist: 6.2}, look: 'midi', still: 'relief/golfe-terrier', labels: ['livourne', 'chiappa']},
-  {id: 'abbatucci', core: 1, walls: 1, era: 1, cam: {at: [9.255, 41.618], lift: .1, az: 124, el: 19, dist: 11}, look: 'apresmidi', still: 'relief/golfe-terrier', labels: ['ville', 'zicavo']},
+  {id: 'abbatucci', core: 1, walls: 1, era: 1, pins: ['jp', 'jc'], cam: {at: [9.255, 41.618], lift: .1, az: 124, el: 19, dist: 11}, look: 'apresmidi', still: 'relief/golfe-terrier', labels: ['ville', 'zicavo']},
   {id: 'sel', core: 1, walls: 1, era: 1, salt: .3, cam: {at: SALINES, lift: .01, az: 158, el: 31, dist: 1.7}, look: 'apresmidi', still: 'relief/ville-terrier', labels: ['saline', 'ville']},
-  {id: 'sauniers', core: 1, walls: 1, era: 1, salt: 1, cam: {at: SALINES, lift: .01, az: 128, el: 43, dist: 2.3}, look: 'apresmidi', still: 'relief/salines-1802-detail', labels: ['saline']},
+  {id: 'sauniers', core: 1, walls: 1, era: 1, salt: 1, pins: ['plan'], cam: {at: SALINES, lift: .01, az: 128, el: 43, dist: 2.3}, look: 'apresmidi', still: 'relief/salines-1802-detail', labels: ['saline']},
   {id: 'liege', core: 1, walls: 1, era: 2, cam: {at: MARINE, lift: .01, az: 72, el: 33, dist: 1.6}, look: 'apresmidi', still: 'relief/port-1951', labels: ['marina']},
   {id: 'ecorce', core: 1, walls: 1, era: 2, cam: {at: MARINE, lift: .01, az: 96, el: 30, dist: 1.8}, look: 'apresmidi', plate: 'img/chene-liege', still: 'img/chene-liege'},
   {id: 'train', arrive: .5, core: 1, walls: 1, era: 2, rail: 1, cam: {at: [9.31, 41.64], lift: .05, az: 168, el: 30, dist: 13}, tall: {at: [9.3, 41.64], az: 178, el: 36, dist: 15}, look: 'apresmidi', still: 'relief/golfe-1951', labels: ['ville', 'gare', 'bastia']},
   {id: 'fievre', core: 1, walls: 1, era: 2, rail: 2, cam: {at: MARINE, lift: .01, az: 152, el: 34, dist: 2.1}, look: 'apresmidi', still: 'relief/port-1951', labels: ['marina']},
-  {id: 'rivage-1975', core: 1, walls: 1, era: 3, rail: 2, cam: {at: MARINE, lift: .01, az: 143, el: 37, dist: 2.05}, look: 'apresmidi', still: 'relief/port-1975'},
+  {id: 'rivage-1975', core: 1, walls: 1, era: 3, rail: 2, pins: ['analyses'], cam: {at: MARINE, lift: .01, az: 143, el: 37, dist: 2.05}, look: 'apresmidi', still: 'relief/port-1975'},
   {id: 'rivage-2024', core: 1, walls: 1, era: 4, rail: 2, cam: {at: MARINE, lift: .01, az: 134, el: 40, dist: 2}, look: 'dore', still: 'relief/port-2024'},
-  {id: 'ete', core: 1, walls: 1, era: 4, rail: 2, rise: 1, guests: 1, cam: {at: [9.2835, 41.5905], lift: .02, az: 128, el: 27, dist: 4.4}, look: 'dore', still: 'relief/golfe-bati'},
+  {id: 'ete', core: 1, walls: 1, era: 4, rail: 2, rise: 1, guests: 1, pins: ['habitants'], cam: {at: [9.2835, 41.5905], lift: .02, az: 128, el: 27, dist: 4.4}, look: 'dore', still: 'relief/golfe-bati'},
   {id: 'plages', core: 1, walls: 1, era: 4, rail: 2, rise: 1, guests: 1, cam: {at: [9.2835, 41.5905], lift: .02, az: 120, el: 24, dist: 5}, look: 'dore', plate: 'img/palombaggia-aerien', still: 'img/palombaggia-aerien'},
   {id: 'soir', stretch: .5, core: 1, walls: 1, era: 4, rail: 2, rise: 1, fire: 1, cam: {at: HEART, lift: .03, az: 108, el: 17, dist: 1.3}, look: 'crepuscule', still: 'relief/ville-bati'},
   {id: 'deux-rues', stretch: .5, core: 1, walls: 1, era: 4, rail: 2, rise: 1, streets: 2, lamp: 1, cam: {at: JUNCTION, lift: .01, az: 40, el: 50, dist: .46}, look: 'crepuscule', still: 'relief/deux-rues', labels: ['rue-home', 'rue-abbatucci']},
@@ -104,4 +105,33 @@ export const LABELS = {
   bastia: {text: 'vers Bastia', at: [9.32396, 41.68795], lift: .05, kind: 'away'},
   'rue-home': {text: 'rue du Docteur-Camille-de-Rocca-Serra', at: STREET_HOME[1], lift: .03, kind: 'street'},
   'rue-abbatucci': {text: 'rue du Général-Abbatucci', at: STREET_ABBATUCCI[4], lift: .03, kind: 'street'}
+};
+
+/* Pictures and figures set on the maquette. nudge moves one aside, in units of its own text size, so that two can share a place.
+   film: true shows it only while the film plays, because the page already carries it in the text. */
+export const PINS = {
+  bastion: {
+    image: true, src: 'assets/img/bastion-de-france-960.webp', ratio: '4 / 3', text: 'Le bastion de France aujourd’hui', note: 'Air fans, CC0',
+    at: [9.28123, 41.59172], lift: .05, nudge: [7.5, -1], film: true
+  },
+  jp: {
+    image: true, portrait: true, src: 'assets/img/jp-abbatucci-960.webp', ratio: '5 / 6', text: 'Jacques Pierre Abbatucci', note: '1723–1813',
+    at: [9.095, 41.795], lift: .45, nudge: [-4.3, -3.4]
+  },
+  jc: {
+    image: true, portrait: true, src: 'assets/img/jc-abbatucci-960.webp', ratio: '5 / 6', text: 'Jean-Charles Abbatucci', note: '1770–1796',
+    at: [9.095, 41.795], lift: .45, nudge: [4.3, -3.4]
+  },
+  plan: {
+    image: true, src: 'assets/relief/salines-1802-detail.webp', ratio: '13 / 15', text: 'Les salines sur le plan de l’an XI', note: 'BnF',
+    at: SALINES, lift: .02, nudge: [-11, 4], film: true
+  },
+  analyses: {
+    figures: [['1947', '≈ 200'], ['1948', '42'], ['1949', '4']], text: 'Analyses de sang positives, secteur de Porto-Vecchio (rapport de 1950)',
+    at: [9.2885, 41.5815], lift: .06
+  },
+  habitants: {
+    figures: [['1946', '3 339'], ['1975', '7 510'], ['2023', '11 198']], text: 'Habitants de la commune',
+    at: HEART, lift: .16, film: true
+  }
 };
