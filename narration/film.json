@@ -1,10 +1,12 @@
 {
-  "note": "Le film : la lettre abrégée pour la voix, une entrée par étape de la page. tools/build_film.mjs en tire assets/audio/film.mp3 et src/film.js. engine = piper (voix libre, publiable) ou say (voix du Mac, pour essayer seulement) ; pace = durée des phonèmes pour piper ; rate = mots par minute pour say. text = ce qui s'affiche ; say = ce que dit la voix quand il faut l'écrire autrement ; ear = réécritures pour la prononciation ; quiet = dit mais pas affiché (la page le montre déjà) ; land = la ligne sur laquelle la caméra doit être arrivée ; cue et pin déclenchent quelque chose sur la maquette.",
+  "note": "Le film : la lettre écrite pour l’oreille, une entrée par étape de la page. tools/build_film.mjs en tire assets/audio/film.mp3 et src/film.js. engine = piper (voix libre, publiable), takes (enregistrements humains ou ElevenLabs dans narration/takes/, voir narration/ELEVENLABS_HANDOFF.md) ou say (voix du Mac, essai local seulement). text = ce qui s’affiche ; say = ce que dit la voix quand il faut l’écrire autrement ; ear = réécritures phonétiques pour Piper ; quiet = dit mais pas affiché (la page le montre déjà) ; land = ligne sur laquelle la caméra doit être arrivée ; cue et pin déclenchent un élément sur la maquette.",
   "engine": "piper",
   "voice": "fr_FR-siwis-medium",
-  "pace": 1.2,
+  "pace": 1.12,
+  "noiseScale": 0.6,
+  "noiseW": 0.6,
   "rate": 172,
-  "gap": 0.45,
+  "gap": 0.42,
   "ear": {
     "Portivechju": "Portivétiou",
     "Abbatucci": "Abatoutchi",
@@ -16,142 +18,149 @@
     "Sampiero": "Sampiéro",
     "Stabiacciu": "Stabiatchou",
     "Luddareddu": "Loudarédou",
-    "Paoli": "Pa-oli"
+    "Paoli": "Pa-oli",
+    "Palombaggia": "Palombadja",
+    "Santa Giulia": "Santa Djoulia"
   },
   "steps": [
     {
       "scene": "aube",
       "lines": [
-        {"text": "Portivechju. Lettre à ceux qui reviennent.", "quiet": true, "pause": 0.9},
-        {"text": "À vous qui portez ce pays dans un nom, dans une maison, ou seulement dans une façon de dire : là-bas.", "quiet": true}
+        {"text": "Portivechju. Lettre à ceux qui reviennent.", "quiet": true, "pause": 0.85},
+        {"text": "À vous qui portez ce pays dans un nom, dans une maison, ou simplement dans une façon de dire « là-bas ».", "quiet": true}
       ],
       "tail": 1.2
     },
     {
       "scene": "maquette",
       "travel": 7,
-      "lead": 2.5,
+      "lead": 2.4,
       "lines": [
-        {"text": "Voici la même ville, du même endroit, sous le même angle : en plâtre."},
-        {"text": "Pour dire comment elle est venue là, il faut d’abord l’ôter."},
+        {"text": "Pour comprendre comment cette ville est née, il faut d’abord l’effacer — ôter les maisons, les quais, et revenir à la pierre nue.", "pause": 0.6},
+        {"text": "Un vieux proverbe corse le dit mieux que nous.", "pause": 0.3},
         {"text": "Chì và è volta, bon viaghju face.", "sub": "Celui qui part et revient a fait un bon voyage.", "say": "Celui qui part et revient a fait un bon voyage.", "kind": "proverb"}
-      ]
+      ],
+      "tail": 1.1
     },
     {
       "scene": "rocher",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Un golfe profond, refermé sur lui-même.", "pause": 0.3},
-        {"text": "Au fond, une butte de porphyre rose ; derrière elle, presque aussitôt, la montagne."},
-        {"text": "Le nom dit l’âge du lieu : Portivechju, le port vieux.", "pause": 0.3},
-        {"text": "Des Grecs de Syracuse l’auraient fondé, ou repris, six siècles avant notre ère."}
+        {"text": "Un golfe profond, refermé sur lui-même, et au fond de l’eau, un éperon de porphyre rose.", "pause": 0.35},
+        {"text": "Derrière lui, la montagne se lève aussitôt.", "pause": 0.5},
+        {"text": "Portivechju, le port vieux. Six siècles avant notre ère, dit-on, des Grecs de Syracuse y mouillaient déjà."}
       ]
     },
     {
       "scene": "port-vieux",
       "travel": 6,
       "lines": [
-        {"text": "Un port, mais pas de ville. La plaine est fertile et presque déserte : les marais y donnent la fièvre."},
-        {"text": "Seuls y descendent, l’hiver, les bergers de la montagne."},
-        {"text": "Descendre l’hiver, remonter l’été : c’est le premier va-et-vient de cette histoire."}
-      ]
+        {"text": "Un port, mais pas de ville. La plaine est fertile, pourtant personne n’ose y dormir : les marais donnent la fièvre.", "pause": 0.45},
+        {"text": "L’hiver seulement, les bergers descendent avec leurs troupeaux. Dès les chaleurs, ils remontent.", "pause": 0.45},
+        {"text": "Ce va-et-vient entre la montagne et la mer, c’est le premier battement de ce pays."}
+      ],
+      "tail": 1.0
     },
     {
       "scene": "citadelle",
-      "lead": 3,
+      "lead": 2.8,
       "land": 1,
       "lines": [
-        {"text": "En 1539, Gênes fonde ici une colonie, pour fermer ce refuge aux corsaires. Ses envoyés choisissent la hauteur."},
-        {"text": "Les murs montent de 1541 à 1544. Cinq bastions.", "pin": "bastion", "pause": 1.2},
-        {"text": "Derrière eux, un village, que Gênes peuple elle-même."}
+        {"text": "Les corsaires se cachent dans ce golfe. En 1539, Gênes veut leur fermer ce refuge et choisit la hauteur du rocher.", "pause": 0.45},
+        {"text": "De 1541 à 1544, les remparts montent autour de la butte, défendus par cinq bastions.", "pin": "bastion", "pause": 1.05},
+        {"text": "Derrière eux, Gênes installe ses premiers colons."}
       ],
-      "tail": 1.5
+      "tail": 1.3
     },
     {
       "scene": "ventimiglia",
       "travel": 6,
       "lines": [
-        {"text": "La ville, elle, ne tient pas. Sampiero Corso la prend en 1564 ; elle est rasée l’année suivante."},
-        {"text": "Des familles de Vintimille la relèvent, puis repartent. Les murs, eux, sont restés."},
-        {"text": "Il ne manquait que des gens pour rester."}
-      ]
+        {"text": "Mais la ville ne tient pas. Sampiero Corso la prend en 1564 ; l’année suivante, tout est rasé.", "pause": 0.45},
+        {"text": "Des familles de Vintimille la relèvent, puis repartent à leur tour.", "pause": 0.45},
+        {"text": "Les pierres résistent, trois fois reconstruites. Il ne manquait que des gens pour rester."}
+      ],
+      "tail": 1.0
     },
     {
       "scene": "ceux-d-en-haut",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Alors Gênes se tourne vers la montagne. Des familles descendent s’installer dans la citadelle, de Quenza surtout."},
-        {"text": "Les deux noms de cette lettre viennent aussi de là-haut : les Rocca Serra, de Serra-di-Scopamène ; les Abbatucci, de Zicavo."}
-      ]
+        {"text": "Alors Gênes lève les yeux vers la montagne. Des familles d’en haut, de Quenza surtout, descendent habiter la citadelle.", "pause": 0.5},
+        {"text": "Les deux noms de cette lettre viennent aussi de là-haut — les Rocca Serra, de Serra-di-Scopamène ; les Abbatucci, de Zicavo."}
+      ],
+      "tail": 0.9
     },
     {
       "scene": "estive",
       "travel": 5,
       "lines": [
-        {"text": "Mais ils ne restent pas toute l’année.", "pause": 0.3},
-        {"text": "Chaque été, quand revient la fièvre, la ville se vide : on remonte à Quenza, à Zonza, à Levie, à l’Ospédale."},
-        {"text": "On redescend à l’automne. Cela dure des générations."},
+        {"text": "Ils tiennent la ville, mais jamais toute l’année.", "pause": 0.4},
+        {"text": "Chaque été, quand revient la fièvre, on ferme les volets et l’on remonte vers Quenza, Zonza, Levie, l’Ospédale.", "pause": 0.4},
+        {"text": "À l’automne, on redescend. Une ville qui survit parce qu’elle sait se vider.", "pause": 0.55},
         {"text": "Ici, partir n’a jamais été le contraire d’appartenir."}
       ],
-      "tail": 1.2
+      "tail": 1.4
     },
     {
       "scene": "paoli",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Une carte vient de s’imprimer sur le plâtre : le Plan Terrier, premier relevé précis de ce rivage.", "pause": 0.3},
-        {"text": "Il commence l’année d’un départ."},
-        {"text": "Le 13 juin 1769, vaincu à Ponte Novu, Pasquale Paoli embarque ici sur un navire anglais, pour l’exil.", "cue": "sail"},
-        {"text": "Quelque trois cents fidèles le suivent."}
+        {"text": "1769. L’année même où l’on commence la première carte précise de ce rivage, le golfe voit le plus célèbre de ses départs.", "pause": 0.5},
+        {"text": "Le 13 juin, vaincu à Ponte Novu, Pasquale Paoli embarque ici sur un navire anglais, direction l’exil.", "cue": "sail", "pause": 0.45},
+        {"text": "Quelque trois cents fidèles prennent la mer avec lui."}
       ],
-      "tail": 3
+      "tail": 2.6
     },
     {
       "scene": "abbatucci",
       "travel": 6,
       "lines": [
-        {"text": "L’homme qui a couvert sa retraite vient de Zicavo : Jacques Pierre Abbatucci.", "pin": "jp"},
-        {"text": "Selon la tradition familiale, c’est lui qui l’escorte jusqu’à ce port."},
-        {"text": "Paoli reviendra, vingt et un ans plus tard.", "pause": 0.3},
-        {"text": "Jean-Charles, le fils du vieux général, ne reviendra pas : général à son tour, il est tué à vingt-six ans en défendant Huningue.", "pin": "jc"}
+        {"text": "L’homme qui a couvert sa retraite vient de Zicavo — Jacques Pierre Abbatucci.", "pin": "jp", "pause": 0.3},
+        {"text": "Paoli l’avait autrefois fait emprisonner, avant de lui confier tout le Sud.", "pause": 0.4},
+        {"text": "Dans la mémoire de la famille, c’est lui qui l’escorte jusqu’à ce port.", "pause": 0.6},
+        {"text": "Paoli reviendra vingt et un ans plus tard. Mais Jean-Charles, le fils du vieux général, ne rentrera jamais.", "pin": "jc", "pause": 0.4},
+        {"text": "Général à son tour, il tombe à vingt-six ans devant Huningue. Son nom est gravé sous l’Arc de triomphe."}
       ],
-      "tail": 1.5
+      "tail": 1.4
     },
     {
       "scene": "sel",
       "travel": 7,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Au pied de la ville, là où le Stabiacciu rejoint le golfe, la carte dessine des marais."},
-        {"text": "En 1795, l’autorisation d’y faire du sel est accordée à la famille Rocca Serra."}
+        {"text": "Là où le Stabiacciu rejoint le golfe, l’eau dort dans les marais. Gênes y avait toujours interdit le sel.", "pause": 0.4},
+        {"text": "En 1795, les Rocca Serra reçoivent enfin le droit d’y aménager des salines."}
       ]
     },
     {
       "scene": "sauniers",
       "travel": 6,
       "lines": [
-        {"text": "On y travaillera deux siècles, jusqu’en l’an 2000. Ce seront les dernières salines de Corse.", "pin": "plan"},
-        {"text": "C’est aussi le moment où le nom entre à la mairie : en 1803, un Rocca Serra devient maire."}
+        {"text": "On y récoltera le sel deux siècles durant, jusqu’en l’an 2000 — les dernières salines de l’île.", "pin": "plan", "pause": 0.45},
+        {"text": "En 1803, le nom entre aussi à la mairie, pour y rester presque sans interruption.", "pause": 0.55},
+        {"text": "Le sel conserve ce qu’on lui confie. L’eau calme qui ouvre cette lettre, c’est celle de ces bassins."}
       ],
-      "tail": 1.2
+      "tail": 1.3
     },
     {
       "scene": "liege",
       "travel": 7,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "La carte s’efface. Voici la première photographie prise du ciel, en 1951."},
-        {"text": "Sur la Marine travaille alors une usine de liège, fondée en 1876 : bouchons, flotteurs de filets, isolants."}
+        {"text": "Un siècle passe. Sur la Marine, dès 1876, une usine travaille le liège des collines — bouchons, flotteurs, isolants.", "pause": 0.45},
+        {"text": "On lève l’écorce au cœur de juillet, sous la chaleur lourde, quand il faudrait déjà être en montagne."}
       ]
     },
     {
       "scene": "ecorce",
-      "travel": 4,
+      "travel": 5,
       "lines": [
-        {"text": "Le chêne-liège a ceci de rare qu’on peut le dépouiller sans le tuer. Dix à douze ans plus tard, l’écorce est revenue."}
+        {"text": "Le chêne-liège se laisse dépouiller sans mourir. Nu, son tronc rougeoyant affronte le soleil ; dix à douze ans plus tard, l’écorce est revenue.", "pause": 0.5},
+        {"text": "L’usine ferme en 1975, vaincue par le plastique. Aujourd’hui, entre ses murs, on joue du théâtre."}
       ],
       "tail": 1.2
     },
@@ -160,114 +169,117 @@
       "travel": 10,
       "lead": 4,
       "lines": [
-        {"text": "En 1935, le train atteint enfin Porto-Vecchio : Bastia est à cinq heures de voyage.", "cue": "train", "pause": 1.4},
-        {"text": "En 1943, les bombardements l’interrompent. La ligne ne sera jamais rouverte."}
+        {"text": "En 1935, le train atteint enfin Porto-Vecchio, à cinq heures de Bastia.", "cue": "train", "pause": 1.2},
+        {"text": "Il ne connaîtra que huit étés. En septembre 1943, les bombardements coupent la voie. Elle ne rouvrira jamais."}
       ],
       "tail": 1.2
     },
     {
       "scene": "fievre",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Regardez l’anse en 1951 : encore ouverte, presque nue.", "pause": 0.3},
-        {"text": "Ce qui vidait cette plaine depuis des siècles vient à peine de céder."},
-        {"text": "Le maire est alors un médecin, Camille de Rocca Serra : député, il soutient cette lutte à la Chambre."}
+        {"text": "Voici l’anse au lendemain de la guerre, encore sauvage. Le mal qui vidait cette plaine depuis quatre siècles vient tout juste de céder.", "pause": 0.45},
+        {"text": "Entre les deux guerres déjà, le maire d’alors, le docteur Camille de Rocca Serra, avait appuyé la lutte contre le paludisme."}
       ]
     },
     {
       "scene": "rivage-1975",
       "travel": 6,
       "lines": [
-        {"text": "Au printemps 1949, la campagne contre les moustiques commence par Porto-Vecchio.", "pause": 0.3},
-        {"text": "De 1947 à 1949, les analyses positives y tombent d’environ deux cents à quatre.", "pin": "analyses"},
-        {"text": "En 1950, un autre médecin devient maire : Jean-Paul de Rocca Serra, fils de Camille. Il le restera quarante-sept ans."}
-      ]
+        {"text": "Au printemps 1949, l’État lance sa campagne contre les moustiques par Porto-Vecchio.", "pause": 0.35},
+        {"text": "En deux ans, la fièvre s’effondre presque à zéro.", "pin": "analyses", "pause": 0.65},
+        {"text": "En 1950, le fils de Camille, Jean-Paul, médecin lui aussi, devient maire. Il le restera quarante-sept ans."}
+      ],
+      "tail": 1.0
     },
     {
       "scene": "rivage-2024",
       "travel": 6,
       "lines": [
-        {"text": "La marina, les quais. Trois photographies, une seule anse."},
-        {"text": "La fièvre n’a pas cédé devant un homme, mais devant une campagne d’État."},
-        {"text": "Elle laisse une chose que la ville n’avait jamais eue : on peut désormais y passer l’été."}
-      ]
+        {"text": "Les digues s’avancent, les quais s’ouvrent. Une même anse, méconnaissable.", "pause": 0.5},
+        {"text": "Pour la première fois, on n’a plus à fuir Porto-Vecchio quand vient la chaleur. On peut enfin y passer l’été."}
+      ],
+      "tail": 1.1
     },
     {
       "scene": "ete",
       "travel": 7,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Alors la saison change de sens. Pendant trois siècles, l’été vidait la ville ; désormais, il la remplit."},
-        {"text": "Trois mille trois cents habitants en 1946. Plus de onze mille aujourd’hui.", "pin": "habitants"}
+        {"text": "Alors les saisons se retournent. Pendant trois siècles, l’été vidait la ville ; désormais, il la remplit.", "pause": 0.5},
+        {"text": "En une vie d’homme, elle fait plus que tripler.", "pin": "habitants"}
       ],
-      "tail": 1.5
+      "tail": 1.4
     },
     {
       "scene": "plages",
-      "travel": 5,
+      "travel": 6,
       "lines": [
-        {"text": "Ceux qui arrivent chaque été refont, sans le savoir, un très vieux chemin."},
-        {"text": "Vous, vous le savez."}
+        {"text": "Palombaggia, Santa Giulia, Cala Rossa.", "pause": 0.35},
+        {"text": "Là-haut, à l’Ospédale, le lac retient l’eau qui abreuve la côte — la montagne fait toujours vivre la plaine.", "pause": 0.5},
+        {"text": "Ceux qui arrivent chaque été refont sans le savoir un très vieux chemin.", "pause": 0.45},
+        {"text": "Vous, vous ne venez pas voir cette mer. Vous venez la retrouver."}
       ],
       "tail": 1.5
     },
     {
       "scene": "soir",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Le dernier soir de juillet, on promène dans la vieille ville un mannequin de paille et de liège : Luddareddu, « petit juillet »."},
-        {"text": "On le juge, on le pend, et à minuit on le brûle sur la place de l’église."},
-        {"text": "Juillet était le mois du liège et du sel, celui où les hommes restaient en plaine.", "pause": 0.3},
-        {"text": "Le brûler, c’était fêter le jour où l’on pouvait enfin partir."}
-      ]
+        {"text": "Le 31 juillet au soir, on promène dans la vieille ville Luddareddu, « petit juillet », un mannequin de paille et de liège.", "pause": 0.4},
+        {"text": "On le juge, on le pend, et à minuit on le brûle devant l’église.", "pause": 0.5},
+        {"text": "Juillet était le mois du liège et du sel, celui où les hommes restaient seuls en plaine.", "pause": 0.35},
+        {"text": "Le brûler, c’était fêter le droit de remonter. On le brûle toujours, dans une ville où l’on vient désormais passer l’été."}
+      ],
+      "tail": 1.2
     },
     {
       "scene": "deux-rues",
       "travel": 8,
-      "lead": 2.8,
+      "lead": 2.6,
       "lines": [
-        {"text": "Descendez encore. Dans la vieille ville, le long des murs génois, une rue porte le nom du docteur Camille de Rocca Serra."},
-        {"text": "Au bout, elle ne s’arrête pas : elle change seulement de nom, et devient la rue du Général-Abbatucci."},
-        {"text": "Le docteur de la première rue est né à Zicavo, le village de la seconde, et sa mère était une Abbatucci."},
-        {"text": "Les deux noms sont une seule famille. La montagne et la mer s’étaient épousées."}
+        {"text": "Approchez-vous encore. Le long des vieux murs génois, une ruelle porte le nom du docteur Camille de Rocca Serra.", "pause": 0.45},
+        {"text": "Au bout, sans même tourner, elle devient la rue du Général-Abbatucci.", "pause": 0.6},
+        {"text": "Ce n’est pas un hasard. Le docteur Camille est né à Zicavo, le village des Abbatucci — sa mère portait leur nom.", "pause": 0.55},
+        {"text": "Depuis longtemps déjà, la montagne et la mer s’étaient épousées."}
       ],
-      "tail": 1.5
+      "tail": 1.6
     },
     {
       "scene": "rue",
       "travel": 11,
       "lead": 5,
       "lines": [
-        {"text": "La voici, à hauteur d’homme.", "pause": 0.3},
-        {"text": "La maquette s’arrête sur le seuil : ce qui se passe derrière les volets n’appartient pas aux cartes."},
-        {"text": "Certains sont déjà revenus : dans la rue, des volets se sont rouverts."},
+        {"text": "La voici, à hauteur de pas. Ici, les cartes s’arrêtent sur le seuil.", "pause": 0.55},
+        {"text": "Déjà, dans cette rue, des volets se sont rouverts. Car la maison n’oublie rien.", "pause": 0.45},
         {"text": "A casa piglia, a casa rende.", "sub": "La maison rend toujours ce qu’elle prend.", "say": "La maison rend toujours ce qu’elle prend.", "kind": "proverb"}
       ],
-      "tail": 1.5
+      "tail": 1.6
     },
     {
       "scene": "envoi",
       "travel": 10,
       "lead": 5.5,
       "lines": [
-        {"text": "La nuit est tombée sur la maquette."},
-        {"text": "Ici, tout le monde est parti, chaque année, et tout le monde est revenu : les bergers, les montagnards, Paoli lui-même."},
-        {"text": "Si vous écoutez ceci de loin, vous n’êtes pas un visiteur. Vous êtes le prochain retour."},
+        {"text": "La nuit tombe sur Portivechju. Des fenêtres s’allument au-dessus des salines.", "pause": 0.55},
+        {"text": "Ici, tout le monde est parti, et tout le monde a retrouvé le chemin — les bergers, les montagnards, Paoli lui-même.", "pause": 0.5},
+        {"text": "Si vous écoutez ceci de loin, vous n’êtes pas de passage. Vous êtes le prochain retour.", "pause": 0.55},
         {"text": "Vous ne reconnaîtrez rien, et tout vous reconnaîtra."}
       ],
-      "tail": 2
+      "tail": 2.0
     },
     {
       "scene": "dedicace",
       "travel": 8,
       "lead": 4.5,
       "lines": [
-        {"text": "Aux Rocca Serra et aux Abbatucci, et à tous ceux qui en descendent.", "quiet": true, "pause": 1},
+        {"text": "Aux Rocca Serra et aux Abbatucci, et à tous ceux qui en descendent.", "quiet": true, "pause": 0.85},
+        {"text": "Ici commence toujours le retour.", "quiet": true, "pause": 0.95},
         {"text": "Pace è salute.", "say": "Patché et salouté.", "quiet": true}
       ],
-      "tail": 5
+      "tail": 4.0
     }
   ]
 }
