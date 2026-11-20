@@ -5,3 +5,6 @@ node_modules/
 /raw/
 *.log
 .agy/
+.scratch/
+.cache-ign/
+js/*.map

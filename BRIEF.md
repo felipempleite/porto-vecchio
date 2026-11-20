@@ -1,3 +1,5 @@
+> Historique : consigne du premier montage (rounds 1 à 5). Le site actuel est décrit dans PLAN.md, round 6.
+
 # Build brief for the coding agent
 
 Build `index.html`, `css/style.css`, `js/main.js` in this folder: a single-page scrollytelling website in FRENCH, titled along the lines of « Portivechju — Lettre à ceux qui reviennent ».

@@ -1,0 +1,14 @@
+{
+  "name": "portivechju",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --format=esm --minify --legal-comments=eof --target=es2020 --outfile=js/lettre.min.js",
+    "dev": "esbuild src/main.js --bundle --format=esm --sourcemap --target=es2020 --outfile=js/lettre.min.js --watch --servedir=.",
+    "check": "node tools/check_relief.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.11",
+    "three": "0.180.0"
+  }
+}
