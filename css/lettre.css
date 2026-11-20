@@ -56,6 +56,9 @@ sup { font-size: .68em; line-height: 0; }
     linear-gradient(90deg, rgba(14, 17, 20, .5) 0, rgba(14, 17, 20, .16) 34%, rgba(14, 17, 20, 0) 56%);
   pointer-events: none;
 }
+html[data-side='right'] .veil {
+  background: linear-gradient(270deg, rgba(14, 17, 20, .5) 0, rgba(14, 17, 20, .16) 34%, rgba(14, 17, 20, 0) 56%);
+}
 [data-scene='aube'] .veil, [data-scene='dedicace'] .veil {
   background: radial-gradient(ellipse at 50% 46%, rgba(14, 17, 20, .5) 0, rgba(14, 17, 20, .16) 55%, rgba(14, 17, 20, .34) 100%);
 }
@@ -121,6 +124,7 @@ main { position: relative; z-index: 1; }
   display: flex; align-items: center;
   padding: 12vh var(--edge);
 }
+.step[data-side='right'] { justify-content: flex-end; }
 .step--title { min-height: 100vh; min-height: 100lvh; justify-content: center; text-align: center; }
 #ouverture .step--title { padding-top: 16vh; }
 #envoi .step--title { min-height: 130vh; }
@@ -207,12 +211,12 @@ figcaption { margin-top: .45rem; }
 
 @media (max-width: 760px), (orientation: portrait) {
   body { font-size: .97rem; line-height: 1.62; }
-  .veil {
+  .veil, html[data-side='right'] .veil {
     background:
       linear-gradient(180deg, rgba(14, 17, 20, .5) 0, rgba(14, 17, 20, 0) 14%),
       linear-gradient(0deg, rgba(14, 17, 20, .72) 0, rgba(14, 17, 20, .3) 34%, rgba(14, 17, 20, 0) 60%);
   }
-  .step { align-items: flex-end; justify-content: center; padding: 58vh 1rem 6vh; min-height: 0; }
+  .step, .step[data-side='right'] { align-items: flex-end; justify-content: center; padding: 58vh 1rem 6vh; min-height: 0; }
   .card figure img { max-height: 23vh; object-fit: cover; }
   .step--title { align-items: center; padding: 14vh 1.4rem; min-height: 100lvh; }
   .card { width: min(34rem, 100%); padding: 1.2rem 1.2rem 1.25rem; background: rgba(16, 20, 24, .78); }

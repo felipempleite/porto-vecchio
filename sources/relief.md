@@ -51,3 +51,15 @@ python3 tools/build_region.py   # numpy ; met les dalles en cache dans .cache-ig
 ```
 
 Sans WebGL 2, avec `prefers-reduced-motion` ou avec `?fixe` dans l’adresse, la page montre les planches de `assets/relief/` et les photographies à la place de la maquette. `?net` supprime l’amortissement du défilement, pour les captures.
+
+### Tracés, murs et toits
+
+`tools/build_traces.mjs` écrit `src/traces.js` : les bastions et les pans de mur de la citadelle, l’emprise de l’église et l’ancienne voie ferrée (OpenStreetMap, API et Overpass, mis en cache dans `.cache-osm/`), puis les chemins que suivent les points qui voyagent. Ces chemins sont calculés sur `region.png` : le trajet le moins coûteux entre la ville et chaque village, où le coût d’un pas croît avec le carré de la pente. Ce sont des tracés plausibles, pas des chemins relevés.
+
+```sh
+node tools/build_traces.mjs   # Node 20 ou plus récent ; réseau requis la première fois
+```
+
+Ce qui est conventionnel sur la maquette : l’enceinte est fermée en ligne droite entre les ouvrages conservés ; les toits à quatre pans sont posés sur chaque volume de la BD TOPO, faîtage dans la longueur ; le clocher est placé et dimensionné d’après des photographies (`BELL_TOWER` dans `src/geo.js`) ; la grille des bassins est dessinée dans l’emprise des salines de 2024 (`SALT_FIELD`).
+
+Les hauteurs sont doublées, sauf au début et à la fin de la lettre (`stretch` dans `src/scenes.js`) : la caméra y reprend le point de vue de la photographie des salines, retrouvé par ajustement, et la maquette doit alors tomber sous la photographie.
