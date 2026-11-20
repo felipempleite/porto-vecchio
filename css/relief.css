@@ -57,7 +57,8 @@
 #relief-canvas { position:absolute;inset:0;z-index:2;background:#383e3a; }
 #relief-canvas canvas {display:block;width:100%;height:100%;}
 #relief-canvas canvas:focus-visible {outline-offset:-4px;}
-.relief-stage[data-mode=compare] .relief-pin,.relief-stage[data-mode=orbit] .relief-pin {display:none;}
+.relief-stage[data-mode=compare] #relief-water,.relief-stage[data-mode=orbit] .relief-pin {display:none;}
+.relief-stage[data-mode=compare] #relief-hill {z-index:3;}
 .relief-return .relief-leaf { display:block; margin:0; }
 .relief-return .relief-leaf figcaption {padding-top:.8rem;}
 .relief-return .relief-leaf h3 {font-size:1.9rem;}

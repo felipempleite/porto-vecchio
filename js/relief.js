@@ -47,34 +47,38 @@
   const range=byId('relief-range'), host=byId('relief-canvas'), status=byId('relief-status');
   const buttons=[...atlas.querySelectorAll('[data-period]')];
   const notes=[...atlas.querySelectorAll('[data-period-note]')];
+  const periods=buttons.map(b=>b.dataset.period);
   const labels=new Map(buttons.map(b=>[b.dataset.period,b.textContent]));
   const markers={
     golfe:[[40.526,41.43],[44.507,70.508]],
     ville:[[46.273,27.865],[69.41,71.528]]
   };
-  let period='terrier', frame='golfe', mode='plate', controller, viewer;
+  let period='terrier', frame='golfe', comparisonFrame='golfe', mode='plate', controller, viewer;
   function setMarker(el,coord,label) {
     el.style.left=coord[0]+'%'; el.style.top=coord[1]+'%'; el.textContent=label;
   }
   function setSplit() {
     stage.style.setProperty('--split',range.value+'%');
-    range.setAttribute('aria-valuetext',range.value+' % pour '+labels.get(period));
+    range.setAttribute('aria-valuetext',range.value+' % pour '+byId('relief-left').textContent);
   }
-  function chooseImage(image,era) {
-    const src='assets/relief/'+frame+'-'+era+'.webp';
+  function chooseImage(image, era, view) {
+    const src='assets/relief/'+view+'-'+era+'.webp';
     if(image.getAttribute('src')!==src) image.src=src;
+    const description=notes.find(el=>el.dataset.periodNote===era).querySelector('p').textContent;
+    image.alt=(view==='ville'?'Détail de la vieille ville. ':'Vue du golfe. ')+labels.get(era)+'. '+description;
   }
   function update() {
     const paired=mode==='compare', orbiting=mode==='orbit', loading=mode==='loading';
-    const town=frame==='ville', reference=period==='2024'?'1975':'2024';
+    const view=paired ? comparisonFrame : frame;
+    const town=view==='ville', reference=period==='2024'?'1975':'2024';
+    // The modern model follows the 2024 photograph in the chronological period controls.
+    const [left,right]=periods.filter(era=>era===period || era===reference);
     stage.dataset.mode=mode;
-    const note=notes.find(el=>el.dataset.periodNote===period);
     buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.period===period)));
-    notes.forEach(el=>el.hidden=el!==note);
-    chooseImage(plate,period);
-    plate.alt=(town?'Détail de la vieille ville. ':'Vue du golfe. ')+labels.get(period)+'. '+note.querySelector('p').textContent;
-    setMarker(byId('relief-hill'),markers[frame][0],'La vieille ville');
-    setMarker(byId('relief-water'),markers[frame][1],town?(period==='terrier'||period==='1951'?'L’anse':'Le port'):(period==='terrier'?'Le marais':'Les salines'));
+    notes.forEach(el=>el.hidden=el.dataset.periodNote!==period);
+    chooseImage(plate,paired ? left : period,view);
+    setMarker(byId('relief-hill'),markers[view][0],'La vieille ville');
+    setMarker(byId('relief-water'),markers[view][1],town?(period==='terrier'||period==='1951'?'L’anse':'Le port'):(period==='terrier'?'Le marais':'Les salines'));
     camera.setAttribute('aria-pressed',String(town));
     camera.textContent=town?'Revenir au golfe':'Voir la vieille ville';
     compare.setAttribute('aria-pressed',String(paired));
@@ -85,10 +89,9 @@
     byId('relief-help').hidden=!orbiting;
     [other,byId('relief-divider'),range,byId('relief-left'),byId('relief-right')].forEach(el=>el.hidden=!paired);
     if (paired) {
-      chooseImage(other,reference);
-      other.alt='Vue de comparaison, '+labels.get(reference)+'. '+notes.find(el=>el.dataset.periodNote===reference).querySelector('p').textContent;
-      byId('relief-left').textContent=labels.get(period); byId('relief-right').textContent=labels.get(reference);
-      range.setAttribute('aria-label','Répartir la vue entre '+labels.get(period)+' à gauche et '+labels.get(reference)+' à droite');
+      chooseImage(other,right,view);
+      byId('relief-left').textContent=labels.get(left); byId('relief-right').textContent=labels.get(right);
+      range.setAttribute('aria-label','Répartir la vue entre '+labels.get(left)+' à gauche et '+labels.get(right)+' à droite');
       setSplit();
     }
   }
@@ -135,11 +138,15 @@
     if(mode==='orbit') refreshModel();
   }));
   camera.addEventListener('click',()=>{
-    markManual(atlas); frame=frame==='ville'?'golfe':'ville'; update(); viewer?.frame(frame==='ville');
+    markManual(atlas);
+    if(mode==='compare') comparisonFrame=comparisonFrame==='ville'?'golfe':'ville';
+    else frame=frame==='ville'?'golfe':'ville';
+    update(); viewer?.frame(frame==='ville');
   });
   compare.addEventListener('click',()=>{
     markManual(atlas);
     const next=mode==='compare'?'plate':'compare';
+    if(next==='compare') comparisonFrame=window.matchMedia('(max-width: 760px)').matches ? 'ville' : frame;
     range.value=50; cancelViewer(next);
     if(next==='compare') range.focus({preventScroll:true});
   });
