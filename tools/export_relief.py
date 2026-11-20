@@ -5,6 +5,7 @@ Writes source PNGs and an uncompressed GLB. The wider IGN tiles are cached in th
 import math
 import json
 import re
+import runpy
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -148,15 +149,18 @@ for ring in marks:
 historic = mesh_object('SignesDuTerrier',v,f)
 historic.data.materials.append(material('Encre du Terrier',(.36,.065,.034)))
 
+waterfront = runpy.run_path(str(Path.cwd()/'tools/waterfront.py'))
+reference, port = waterfront['build'](terrain, source, material)
 for ob in bpy.context.selected_objects:
     ob.select_set(False)
-for ob in [terrain, buildings, sides, historic]:
+for ob in [terrain, reference, buildings, sides, historic, *port.values()]:
     ob.select_set(True)
 bpy.ops.export_scene.gltf(filepath=str(out/'portivechju.glb'),use_selection=True,
                           export_format='GLB',export_animations=False,export_cameras=False,
                           export_lights=False,export_yup=True,export_extras=False)
 
-terrain.hide_render = True
+for ob in [terrain, reference, *port.values()]:
+    ob.hide_render = True
 historic.hide_render = True
 original.animation_data_clear()
 buildings.animation_data_clear()
@@ -186,6 +190,30 @@ cam.data.ortho_scale = 4.70
 aim(cam,overview+Vector((2.6,-5.3,4)),overview)
 render('golfe-terrier')
 historic.hide_render = True
+
+# The dated wide and town views use the same waterfront geometry as the browser.
+original.hide_render = True
+terrain.hide_render = False
+outer_material = terrain.material_slots[0].material
+for era, name in [('1951','Mission Corse'),('1975','Photographie 1975'),('2024','Photographie 2024')]:
+    photo = bpy.data.materials[name]
+    terrain.material_slots[0].material = photo
+    shore = port[era]
+    shore.hide_render = False
+    for slot in (0,1,3):
+        shore.material_slots[slot].link='OBJECT'
+        shore.material_slots[slot].material=photo
+    for label,target,width in [('golfe',overview,4.70),('ville',focus,1.30)]:
+        cam.data.ortho_scale=width
+        aim(cam,target+Vector((2.6,-5.3,4)),target)
+        render(label+'-'+era)
+    for slot in (0,1,3):
+        shore.material_slots[slot].link='DATA'
+    shore.hide_render = True
+terrain.material_slots[0].material = outer_material
+terrain.hide_render = True
+original.hide_render = False
+pins=[Vector((*xy(lon,lat),z_at(lon,lat))) for lon,lat in [(9.27895,41.59105),(9.28445,41.5901)]]
 
 # A street-level conclusion. Use the OSM street lines already documented in the site.
 original.material_slots[0].material = bpy.data.materials['Sable, eau et courbes']
@@ -303,3 +331,4 @@ cam.data.clip_start=.0002
 station=(*xy(9.2884,41.5822),max(.002,z_at(9.2884,41.5822)*.5)+.0025)
 aim(cam,station,(*xy(9.2805,41.59115),.043))
 render('depuis-les-salines',1260,840)
+waterfront['render_study'](port,out,pins)

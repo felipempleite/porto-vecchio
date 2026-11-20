@@ -8,6 +8,12 @@ const directory = new URL('assets/relief/', document.baseURI);
 const overview = new THREE.Vector3(0, .036, 0);
 const town = new THREE.Vector3(-.404, .041, .078);
 const direction = new THREE.Vector3(2.6, 4, 5.3);
+// Match the orthographic cameras used to render the plates (Blender Z-up to Three.js Y-up).
+const frames = {
+  golfe: {target:overview, direction, halfWidth:2.35},
+  ville: {target:town, direction, halfWidth:.65},
+  port: {target:new THREE.Vector3(.034668,.027,.064815), direction:new THREE.Vector3(1.25,1.08,2.3), halfWidth:1.075}
+};
 
 function releaseModel(model) {
   const materials = new Set();
@@ -46,15 +52,17 @@ export async function createViewer(host, signal, onContextLoss) {
   controls.enableDamping = false;
   const photo = new THREE.MeshBasicMaterial({color:0xffffff});
   const textures = new Map();
-  let model, ground, originalMaterial, houses, marks, observer;
-  let closeView = false, viewToken = 0, disposed = false;
+  const printable = new Map();
+  const shores = new Map();
+  let model, terrain, reference, sides, houses, marks, observer;
+  let currentFrame = 'golfe', viewToken = 0, disposed = false;
 
   function draw() { if (!disposed) renderer.render(scene,camera); }
 
   function resize() {
     const {width,height} = host.parentElement.getBoundingClientRect();
     if (!width || !height || disposed) return;
-    const halfWidth = closeView ? .65 : 2.35;
+    const {halfWidth} = frames[currentFrame];
     camera.left = -halfWidth; camera.right = halfWidth;
     camera.top = halfWidth*height/width; camera.bottom = -camera.top;
     camera.updateProjectionMatrix();
@@ -62,10 +70,11 @@ export async function createViewer(host, signal, onContextLoss) {
     draw();
   }
 
-  function frame(detail) {
-    closeView = detail;
-    controls.target.copy(detail ? town : overview);
-    camera.position.copy(controls.target).add(direction);
+  function frame(view) {
+    currentFrame = view;
+    const cameraFrame = frames[view];
+    controls.target.copy(cameraFrame.target);
+    camera.position.copy(cameraFrame.target).add(cameraFrame.direction);
     camera.zoom = 1;
     camera.updateProjectionMatrix();
     controls.update();
@@ -81,7 +90,7 @@ export async function createViewer(host, signal, onContextLoss) {
       case 'ArrowDown': spherical.phi = Math.min(controls.maxPolarAngle,spherical.phi+.1); break;
       case '+': case '=': camera.zoom = Math.min(controls.maxZoom,camera.zoom*1.2); break;
       case '-': camera.zoom = Math.max(controls.minZoom,camera.zoom/1.2); break;
-      case 'Home': event.preventDefault(); frame(closeView); return;
+      case 'Home': event.preventDefault(); frame(currentFrame); return;
       default: return;
     }
     event.preventDefault();
@@ -91,10 +100,10 @@ export async function createViewer(host, signal, onContextLoss) {
     draw();
   }
 
-  async function show(period) {
+  async function show(period, shoreView) {
     const token = ++viewToken;
     let texture;
-    if (period !== 'bati') {
+    if (period !== 'bati' && !shoreView) {
       let request = textures.get(period);
       if (!request) {
         request = new THREE.TextureLoader().loadAsync(new URL('carte-'+period+'.webp',directory).href)
@@ -110,10 +119,14 @@ export async function createViewer(host, signal, onContextLoss) {
       texture = await request;
     }
     if (disposed || token !== viewToken) return;
+    terrain.visible = sides.visible = !shoreView;
+    reference.visible = !shores.has(period);
+    shores.forEach((object,era)=>object.visible=era===period);
+    scene.background.setHex(shoreView ? 0xbcbdb6 : 0x383e3a);
     houses.visible = period === 'bati';
     marks.visible = period === 'terrier';
     if (texture) { photo.map = texture; photo.needsUpdate = true; }
-    ground.material = texture ? photo : originalMaterial;
+    printable.forEach((original,mesh)=>mesh.material=texture ? photo : original);
     draw();
   }
 
@@ -127,7 +140,7 @@ export async function createViewer(host, signal, onContextLoss) {
     canvas.removeEventListener('webglcontextlost',lost);
     canvas.removeEventListener('keydown',key);
     controls.dispose();
-    if (ground) ground.material = originalMaterial;
+    printable.forEach((original,mesh)=>mesh.material=original);
     if (model) releaseModel(model);
     for (const request of textures.values()) request.then(t=>t.dispose(),()=>{});
     photo.dispose();
@@ -142,12 +155,19 @@ export async function createViewer(host, signal, onContextLoss) {
   canvas.addEventListener('keydown',key);
   try {
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-    const result = await loader.loadAsync(new URL('portivechju.glb',directory).href);
+    const result = await loader.loadAsync(new URL('portivechju.glb?v=rivages-1',directory).href);
     model = result.scene;
     if (disposed) { releaseModel(model); signal.throwIfAborted(); }
-    const terrain = model.getObjectByName('Terrain');
-    terrain.traverse(child=>{if(child.isMesh) ground=child;});
-    originalMaterial = ground.material;
+    terrain = model.getObjectByName('Terrain');
+    reference = model.getObjectByName('RiveDeReference');
+    sides = model.getObjectByName('Tranche');
+    for (const era of ['1951','1975','2024']) shores.set(era,model.getObjectByName('Rivage'+era));
+    const surfaces = new Set(['Patine du relief','Terre du golfe','Eau du golfe','Ouvrages du port']);
+    for (const part of [terrain,reference,...shores.values()]) {
+      part.traverse(mesh=>{
+        if (mesh.isMesh && surfaces.has(mesh.material.name)) printable.set(mesh,mesh.material);
+      });
+    }
     houses = model.getObjectByName('Maisons');
     marks = model.getObjectByName('SignesDuTerrier');
     scene.add(model);
@@ -156,7 +176,7 @@ export async function createViewer(host, signal, onContextLoss) {
       observer = new ResizeObserver(resize);
       observer.observe(host.parentElement);
     } else window.addEventListener('resize',resize);
-    frame(false);
+    frame('golfe');
     return {frame,show,focus:()=>canvas.focus({preventScroll:true})};
   } catch (error) {
     dispose();

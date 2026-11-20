@@ -28,14 +28,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/map.css">
-  <link rel="stylesheet" href="css/relief.css">
+  <link rel="stylesheet" href="css/relief.css?v=rivages-1">
   <link rel="stylesheet" href="css/narration.css">
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/map.js" defer></script>
-  <script src="js/relief.js" defer></script>
+  <script src="js/relief.js?v=rivages-1" defer></script>
   <script src="js/narration.js" defer></script>
   <script src="js/hero-video.js" defer></script>
 </head>
@@ -260,8 +260,23 @@
       </figure>
 
       <div class="wrap">
+        <figure class="relief-leaf survey" id="plan-des-salines" data-leaf>
+          <div class="relief-leaf__image" style="--plate-ratio:520/600">
+            <img src="assets/relief/salines-1802-detail.webp" width="520" height="600" loading="lazy" decoding="async" alt="Sur le plan de 1802–03, la ville est coloriée en rose. Au nord et au sud, deux petits damiers en bord de mer sont nommés Salines.">
+          </div>
+          <figcaption>
+            <h3>Les deux salines</h3>
+            <p class="survey-text">Au pied de la vieille ville, les marais salants couvrent une dizaine d’hectares. Entre 1795 et 1815, ils ont donné quelque mille tonnes de sel par an&nbsp;: mille tonnes de lumière arrachée à la mer, année après année.</p>
+            <div class="relief-switch" role="group" aria-label="Vues du plan de 1802–03" hidden>
+              <button type="button" data-image="assets/relief/salines-1802-detail.webp" data-alt="Sur le plan de 1802–03, la ville est coloriée en rose. Au nord et au sud, deux petits damiers en bord de mer sont nommés Salines." data-note="Cherchez la ville en rose. En longeant la rive, vous lirez deux fois le mot « Salines »." aria-pressed="true">Les deux salines</button>
+              <button type="button" data-image="assets/relief/baie-1802.webp" data-alt="Plan manuscrit de la baie entière. La ville et les deux salines se trouvent en bas à gauche. Des sondes jalonnent le golfe jusqu’à son entrée." data-note="Sur la feuille entière, la ville tient dans le coin inférieur gauche. Les chiffres semés dans la baie renseignaient les marins sur la profondeur de l’eau." aria-pressed="false">Toute la baie</button>
+            </div>
+            <p class="relief-leaf__note" aria-live="polite">Cherchez la ville en rose. En longeant la rive, vous lirez deux fois le mot «&nbsp;Salines&nbsp;».</p>
+            <small>Petrucy et Charrier, <i>Plan de la baye de Porto-Vecchio</i>, an XI (1802–03). Bibliothèque nationale de France, Cartes et plans. <a href="assets/relief/baie-1802.webp">Ouvrir le plan en grand</a> · <a href="https://catalogue.bnf.fr/ark:/12148/cb45412814f">Notice de la BnF</a>.</small>
+          </figcaption>
+        </figure>
         <div class="relief-atlas" id="relief" aria-labelledby="t-relief">
-          <header class="relief-intro">
+          <header class="relief-intro" id="port-en-relief">
             <h3 id="t-relief">Le rivage au fil du temps</h3>
             <p>Gardez la vieille ville comme point de repère. D’une époque à l’autre, regardez comment change l’anse à ses pieds.</p>
           </header>
@@ -292,26 +307,31 @@
               <div data-period-note="1975" hidden><h4>À l’abri des digues</h4><p>En bas de la pente, les digues abritent quelques pontons. Un peu plus au sud, les bassins des sauniers forment un damier sombre.</p><small>Photographie aérienne · IGN, 16 juillet 1975</small></div>
               <div data-period-note="2024" hidden><h4>Le port gagne sur l’anse</h4><p>Les pontons occupent une grande partie de l’anse. Près de l’embouchure du Stabiacciu, on distingue encore les bassins des salines.</p><small>Photographie aérienne · IGN, BD ORTHO 2024</small></div>
               <div data-period-note="bati" hidden><h4>De la vieille ville aux quais</h4><p>Les maisons se serrent sur le rocher tandis que le port s’étale en contrebas. D’un seul regard, vous mesurez la pente qui les sépare.</p><small>Bâtiments actuels · IGN, BD TOPO sur la photographie de 2024</small></div>
+              <div data-shore-note="1951" hidden><h4>La courbe de l’anse</h4><p>Suivez la courbe de la rive au pied du rocher. Plus au sud, un mince rectangle se dessine sur l’eau.</p><small>Maquette d’après la mission aérienne de 1951–52 · IGN</small></div>
+              <div data-shore-note="1975" hidden><h4>Un bassin pour les bateaux</h4><p>Les deux digues laissent un passage vers le large. À l’abri, on distingue déjà quelques pontons.</p><small>Maquette d’après la photographie du 16 juillet 1975 · IGN</small></div>
+              <div data-shore-note="2024" hidden><h4>Les quais gagnent sur l’eau</h4><p>Retrouvez le bassin de 1975. De part et d’autre, les quais s’avancent dans l’anse et les pontons se multiplient.</p><small>Maquette d’après la photographie de juillet 2024 · IGN</small></div>
               </div>
               <div class="relief-actions" hidden>
                 <button type="button" id="relief-compare" aria-pressed="false">Comparer avec 2024</button>
+                <button type="button" id="relief-shore" aria-pressed="false">Voir le port en relief</button>
                 <button type="button" id="relief-orbit" aria-pressed="false">Explorer en 3D</button>
               </div>
             </figcaption>
           </figure>
           <p class="relief-feedback" id="relief-status" role="status"></p>
           <p class="relief-help" id="relief-help" hidden>Faites glisser la maquette pour la tourner. Au clavier, utilisez les flèches pour tourner, + et − pour zoomer, et la touche Début pour retrouver la vue de départ.</p>
-          <p class="relief-help">Toutes les époques reposent sur le relief actuel. Les hauteurs sont doublées pour mieux voir la pente.</p>
+          <p class="relief-help">La colline garde son relief actuel. Ses hauteurs sont doublées pour mieux voir la pente. Pour les trois vues aériennes du port, la rive suit la photographie de l’époque.</p>
           <details class="relief-method" id="relief-prints"><summary>Voir les autres époques en images</summary>
             <ul>
               <li><a href="assets/relief/golfe-1951.webp">1951–52 · Une anse encore ouverte</a></li>
               <li><a href="assets/relief/golfe-1975.webp">1975 · À l’abri des digues</a></li>
               <li><a href="assets/relief/golfe-2024.webp">2024 · Le port gagne sur l’anse</a></li>
+              <li>Le port en relief · <a href="assets/relief/port-1951.webp">1951–52</a> · <a href="assets/relief/port-1975.webp">1975</a> · <a href="assets/relief/port-2024.webp">2024</a></li>
               <li><a href="assets/relief/golfe-bati.webp">Maquette actuelle · De la vieille ville aux quais</a></li>
             </ul>
           </details>
           <details class="relief-method"><summary>Cartes, dates et méthode</summary>
-            <p>Pour retrouver le rivage de chaque époque, suivez ses contours sur la carte ou sur la photographie. Le terrain qui les porte garde la forme qu’il a aujourd’hui, jusque sous les remblais du port.</p>
+            <p>De la Marine au quai de commerce, nous avons suivi le bord de l’eau, les quais et les principaux pontons sur les photographies de 1951–52, 1975 et 2024. La hauteur des ouvrages est indicative. Au-delà du port, le terrain garde sa forme actuelle. C’est aussi sur le relief actuel que repose le plan Terrier. <a href="sources/rivages.blend" download>Télécharger les trois rivages pour Blender (1&nbsp;Mo)</a>.</p>
             <p>Le plan Terrier peut présenter un décalage de 50 à 100 mètres selon les endroits. Quatorze de ses signes rouges ont été mis en relief. Leur épaisseur sert à les rendre visibles&nbsp;: le cartographe n’a pas mesuré la hauteur des maisons. <a href="https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes">Le plan Terrier</a> · <a href="https://draaf.corse.agriculture.gouv.fr/le-plan-terrier-geo-reference-disponible-a648.html">La précision du plan</a>.</p>
             <p>Les vues de 1951–52 et de 1975 proviennent des <a href="https://www.data.gouv.fr/datasets/bd-ortho-r-historique">photographies aériennes historiques de l’IGN</a>. La maquette actuelle montre 2&nbsp;770 bâtiments à toits plats, d’après les contours et les hauteurs relevés par l’IGN. Nous avons laissé de côté ceux dont la hauteur manque, ceux qui entourent une cour et ceux que coupe le bord de la carte. <a href="https://www.data.gouv.fr/datasets/referentiel-a-grande-echelle-rge">Données de l’IGN</a>.</p>
           </details>
@@ -332,7 +352,6 @@
         </figcaption>
       </figure>
           <div class="prose" data-stagger>
-            <p class="reveal">Au pied de la vieille ville, les marais salants couvrent une dizaine d’hectares. Entre 1795 et 1815, ils ont donné quelque mille tonnes de sel par an&nbsp;: mille tonnes de lumière arrachée à la mer, année après année.</p>
             <p class="reveal">Aujourd’hui, les salines sont à l’abandon. Mais l’eau y demeure, et elle a gardé son plus beau talent&nbsp;: depuis les marais du Stabiacciu, elle tend à la vieille ville son propre visage. C’est l’une des vues les plus célèbres de Portivechju — celle, peut-être, que l’on emporte en partant, et qui fait revenir.</p>
             <p class="reveal emphasis">Le sel conserve. C’est son plus vieil office&nbsp;: empêcher que les choses se perdent. Peut-être est-ce pour cela que cette ville garde si bien ce qu’on lui confie.</p>
           </div>
@@ -1042,6 +1061,7 @@
 
           <section aria-labelledby="t-relief-sources">
             <h3 id="t-relief-sources">Le paysage en relief</h3>
+            <p>Petrucy et Charrier, <i>Plan de la baye de Porto-Vecchio</i>, levé en l’an XI (1802–03). BnF, département des Cartes et plans, GE SH 19 PF 79 DIV 14 P 12/1 D. <a href="https://catalogue.bnf.fr/ark:/12148/cb45412814f">Notice de la BnF</a> · <a href="https://commons.wikimedia.org/?curid=120850042">Reproduction de la feuille</a>.</p>
             <p><a href="https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes">Plan Terrier de Corse</a>, Archives de la Collectivité de Corse. Relief, photographies aériennes et bâtiments&nbsp;: © IGN, RGE ALTI, BD ORTHO Historique, BD ORTHO 2024 et BD TOPO (consultée le 20 novembre 2026). Adaptation et rendus dans Blender. <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/">Licence Ouverte 2.0</a>.</p>
             <p><a href="https://pop.culture.gouv.fr/notice/merimee/PA2A000043">L’enceinte de la citadelle</a> · <a href="https://www.storiapatriagenova.eu/Docs/Biblioteca_Digitale/SB/396b22c37e8bbc6c44c30828fc127900/26f49cbd3530561b466aa07123226447.pdf">Correspondance génoise de 1540</a> · <a href="https://pop.culture.gouv.fr/notice/merimee/IA2A001310">Les ateliers Saint-Joseph</a>.</p>
           </section>
