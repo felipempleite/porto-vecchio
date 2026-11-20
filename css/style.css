@@ -2031,3 +2031,26 @@ html.js-fallback .timeline::after {
 @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
 .hero__credit-anim { display: none; }
 .hero.has-video .hero__credit-anim { display: inline; }
+
+/* Interlude « Les mûriers » (chapitre V) */
+.interlude {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+.interlude .ornament {
+  display: block;
+  margin: 0 auto 1.1rem;
+}
+.ornament--branch {
+  stroke: var(--ochre-deep);
+}
+.interlude__title {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant-caps: all-small-caps;
+  color: var(--ochre-deep);
+  text-align: center;
+  margin-bottom: 1.2rem;
+}

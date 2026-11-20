@@ -27,6 +27,8 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 10. [ ] Push / deploy — waiting for Felipe's go.
 
 ## Status
+11. [x] Round 4 — « Les mûriers » interlude at the end of ch. V Le liège (Genoese planting order 1548…1646, Porto-Vecchio royal mulberry nursery 1773-1789, 19th c. silk, modest scale). Facts in CONTENT.md. **Not covered by the narration audio** (lettre.webm/mp3 unchanged). [ ] Push after Felipe's OK.
+
 Published 2026-11-19 on GitHub Pages. Round 2 (narration, OSM map, 'La maison') live 2026-11-20. Kling hero loop live 2026-11-20 (073d22d).
 
 ## Next step
