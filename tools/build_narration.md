@@ -10,3 +10,13 @@
 - Encodes: `assets/audio/lettre.webm` (Opus 32 kb/s mono, ~3.1 MB) and `assets/audio/lettre.mp3` (MP3 40 kb/s mono 22 kHz, ~3.7 MB, Safari fallback).
 - QA: `tools/narration_check.py` (faster-whisper small) compares each chapter's transcript to the script; no dropped passages.
 - No ambient bed: the ElevenLabs sound-effects budget was not worth it under the 10 % credit cap, and a voice alone keeps the files small.
+
+## Round 8 — the film (« Regarder le film »)
+
+The reading above is the round 2 one and is no longer linked. The film has its own, shorter text and its own build.
+
+- Text: `narration/film.json`, one entry per step of the page, in the order of `src/scenes.js`. Each line is one caption and one audio clip. `say` is what the voice reads when it differs from what is shown; `ear` respells names for it; `quiet` lines are spoken but not captioned; `cue` and `pin` start something on the maquette when the line begins; `travel`, `lead`, `land` and `tail` time the camera around the lines.
+- Build: `PIPER="<python> -m piper" PIPER_VOICE=<path>/fr_FR-siwis-medium.onnx node tools/build_film.mjs`, then `npm run build`. It speaks each line (cached in `.cache-film/`), lays the clips on the timeline, and writes `assets/audio/film.mp3` (mono, 24 kHz, 48 kb/s, loudnorm −17 LUFS) and `src/film.js` (the times the page follows). Piper: `pip install piper-tts`; the voice files are at `rhasspy/piper-voices` on Hugging Face (`fr/fr_FR/siwis/medium`).
+- Voice: Piper `fr_FR-siwis-medium`, `pace` 1.2 (about 165 words a minute). Licence: SIWIS database, CC BY 4.0, credited on the page. `"engine": "say"` uses a macOS voice for a quick trial; Apple's licence limits system voices to personal use, so never commit a film.mp3 made with it.
+- A person's voice: record one file per line of `film.json`, make `speak()` return each file and its length, run the build. Nothing else changes: the timeline is recomputed from the lengths.
+- Check: transcribe `film.mp3` and read it against the script. Done with Qwen3-ASR on the current file: every sentence comes back. What it mishears: Gênes (three times: « Genève », « Gen »), Vintimille (« vingt mille »), Huningue (« une hague »), Levie (« Livy »), and « Le nom dit l’âge du lieu » comes back garbled. Whether that is the voice or the transcriber, only an ear can say, and nobody has listened to it yet.

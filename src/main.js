@@ -1,10 +1,13 @@
 /* Portivechju — Lettre à ceux qui reviennent.
    The page is ordinary HTML. This script reads the scroll position, turns it into a place
    in the score (scenes.js) and hands the result to the maquette (stage.js). Without WebGL,
-   or when the reader asks for less motion, the same score is played with still images. */
+   or when the reader asks for less motion, the same score is played with still images.
+   The film (cinema.js) plays the same score on a clock: it moves the page itself, so the
+   reader who scrolls finds the letter where the film left it. */
 import {Color} from 'three';
 import {toLat, toLon, toX, toZ} from './geo.js';
-import {LABELS, LOOKS, SCENES} from './scenes.js';
+import {createCinema} from './cinema.js';
+import {LABELS, LOOKS, PINS, SCENES} from './scenes.js';
 
 const root = document.documentElement;
 root.classList.replace('no-js', 'ready');
@@ -78,7 +81,7 @@ const keys = steps.map(step => {
   if (!scene) throw new Error('Scène inconnue : ' + step.dataset.scene);
   /* a scene may frame itself differently on an upright screen (tall) */
   const wide = camera(scene.cam), upright = scene.tall ? camera({...scene.cam, ...scene.tall}) : wide;
-  const key = {scene, step, side: step.dataset.side || 'left', cam: wide, wide, upright, look: LOOKS[scene.look], labels: new Set(scene.labels || [])};
+  const key = {scene, step, side: step.dataset.side || 'left', cam: wide, wide, upright, look: LOOKS[scene.look], labels: new Set(scene.labels || []), pins: new Set(scene.pins || [])};
   for (const name in DIALS) key[name] = scene[name] ?? DIALS[name];
   return key;
 });
@@ -93,11 +96,15 @@ function strip(cam) {
   const middle = clamp(cam.focus, share / 2, 1 - share / 2);
   return {slide: share < 1 ? (middle - share / 2) / (1 - share) : .5, shift: (.5 - middle) / share};
 }
+/* The subject makes room for the text: beside the card when reading, above the caption during the film. */
+let filmy = 0;
 function shift(key) {
   if (key.cam.frame) return [strip(key.cam).shift, 0];
   if (!key.cam.free) return [0, 0];
-  if (stacked()) return [0, key.side === 'centre' ? .1 : -.17];
-  return [key.side === 'centre' ? 0 : key.side === 'right' ? -.17 : .17, 0];
+  const centred = key.side === 'centre';
+  const read = stacked() ? [0, centred ? .1 : -.17] : [centred ? 0 : key.side === 'right' ? -.17 : .17, 0];
+  const watch = [0, centred ? read[1] : stacked() ? -.1 : -.06];
+  return [lerp(read[0], watch[0], filmy), lerp(read[1], watch[1], filmy)];
 }
 /* A camera that stands in for a photograph sees what the photograph shows, however the window crops it. */
 function field(cam) {
@@ -149,6 +156,37 @@ for (const [id, label] of Object.entries(LABELS)) {
   labels.set(id, {...label, element, ground: 0, half: 0});
 }
 
+/* Pictures and figures pinned to the maquette: a portrait, a photograph of the place, a few numbers. */
+const pins = new Map();
+for (const [id, pin] of Object.entries(PINS)) {
+  const element = document.createElement('figure');
+  element.className = 'pin pin--' + (pin.figures ? 'figures' : pin.portrait ? 'portrait' : 'image');
+  let image = null;
+  if (pin.image) {
+    image = new Image();
+    image.alt = '';
+    image.decoding = 'async';
+    image.style.aspectRatio = pin.ratio;
+    element.append(image);
+  }
+  if (pin.figures) {
+    const list = document.createElement('dl');
+    for (const [term, value] of pin.figures) {
+      const pair = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+      dt.textContent = term; dd.textContent = value;
+      pair.append(dt, dd); list.append(pair);
+    }
+    element.append(list);
+  }
+  const caption = document.createElement('figcaption');
+  caption.textContent = pin.text;
+  if (pin.note) { const note = document.createElement('small'); note.textContent = pin.note; caption.append(note); }
+  element.append(caption);
+  element.style.opacity = 0;
+  labelsHost.append(element);
+  pins.set(id, {...pin, element, image, ground: 0, half: 0, tall: 0, owner: keys.findIndex(key => key.pins.has(id))});
+}
+
 /* ---------- scroll ---------- */
 
 let centres = [];
@@ -160,6 +198,7 @@ function measure() {
     return box.top + scrollY + anchor;
   });
   for (const label of labels.values()) label.half = label.element.offsetWidth / 2;
+  for (const pin of pins.values()) { pin.half = pin.element.offsetWidth / 2; pin.tall = pin.element.offsetHeight; }
   const end = document.getElementById('credits');
   endTop = end ? end.getBoundingClientRect().top + scrollY : Infinity;
 }
@@ -170,6 +209,64 @@ function wanted() {
     if (y < centres[i + 1]) return i + ease(clamp(((y - centres[i]) / (centres[i + 1] - centres[i]) - .22) / .56));
   }
   return centres.length - 1;
+}
+/* The other way round, for the film: where the page must be for a place in the score. */
+function pageFor(at) {
+  const i = Math.min(centres.length - 1, Math.floor(at)), g = at - i;
+  if (i >= centres.length - 1 || g <= 0) return centres[i] - innerHeight * .5;
+  const exact = .22 + .56 * (.5 - Math.sin(Math.asin(1 - 2 * g) / 3));
+  const share = lerp(g, exact, clamp(Math.min(g, 1 - g) / .08));
+  return centres[i] + (centres[i + 1] - centres[i]) * share - innerHeight * .5;
+}
+
+/* ---------- the film ---------- */
+
+const headings = steps.map(step => {
+  const title = step.querySelector('h2'), kicker = step.querySelector('.kicker');
+  if (!title) return null;
+  const parts = kicker ? [...kicker.childNodes].map(node => node.textContent.trim()).filter(Boolean) : [];
+  return {title: title.textContent, kicker: parts.length > 1 ? parts[0] + ' · ' + parts.slice(1).join(' ') : parts.join('')};
+});
+let synced = 0, resync = true;
+const cinema = createCinema({
+  root, scenes: keys.map(key => key.scene), headings,
+  /* picked up somewhere else than where the page is: a cut, not a journey */
+  onStart(place) {
+    root.style.scrollBehavior = 'auto';
+    resync = true;
+    if (shown < 0 || Math.abs(place - shown) > .04) {
+      shown = -1;
+      canvas.parentElement.classList.remove('is-cut');
+      void canvas.offsetWidth;
+      canvas.parentElement.classList.add('is-cut');
+    }
+  },
+  onStop() {}
+});
+const sailor = keys.findIndex(key => key.scene.sail), station = keys.findIndex(key => key.scene.id === 'train');
+if (cinema) {
+  const minutes = Math.round(cinema.length / 60);
+  for (const slot of document.querySelectorAll('[data-film-length]')) slot.textContent = minutes + ' min';
+  document.addEventListener('click', event => {
+    const control = event.target.closest('[data-film]');
+    if (!control) return;
+    const what = control.dataset.film;
+    if (what === 'start') cinema.resume(0);
+    else if (what === 'open' || what === 'toggle') cinema.toggle(wanted());
+    else if (what === 'sound') cinema.mute();
+    else if (what === 'close') cinema.close();
+  });
+  /* whatever the reader does to move the page takes it back from the film */
+  const take = () => { if (cinema.playing) cinema.pause(); };
+  addEventListener('wheel', take, {passive: true});
+  addEventListener('touchmove', event => { if (!event.target.closest?.('.film__bar')) take(); }, {passive: true});
+  addEventListener('keydown', event => {
+    if (event.target.closest?.('button, a, summary, input')) return;
+    if (event.key === ' ' && root.dataset.film && root.dataset.film !== 'off') { event.preventDefault(); cinema.toggle(wanted()); }
+    else if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(event.key)) take();
+  });
+} else {
+  for (const control of document.querySelectorAll('[data-film], .start')) control.hidden = true;
 }
 
 /* ---------- drawing ---------- */
@@ -183,12 +280,23 @@ function draw(now) {
   requestAnimationFrame(draw);
   const seconds = now / 1000, dt = Math.min(.1, seconds - last || .016);
   last = seconds;
-  const goal = wanted();
+  /* the film says where the page is; a page that has moved without it means the reader has taken over */
+  let place = cinema ? cinema.frame(seconds) : null;
+  if (place != null && !resync && Math.abs(scrollY - synced) > 6) { cinema.pause(); place = null; }
+  const goal = place ?? wanted();
   const before = shown;
   if (shown < 0 || reduced || mode !== '3d' || query.has('net')) shown = goal;
-  else shown += (goal - shown) * (1 - Math.exp(-dt * 5.5));
+  else shown += (goal - shown) * (1 - Math.exp(-dt * (place != null ? 9 : 5.5)));
   if (Math.abs(goal - shown) < 4e-4) shown = goal;
-  const moving = Math.abs(shown - before) > 1e-5;
+  const moving = Math.abs(shown - before) > 1e-5 || place != null;
+  if (place != null) {
+    const y = Math.max(0, Math.round(pageFor(shown)));
+    if (Math.abs(y - scrollY) >= 1) scrollTo({top: y, behavior: 'instant'});
+    synced = scrollY;
+    resync = false;
+  }
+  filmy += ((place != null ? 1 : 0) - filmy) * (1 - Math.exp(-dt * 3));
+  if (Math.abs(filmy - Math.round(filmy)) < .002) filmy = Math.round(filmy);
 
   const {t, raw, a, b, hold, arrive} = compose(shown);
   if (peek) {
@@ -223,8 +331,32 @@ function draw(now) {
   if (!moving && covered >= .999 && !peek) return;
   if (!moving && !peek && (idle ^= 1)) return;
 
+  state.sailing = cinema && sailor >= 0 ? cinema.since(sailor, 'sail') : null;
+  state.running = cinema && station >= 0 ? cinema.since(station, 'train') : null;
   stage.apply(state, seconds);
   stage.render();
+
+  let placed = null;
+  for (const [id, pin] of pins) {
+    const shows = cinema && cinema.playing ? cinema.pinned(pin.owner, id) : pin.film ? 0 : 1;
+    const weight = ((a.pins.has(id) ? 1 - t : 0) + (b.pins.has(id) ? t : 0)) * (1 - covered) * shows;
+    if (pin.image && !pin.image.src && Math.abs(shown - pin.owner) < 2) pin.image.src = pin.src;
+    if (weight < .02) { if (pin.element.style.opacity !== '0') pin.element.style.opacity = 0; continue; }
+    const spot = stage.project(pin.at[0], pin.at[1], pin.ground, pin.lift);
+    const rem = stacked() ? 11 : 16;
+    let x = Math.min(innerWidth - pin.half - 10, Math.max(pin.half + 10, spot.x + (pin.nudge?.[0] || 0) * rem));
+    /* two portraits pushed against the same edge stand side by side, in their order */
+    if (placed && Math.abs(x - placed.x) < pin.half + placed.half + 8) {
+      const gap = pin.half + placed.half + 8;
+      if (placed.x > innerWidth / 2) { x = placed.x; placed.element.style.transform = `translate(${(x - gap).toFixed(1)}px, ${placed.y.toFixed(1)}px)`; }
+      else x = placed.x + gap;
+    }
+    /* never under the header, the card that rises on a phone, or the line being spoken */
+    const y = clamp(spot.y + (pin.nudge?.[1] || 0) * rem, pin.tall + 64, innerHeight * lerp(stacked() ? .5 : .9, stacked() ? .6 : .64, filmy));
+    pin.element.style.opacity = spot.visible ? ease(clamp(weight * 1.6 - .6)).toFixed(3) : 0;
+    pin.element.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+    placed = {x, y, half: pin.half, element: pin.element};
+  }
 
   for (const [id, label] of labels) {
     const weight = ((a.labels.has(id) ? 1 - t : 0) + (b.labels.has(id) ? t : 0)) * (1 - covered);
@@ -249,6 +381,7 @@ function fit(force) {
 }
 
 function arrange() {
+  resync = true;
   for (const key of keys) key.cam = stacked() ? key.upright : key.wide;
   for (const key of keys) if (key.cam.frame && key.scene.plate) plate(key.scene.plate).style.objectPosition = (strip(key.cam).slide * 100).toFixed(1) + '% 50%';
   measure();
@@ -288,6 +421,7 @@ async function begin() {
     ratio = Math.min(devicePixelRatio || 1, weak ? 1.5 : 2);
     for (const key of keys) for (const cam of [key.wide, key.upright]) cam.y = cam.lift + stage.heightAt(...cam.ground) * key.stretch;
     for (const label of labels.values()) label.ground = stage.heightAt(label.at[0], label.at[1]);
+    for (const pin of pins.values()) pin.ground = stage.heightAt(pin.at[0], pin.at[1]);
     fit(true);
     stage.apply((compose(Math.max(0, shown)), state), 0);
     stage.render();
@@ -321,5 +455,10 @@ window.__lettre = {
     }
     labelsHost.style.display = document.querySelector('.veil').style.display = view ? 'none' : '';
   },
-  get state() { return {mode, shown, ratio, scene: keys[Math.round(Math.max(0, shown))].scene.id}; }
+  /* A moment of the film, held still: __lettre.film(161) */
+  film(seconds) { this.peek(null); cinema.preview(seconds); resync = true; shown = -1; },
+  get stage() { return stage; },
+  /* The film from a given second, playing: __lettre.play(240) */
+  play(seconds) { this.peek(null); cinema.playFrom(seconds); },
+  get state() { return {mode, shown, ratio, scene: keys[Math.round(Math.max(0, shown))].scene.id, film: root.dataset.film, time: cinema ? +cinema.time.toFixed(2) : null, sound: cinema ? cinema.sounding : null}; }
 };

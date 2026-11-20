@@ -59,3 +59,8 @@ La page n’affiche plus que six photographies : les salines (Annacquaghjolu), l
 
 ## Round 7 — tracés
 Les bastions, les pans de mur conservés, l’emprise de l’église et le tracé de l’ancienne voie ferrée viennent d’OpenStreetMap (© les contributeurs d’OpenStreetMap, ODbL), relevés par `tools/build_traces.mjs` dans `src/traces.js`. Aucune photographie n’a été ajoutée.
+
+## Round 8 — le film
+- Voix : synthèse vocale [Piper](https://github.com/OHF-Voice/piper1-gpl), voix `fr_FR-siwis-medium`, entraînée sur la [SIWIS French Speech Synthesis Database](https://datashare.ed.ac.uk/handle/10283/2353) (Université d'Édimbourg et Idiap ; J. Yamagishi, P.-E. Honnet, P. Garner, A. Lazaridis), CC BY 4.0. Créditée sur la page, dans « Fabrique ». Aucune voix système d'Apple dans le fichier publié.
+- Images épinglées sur la maquette, déjà créditées plus haut et sur la page : portraits de Jacques Pierre et de Jean-Charles Abbatucci (domaine public), bastion de France (Air fans, CC0), détail du plan de l'an XI (BnF).
+- `assets/audio/lettre.*` (voix ElevenLabs « Atma », round 2) reste dans le dépôt et n'est plus appelé.

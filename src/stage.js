@@ -19,6 +19,8 @@ const fract = v => v - Math.floor(v);
 const paint = hex => new THREE.Color(hex).convertLinearToSRGB();
 /* The aerial photographs are dark; lift them so they sit with the plaster. */
 const LIFT = [1, 1, 1.55, 1.5, 1.6];
+/* What each period's print looks like from far away: land, sea. The plaster around the tile leans towards it. */
+const TONES = [null, null, [[.4, .395, .38], [.3, .3, .295]], [[.37, .365, .35], [.27, .27, .265]], [[.3, .3, .235], [.03, .042, .075]]];
 
 /* ---------- shaders grafted onto the standard material ---------- */
 
@@ -46,9 +48,22 @@ float levelLines(float h) {
   if (h < .0012) return 0.;
   return max(max(levelLine(h, .004, .5) * .42, levelLine(h, .02, .55) * .55), max(levelLine(h, .1, .9), levelLine(h, .5, 1.2)));
 }
+/* Around the tile, the plaster takes the tone of the photograph printed on it, and loses it with distance:
+   the print has no edge to stop at. */
+uniform vec3 uToneLand, uToneSea;
+uniform float uToned;
+uniform vec4 uBox;
+vec3 toned(vec3 colour, vec2 p, float land) {
+  if (uToned < .003) return colour;
+  float away = length(max(max(uBox.xy - p, p - uBox.zw), 0.));
+  float near = 1. - smoothstep(0., mix(26., 7., land), away);
+  near *= near;
+  vec3 tone = mix(uToneSea, uToneLand * (.35 + .9 * dot(colour, vec3(.3, .6, .1))), land);
+  return mix(colour, tone, uToned * near * mix(1., .85, land));
+}
 /* The surface of the maquette: tint by height, a little unevenness, level lines. */
 vec3 plaster(vec3 at, float land) {
-  vec3 colour = mix(${glslColour(SEA)}, plasterTint(at.y), land);
+  vec3 colour = toned(mix(${glslColour(SEA)}, plasterTint(at.y), land), at.xz, land);
   float mottle = .45 * grainNoise(at.xz * 6.) + .25 * grainNoise(at.xz * 19. + 3.) + .18 * grainNoise(at.xz * 53. + 8.) + .12 * grainNoise(at.xz * 210. + 2.);
   return colour * mix(1., .92 + .14 * mottle, land) * (1. - .3 * levelLines(at.y) * land);
 }
@@ -58,7 +73,6 @@ const eraHead = contourGlsl + /* glsl */`
 uniform sampler2D uMapA, uMapB;
 uniform float uUseA, uUseB, uMix, uSide, uPrint, uPatina, uLiftA, uLiftB;
 uniform vec2 uHeart;
-uniform vec4 uBox;
 uniform vec3 uInk;
 varying vec2 vEraUv;
 varying vec3 vEraPos;
@@ -85,7 +99,7 @@ if (uSide < -.5 && eraHere > .5) discard;
 if (uSide > .5 && eraHere < .5) discard;
 if (uPrint > .5) {
   float eraKeep = eraMargin(eraGrainHere);
-  vec3 eraBare = uPatina > 1.5 ? ${glslColour(SEA)} : uPatina > .5 ? plaster(vEraPos, 1. - (1. - smoothstep(.12, .2, distance(diffuseColor.rgb, vec3(.313, .401, .344)))) * (1. - smoothstep(.001, .003, vEraPos.y))) : diffuseColor.rgb;
+  vec3 eraBare = uPatina > 1.5 ? toned(${glslColour(SEA)}, vEraPos.xz, 0.) : uPatina > .5 ? plaster(vEraPos, 1. - (1. - smoothstep(.12, .2, distance(diffuseColor.rgb, vec3(.313, .401, .344)))) * (1. - smoothstep(.001, .003, vEraPos.y))) : diffuseColor.rgb;
   vec3 eraA = mix(eraBare, min(texture2D(uMapA, vEraUv).rgb * uLiftA, 1.), uUseA * eraKeep);
   vec3 eraB = mix(eraBare, min(texture2D(uMapB, vEraUv).rgb * uLiftB, 1.), uUseB * eraKeep);
   diffuseColor.rgb = mix(eraA, eraB, eraHere);
@@ -128,14 +142,42 @@ varying float vAbove;
 float paneHash(vec2 p) { return fract(sin(dot(p, vec2(41.3, 289.1))) * 23758.5453); }
 `;
 const windowBody = /* glsl */`
-if (uNight > .003) {
+{
   float along = abs(vFacing.x) > abs(vFacing.y) ? vBuilt.z : vBuilt.x;
   vec2 pane = vec2(along / .0042, vAbove / .0052);
   vec2 cell = floor(pane), inside = fract(pane);
   float chance = paneHash(cell + floor(vBuilt.xz * 40.));
-  float lit = step(.78, chance) * (.45 + .55 * fract(chance * 37.));
-  lit *= smoothstep(.2, .3, inside.x) * smoothstep(.8, .7, inside.x) * smoothstep(.28, .38, inside.y) * smoothstep(.86, .76, inside.y);
-  totalEmissiveRadiance += vec3(1., .62, .27) * lit * uNight * 2.6;
+  /* from the air a window is a light or nothing; from the street it has a frame, shutters, a wall of stone around it */
+  float close = clamp(1. - max(fwidth(pane.x), fwidth(pane.y)) * 9., 0., 1.) * step(.001, abs(vFacing.x) + abs(vFacing.y));
+  float narrow = close * .07;
+  float opening = smoothstep(.2 + narrow, .3 + narrow, inside.x) * smoothstep(.8 - narrow, .7 - narrow, inside.x) * smoothstep(.28, .38, inside.y) * smoothstep(.86, .76, inside.y);
+  vec2 course = vec2(along / .0009, vAbove / .00064);
+  vec2 joint = fwidth(course) * 1.5;
+  course.x += floor(course.y) * .47;
+  if (close > .01) {
+    vec2 stone = fract(course);
+    float seen = clamp(1. - max(joint.x, joint.y) * 2.5, 0., 1.) * close;
+    float mortar = max(1. - smoothstep(0., joint.x + .04, min(stone.x, 1. - stone.x)), 1. - smoothstep(0., joint.y + .07, min(stone.y, 1. - stone.y)));
+    diffuseColor.rgb *= mix(1., .84 + .26 * paneHash(floor(course)), seen * .8) * (1. - .22 * mortar * seen);
+    float has = step(.2, chance);
+    float surround = smoothstep(.13 + narrow, .2 + narrow, inside.x) * smoothstep(.87 - narrow, .8 - narrow, inside.x) * smoothstep(.22, .28, inside.y) * smoothstep(.93, .87, inside.y);
+    diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * 1.12 + .03, (surround - opening) * has * close * .8);
+    /* shutters: closed on some; behind the others, the dark of a room and the bars of a window */
+    float shut = step(chance, .5) * has;
+    vec3 paint = mix(vec3(.2, .27, .22), mix(vec3(.3, .2, .14), vec3(.22, .27, .33), step(.5, fract(chance * 91.))), step(.45, fract(chance * 17.)));
+    float slats = .78 + .22 * step(.5, fract(inside.y * 26.));
+    float leaf = 1. - smoothstep(.0, .02, abs(inside.x - .5));
+    vec3 behind = mix(vec3(.05, .055, .06), paint * slats * (1. - .5 * leaf), shut);
+    float bars = max(1. - smoothstep(.0, .012, abs(inside.x - .5)), 1. - smoothstep(.0, .012, abs(inside.y - .62)));
+    behind = mix(behind, vec3(.5, .48, .44), bars * (1. - shut) * .55);
+    diffuseColor.rgb = mix(diffuseColor.rgb, behind, opening * has * close);
+  }
+  if (uNight > .003) {
+    float lit = step(.78, chance) * (.45 + .55 * fract(chance * 37.));
+    float glass = 1. - close * .8 * max(1. - smoothstep(.0, .014, abs(inside.x - .5)), 1. - smoothstep(.0, .014, abs(inside.y - .62)));
+    glass *= mix(1., .55 + .45 * smoothstep(.3, .8, inside.y), close);
+    totalEmissiveRadiance += vec3(1., .62, .27) * lit * opening * glass * uNight * mix(2.6, 1.7, close);
+  }
 }
 `;
 
@@ -200,6 +242,7 @@ void main() {
     return;
   }
   float d = length(p - .5) * 2.;
+  if (vKind > 1.5) { gl_FragColor = vec4(vColour, (1. - smoothstep(.15, 1., d)) * vAlpha); return; }
   float body = 1. - smoothstep(.5, .68, d), rim = 1. - smoothstep(.84, 1., d);
   gl_FragColor = vec4(mix(RIM, vColour, body), vAlpha * mix(rim * .8, 1., body));
 }
@@ -305,6 +348,20 @@ async function loadRegion(base) {
   const pixels = context.getImageData(0, 0, meta.width, meta.height).data;
   const metres = new Float32Array(meta.width * meta.height);
   for (let i = 0; i < metres.length; i++) metres[i] = (pixels[i * 4] * 256 + pixels[i * 4 + 1]) * meta.metresPerUnit;
+  /* The sea is what reaches the edge of the sheet at height zero. A pond or a marsh inland is ground:
+     left as sea, it would show as a hole in the plaster. */
+  const {width, height} = meta, open = new Uint8Array(metres.length), queue = [];
+  const reach = i => { if (!open[i] && metres[i] <= 0) { open[i] = 1; queue.push(i); } };
+  for (let x = 0; x < width; x++) { reach(x); reach((height - 1) * width + x); }
+  for (let y = 0; y < height; y++) { reach(y * width); reach(y * width + width - 1); }
+  while (queue.length) {
+    const i = queue.pop(), x = i % width;
+    if (x) reach(i - 1);
+    if (x < width - 1) reach(i + 1);
+    if (i >= width) reach(i - width);
+    if (i < metres.length - width) reach(i + width);
+  }
+  for (let i = 0; i < metres.length; i++) if (!open[i] && metres[i] <= 0) metres[i] = .4;
   return {...meta, metres};
 }
 
@@ -359,9 +416,10 @@ function buildRegion(region, step, hole, box, townHeight) {
       if (!under[i + 1]) { x = box.max.x; edge = true; }
       if (!under[i - cols]) { z = box.min.z; edge = true; }
       if (!under[i + cols]) { z = box.max.z; edge = true; }
-      const ground = townHeight(x, z);
+      /* where water leaves the tile over ground the country calls dry, the edge stays at the waterline: no pit */
+      const ground = townHeight(x, z), dry = position[i * 3 + 1] > 0;
       position[i * 3] = x;
-      position[i * 3 + 1] = ground < .0005 ? -.012 : ground - (edge ? .0012 : .008);
+      position[i * 3 + 1] = ground < .0005 ? (edge && dry ? -.0034 : -.012) : ground - (edge ? .0012 : .008);
       position[i * 3 + 2] = z;
     }
   }
@@ -724,7 +782,8 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   const era = {
     uMapA: {value: blank}, uMapB: {value: blank}, uUseA: {value: 0}, uUseB: {value: 0}, uMix: {value: 0},
     uHeart: {value: heart}, uInk: {value: new THREE.Color('#5d3a25')}, uLiftA: {value: 1}, uLiftB: {value: 1}, uBox: {value: new THREE.Vector4()},
-    uStretch: {value: 1}
+    uStretch: {value: 1},
+    uToneLand: {value: new THREE.Color()}, uToneSea: {value: new THREE.Color()}, uToned: {value: 0}
   };
   const built = {uRise: {value: 0}, uCore: {value: 0}, uHeart: {value: heart}, uNight: {value: 0}};
   const rampart = {uWalls: {value: 0}};
@@ -750,12 +809,26 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   }
   function graftLevels(material) {
     material.onBeforeCompile = shader => {
+      Object.assign(shader.uniforms, {uToneLand: era.uToneLand, uToneSea: era.uToneSea, uToned: era.uToned, uBox: era.uBox});
       shader.vertexShader = shader.vertexShader
         .replace('#include <common>', '#include <common>\nvarying vec3 vHigh;')
         .replace('#include <begin_vertex>', '#include <begin_vertex>\nvHigh = transformed;');
       shader.fragmentShader = shader.fragmentShader
         .replace('#include <common>', '#include <common>\nvarying vec3 vHigh;\n' + contourGlsl)
         .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb = plaster(vHigh, smoothstep(-.0045, .0004, vHigh.y));');
+    };
+    return material;
+  }
+  /* the open sea around the tile */
+  function graftSea(material) {
+    material.onBeforeCompile = shader => {
+      Object.assign(shader.uniforms, {uToneLand: era.uToneLand, uToneSea: era.uToneSea, uToned: era.uToned, uBox: era.uBox});
+      shader.vertexShader = shader.vertexShader
+        .replace('#include <common>', '#include <common>\nvarying vec3 vHigh;')
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\nvHigh = (modelMatrix * vec4(transformed, 1.)).xyz;');
+      shader.fragmentShader = shader.fragmentShader
+        .replace('#include <common>', '#include <common>\nvarying vec3 vHigh;\n' + contourGlsl)
+        .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb = toned(diffuseColor.rgb, vHigh.xz, 0.);');
     };
     return material;
   }
@@ -814,13 +887,31 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   for (const shore of new Set(shores)) {
     const side = {value: 0};
     sides.set(shore, side);
+    /* The shore is a piece set into the relief. Its rim is pushed out by a hair, under the relief's own edge:
+       otherwise what lies below shows through the joint as a dark line. */
+    const rim = new THREE.Box3();
+    shore.traverse(mesh => { if (mesh.isMesh) { mesh.geometry.computeBoundingBox(); rim.union(mesh.geometry.boundingBox); } });
+    const hair = (rim.max.x - rim.min.x) * 4e-4;
     shore.traverse(mesh => {
       if (!mesh.isMesh) return;
-      const printed = PRINTED.has(mesh.material.name);
+      const at = mesh.geometry.attributes.position;
+      for (let i = 0; i < at.count; i++) {
+        const x = at.getX(i), z = at.getZ(i);
+        if (x - rim.min.x < hair * .2) at.setX(i, x - hair); else if (rim.max.x - x < hair * .2) at.setX(i, x + hair);
+        if (z - rim.min.z < hair * .2) at.setZ(i, z - hair); else if (rim.max.z - z < hair * .2) at.setZ(i, z + hair);
+      }
+      at.needsUpdate = true;
+    });
+    shore.traverse(mesh => {
+      if (!mesh.isMesh) return;
+      /* the shore lies just over the relief. The slice around it stays behind and takes the print as well:
+         where its top edge shows between the two, it is a hairline of the right colour */
+      const slice = /^Tranche/.test(mesh.material.name);
+      const printed = slice || PRINTED.has(mesh.material.name);
       mesh.material = graftEra(mesh.material.clone(), side, printed);
       mesh.material.polygonOffset = true;
-      mesh.material.polygonOffsetFactor = -1;
-      mesh.material.polygonOffsetUnits = -2;
+      mesh.material.polygonOffsetFactor = slice ? 1 : -1;
+      mesh.material.polygonOffsetUnits = slice ? 2 : -2;
       mesh.receiveShadow = true;
     });
   }
@@ -894,7 +985,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   const outline = new THREE.Shape([[-220, -220], [220, -220], [220, 220], [-220, 220]].map(([x, y]) => new THREE.Vector2(x, y)));
   const inner = [[box.min.x + .03, -box.max.z + .03], [box.min.x + .03, -box.min.z - .03], [box.max.x - .03, -box.min.z - .03], [box.max.x - .03, -box.max.z + .03]];
   outline.holes.push(new THREE.Path(inner.map(([x, y]) => new THREE.Vector2(x, y))));
-  const water = new THREE.Mesh(new THREE.ShapeGeometry(outline), new THREE.MeshStandardMaterial({color: SEA, roughness: .92, metalness: 0}));
+  const water = new THREE.Mesh(new THREE.ShapeGeometry(outline), graftSea(new THREE.MeshStandardMaterial({color: SEA, roughness: .92, metalness: 0})));
   water.rotation.x = -Math.PI / 2;
   water.position.y = -.004;
   world.add(water);
@@ -1009,7 +1100,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   const bead = (group, track, phase, size, colour, extra = {}) => beads.push({group, track, phase, size, colour: paint(colour), lag: 0, fade: 1, kind: 0, ...extra});
   Object.values(PATHS).forEach((line, p) => {
     const track = trackOf(line, .012);
-    for (let k = 0; k < 22; k++) bead('folk', track, fract((k + p * .37) / 22 + .012 * ((k * 7) % 5)), 7.5, '#b8442b');
+    for (let k = 0; k < 22; k++) bead('folk', track, fract((k + p * .37) / 22 + .012 * ((k * 7) % 5)), 9, '#b8442b');
   });
   const seaway = trackOf(SEAWAY, .004);
   bead('ship', seaway, 0, 30, '#fff8ea', {kind: 1});
@@ -1026,13 +1117,15 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     for (let k = 0; k < count; k++) bead('guests', track, fract((k + p * .29) / count + .004 * ((k * 5) % 7)), 8.5, '#b8442b');
   });
   const railway = trackOf(RAIL, .014);
-  for (let k = 0; k < 4; k++) bead('train', railway, 0, k ? 8.5 : 10.5, k ? '#4a372c' : '#8c2f1f', {lag: k * .0075});
+  for (let k = 0; k < 9; k++) bead('train', railway, 0, 8, '#f6f1e6', {kind: 2, puff: k / 9});
+  for (let k = 4; k >= 0; k--) bead('train', railway, 0, k ? 11 : 15, k ? '#4a372c' : '#8c2f1f', {lag: k * .0095});
   const beadSpots = new Float32Array(beads.length * 3), beadAlpha = new Float32Array(beads.length);
   const beadGeometry = new THREE.BufferGeometry();
   beadGeometry.setAttribute('position', new THREE.BufferAttribute(beadSpots, 3));
   beadGeometry.setAttribute('aAlpha', new THREE.BufferAttribute(beadAlpha, 1));
   beadGeometry.setAttribute('aColour', new THREE.Float32BufferAttribute(beads.flatMap(b => [b.colour.r, b.colour.g, b.colour.b]), 3));
-  beadGeometry.setAttribute('aSize', new THREE.Float32BufferAttribute(beads.map(b => b.size), 1));
+  const beadSize = new Float32Array(beads.map(b => b.size));
+  beadGeometry.setAttribute('aSize', new THREE.BufferAttribute(beadSize, 1));
   beadGeometry.setAttribute('aKind', new THREE.Float32BufferAttribute(beads.map(b => b.kind), 1));
   const dots = new THREE.Points(beadGeometry, new THREE.ShaderMaterial({
     vertexShader: beadVertex, fragmentShader: beadFragment, transparent: true, depthTest: false, depthWrite: false, uniforms: {uScale: {value: 1}}
@@ -1044,11 +1137,11 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   const ends = share => smooth(0, .05, share) * (1 - smooth(.95, 1, share));
 
   function travel(time) {
-    const {folk, tide, sail, guests, stretch} = state;
+    const {folk, tide, sail, guests, stretch, sailing, running} = state;
     const train = clamp(1 - Math.abs(state.rail - 1) * 2.5);
     let any = false;
     beads.forEach((one, i) => {
-      let share = 0, alpha = 0;
+      let share = 0, alpha = 0, lifted = 0;
       if (one.group === 'folk' && folk > .01) {
         /* either a steady descent, or the year: up for the summer, down again in the autumn */
         const down = 1 - fract(one.phase + time * .04);
@@ -1056,15 +1149,26 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
         share = down + (clamp(season * 1.6 - one.phase * .6) - down) * tide;
         alpha = folk * ends(share);
       } else if (one.group === 'ship' && sail > .01) {
-        share = fract(time * .03) ** 1.25 * 1.2 - one.lag;
+        /* the film tells the ship when to leave; otherwise it leaves again and again */
+        const way = sailing == null ? fract(time * .03) ** 1.25 * 1.2 : sailing < 0 ? .05 : .05 + clamp(sailing / 18) ** 1.3 * 1.1;
+        share = way - one.lag;
         alpha = sail * ends(share) * one.fade;
       } else if (one.group === 'guests' && guests > .01) {
         share = fract(one.phase + time * .034);
         alpha = guests * ends(share);
       } else if (one.group === 'train' && train > .01) {
-        /* only the last two thirds of the line are ever in the picture */
-        share = .34 + fract(time * .055) * .74 - one.lag;
+        /* only the last two thirds of the line are ever in the picture; in the film it comes in once, on its line */
+        const way = running == null ? fract(time * .055) * .74 : clamp((running - 2.2) / 7.5) ** .85 * .6;
+        share = .34 + way - one.lag;
         alpha = train * ends(share);
+        if (one.puff != null) {
+          /* steam stays where the engine left it, rises and thins */
+          const age = fract(one.puff + time * .55), moving = running == null || (running > 2.2 && running < 9.7);
+          share -= age * (running == null ? .022 : .04);
+          lifted = age * .09 + .012;
+          beadSize[i] = 9 + age * 22;
+          alpha *= (1 - age) * .85 * (moving ? 1 : 0);
+        }
       }
       beadAlpha[i] = alpha;
       if (alpha < .004) return;
@@ -1074,11 +1178,11 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
       while (lo < hi) { const mid = (lo + hi) >> 1; if (along[mid] < want) lo = mid + 1; else hi = mid; }
       const t = (want - along[lo - 1]) / (along[lo] - along[lo - 1] || 1), a = (lo - 1) * 3, b = lo * 3;
       beadSpots[i * 3] = at[a] + (at[b] - at[a]) * t;
-      beadSpots[i * 3 + 1] = (at[a + 1] + (at[b + 1] - at[a + 1]) * t) * stretch;
+      beadSpots[i * 3 + 1] = (at[a + 1] + (at[b + 1] - at[a + 1]) * t + lifted) * stretch;
       beadSpots[i * 3 + 2] = at[a + 2] + (at[b + 2] - at[a + 2]) * t;
     });
     dots.visible = any;
-    if (any) { beadGeometry.attributes.position.needsUpdate = true; beadGeometry.attributes.aAlpha.needsUpdate = true; }
+    if (any) { beadGeometry.attributes.position.needsUpdate = true; beadGeometry.attributes.aAlpha.needsUpdate = true; beadGeometry.attributes.aSize.needsUpdate = true; }
   }
 
   /* period maps arrive in the background */
@@ -1097,6 +1201,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   const state = {};
   const target = new THREE.Vector3(), offset = new THREE.Vector3(), sunDir = new THREE.Vector3(), probe = new THREE.Vector3();
   const centre = new THREE.Vector3((box.min.x + box.max.x) / 2, 0, (box.min.z + box.max.z) / 2);
+  const scratch = new THREE.Color();
   let width = 1, height = 1, shadowKey = '';
 
   function resize(w, h, ratio) {
@@ -1104,7 +1209,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     renderer.setPixelRatio(ratio);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    dots.material.uniforms.uScale.value = ratio * (w < 760 ? .85 : 1);
+    dots.material.uniforms.uScale.value = ratio * (w < 760 ? 1.1 : 1);
     dirty = true;
   }
 
@@ -1117,6 +1222,13 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     era.uMix.value = mix;
     era.uLiftA.value = LIFT[from];
     era.uLiftB.value = LIFT[from + 1];
+    const toneA = TONES[from], toneB = TONES[from + 1] || toneA;
+    era.uToned.value = (toneA ? 1 - mix : 0) + (toneB ? mix : 0);
+    if (toneA || toneB) {
+      const [landA, seaA] = toneA || toneB, [landB, seaB] = toneB || toneA;
+      era.uToneLand.value.setRGB(...landA).lerp(scratch.setRGB(...landB), mix);
+      era.uToneSea.value.setRGB(...seaA).lerp(scratch.setRGB(...seaB), mix);
+    }
     const leaving = shores[from], arriving = shores[from + 1];
     for (const [shore, side] of sides) {
       if (leaving === arriving) { shore.visible = shore === leaving; side.value = 0; continue; }
