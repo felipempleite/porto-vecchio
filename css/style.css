@@ -2044,13 +2044,12 @@ html.js-fallback .timeline::after {
   stroke: var(--ochre-deep);
 }
 .interlude__title {
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-variant-caps: all-small-caps;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.1;
   color: var(--ochre-deep);
   text-align: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2rem);
 }
