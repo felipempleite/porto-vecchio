@@ -22,3 +22,11 @@ const fromPlan = ([x, y]) => [
 ];
 export const STREET_HOME = [[368.6, 119.3], [352.7, 139.2], [331.2, 166.4], [313.7, 187.6], [272.3, 237.7], [274.1, 244.5]].map(fromPlan);
 export const STREET_ABBATUCCI = [[274.1, 244.5], [284.2, 261], [293.4, 278.4], [302.8, 296.3], [314.1, 316.9], [314.4, 328.4]].map(fromPlan);
+
+/* The salt pans as the 2024 aerial photograph shows them: the corners of the field, from the
+   north and clockwise. The basins inside are drawn as a plain grid, not surveyed one by one. */
+export const SALT_FIELD = [[9.28825, 41.58588], [9.29, 41.5854], [9.2896, 41.58329], [9.28652, 41.58406]];
+
+/* The bell tower of Saint-Jean-Baptiste stands against the apse. BD TOPO has no volume for it:
+   place and height (about 27 m) are read off the aerial photograph and the view from the salt pans. */
+export const BELL_TOWER = {at: [9.279316, 41.591027], bearing: 38.9, side: 4.6, shaft: 23, spire: 4.5};

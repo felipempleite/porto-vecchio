@@ -41,9 +41,20 @@ Published 2026-11-19 on GitHub Pages. Round 2 (narration, OSM map, 'La maison') 
 15. [x] Stage: regional relief from IGN elevation (tools/build_region.py), ink-bleed print of the four maps, buildings rising from the ground, day-to-night light, night windows, street ribbons, 31 July fire, projected labels.
 16. [x] Checked in headless Chrome with a real GPU at 1024×640 and 473×1024, and in stills mode. Not checked: Safari, a real phone, WebGL context loss.
 17. [x] Removed the old page code (js/main.js, relief.js, map.js, narration.js, hero-video.js, relief-viewer, four stylesheets).
-18. [ ] Family review of the text, then merge to main (this publishes).
+18. [x] Merged to main and published 2026-11-20 (#4). [ ] Family review of the text.
 19. [ ] Narration: the old recording no longer matches the text and is not linked. Re-record once the text is approved.
-20. [ ] Citadel walls: no wall geometry yet (OSM returned none); the 16th-century town is shown with today's volumes, and the text says so.
+20. [x] Citadel walls: done in round 7.
+
+## Round 7 — what the maquette can do (branch `journeys`)
+21. [x] Opening match cut: the camera stands where the salines photograph was taken, so the photograph dissolves onto the plaster town in place. Heights are true (not doubled) at the start and the end. The letter ends from the same spot, at night.
+22. [x] Citadel: standing walls and bastions from OpenStreetMap, the circuit between them restored in straight lines; they rise around the rock before the houses and stay when the town is razed. `tools/build_traces.mjs` writes `src/traces.js`.
+23. [x] Journeys: beads coming down from Quenza, Zonza, Levie and l'Ospédale, then going up and down with the seasons; one ship leaving in 1769; the summer crowd arriving after 1950.
+24. [x] New step « 1935 »: the east-coast railway draws itself, a train runs on it, and the line fades with the next step.
+25. [x] La maison: hipped tile roofs, the bell tower, and a descent to street level that lands on the street photograph.
+26. [x] Small things: salt pans whitening basin by basin, sunlight on the water.
+27. [x] Upright screens can frame a scene differently (`tall` in `src/scenes.js`).
+28. [ ] Not done, by choice: sound, free exploration at the end, family documents pinned in place.
+29. [ ] Known: a hairline seam in the shore mesh shows over the 1951–2024 photographs (since round 6). Not checked: Safari, Firefox, a real phone, WebGL context loss.
 
 ## Next step
-Live site (rounds 1–5) at https://felipempleite.github.io/porto-vecchio/, GitHub Pages from main. Round 6 waits on the family's review. To confirm with the family: the marriage that joins the lineages, presenting the salt pans as the family's, which General Abbatucci the street honours, and the generic line about reopened shutters.
+Live site (rounds 1–5) at https://felipempleite.github.io/porto-vecchio/, GitHub Pages from main. Round 6 is live (#4). Round 7 waits on Felipe's review on branch `journeys`; merging it publishes. To confirm with the family: the marriage that joins the lineages, presenting the salt pans as the family's, which General Abbatucci the street honours, and the generic line about reopened shutters.

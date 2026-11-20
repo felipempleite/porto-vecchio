@@ -1,15 +1,22 @@
 /* The maquette: one WebGL scene that the letter drives from start to finish.
-   Everything here is a function of the state passed to apply(); nothing animates on its own
-   except the small breathing of the camera and the fire of 31 July. */
+   Everything here is a function of the state passed to apply(). What moves on its own is small:
+   the breathing of the camera, the fire of 31 July, the light on the water, and the beads that
+   travel while a scene asks for them (the people of the mountain, one ship, a train, the summer crowd). */
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
-import {EXAGGERATION, HEART, STREET_ABBATUCCI, STREET_HOME, toLat, toLon, toX, toZ} from './geo.js';
+import {BELL_TOWER, EXAGGERATION, HEART, SALT_FIELD, STREET_ABBATUCCI, STREET_HOME, toLat, toLon, toX, toZ} from './geo.js';
+import {BASTIONS, PATHS, RAIL, ROADS, SEAWAY, WALLS} from './traces.js';
 
 const SEA = new THREE.Color().setRGB(.313, .401, .344);
 const ERAS = ['terrier', '1951', '1975', '2024'];
 const PRINTED = new Set(['Patine du relief', 'Terre du golfe', 'Eau du golfe', 'Ouvrages du port']);
 const DEG = Math.PI / 180;
+const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+const smooth = (lo, hi, v) => { const t = clamp((v - lo) / (hi - lo)); return t * t * (3 - 2 * t); };
+const fract = v => v - Math.floor(v);
+/* For shaders that write their own colour: the value as it should reach the screen. */
+const paint = hex => new THREE.Color(hex).convertLinearToSRGB();
 /* The aerial photographs are dark; lift them so they sit with the plaster. */
 const LIFT = [1, 1, 1.55, 1.5, 1.6];
 
@@ -104,6 +111,15 @@ transformed.y = mix(aGround - .006, transformed.y, riseNow);
 vBuilt = transformed;
 vFacing = normal.xz;
 `;
+/* The walls go up in turn, around the rock, starting at the gate. */
+const wallHead = /* glsl */`
+attribute float aGround, aTurn;
+uniform float uWalls;
+`;
+const wallBody = /* glsl */`
+float wallNow = smoothstep(aTurn * .7, aTurn * .7 + .3, uWalls);
+transformed.y = mix(aGround - .004, transformed.y, wallNow);
+`;
 const windowHead = /* glsl */`
 uniform float uNight;
 varying vec3 vBuilt;
@@ -152,6 +168,117 @@ void main() {
   gl_FragColor = vec4(colour, 1.);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
+}
+`;
+
+/* Beads that travel across the maquette, and one small ship. */
+const beadVertex = /* glsl */`
+attribute vec3 aColour;
+attribute float aSize, aAlpha, aKind;
+uniform float uScale;
+varying vec3 vColour;
+varying float vAlpha, vKind;
+void main() {
+  vColour = aColour; vAlpha = aAlpha; vKind = aKind;
+  gl_Position = projectionMatrix * viewMatrix * vec4(position, 1.);
+  gl_PointSize = aSize * uScale;
+}
+`;
+const beadFragment = /* glsl */`
+varying vec3 vColour;
+varying float vAlpha, vKind;
+const vec3 INK = vec3(.17, .11, .08), RIM = vec3(.98, .95, .88);
+void main() {
+  vec2 p = gl_PointCoord;
+  if (vKind > .5) {
+    float e = .05;
+    float mainsail = smoothstep(0., e, .48 - p.x) * smoothstep(0., e, .66 - p.y) * smoothstep(0., e, p.x - (.12 + (.66 - p.y) * .6));
+    float jib = smoothstep(0., e, p.x - .54) * smoothstep(0., e, .66 - p.y) * smoothstep(0., e, (.54 + (p.y - .22) * .62) - p.x);
+    float hull = smoothstep(0., e, p.y - .72) * smoothstep(0., e, .9 - p.y) * smoothstep(0., e, p.x - (.08 + (p.y - .72) * .8)) * smoothstep(0., e, (.92 - (p.y - .72) * .8) - p.x);
+    float sails = max(mainsail, jib);
+    gl_FragColor = vec4(mix(INK, vColour, sails), max(sails, hull) * vAlpha);
+    return;
+  }
+  float d = length(p - .5) * 2.;
+  float body = 1. - smoothstep(.5, .68, d), rim = 1. - smoothstep(.84, 1., d);
+  gl_FragColor = vec4(mix(RIM, vColour, body), vAlpha * mix(rim * .8, 1., body));
+}
+`;
+
+/* The railway, drawn the way maps draw one: a line with its sleepers. */
+const railVertex = /* glsl */`
+varying vec2 vRail;
+void main() {
+  vRail = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+}
+`;
+const railFragment = /* glsl */`
+uniform float uDrawn, uFade;
+uniform vec3 uInk;
+varying vec2 vRail;
+void main() {
+  if (vRail.y > uDrawn) discard;
+  float across = abs(vRail.x);
+  float line = 1. - smoothstep(.2, .34, across);
+  float sleeper = (1. - smoothstep(.24, .32, abs(fract(vRail.y / .14) - .5))) * (1. - smoothstep(.8, 1., across));
+  float head = 1. - smoothstep(0., .25, uDrawn - vRail.y);
+  gl_FragColor = vec4(uInk, max(line, sleeper) * uFade * (1. - head * .6));
+}
+`;
+
+/* Salt: basins that whiten one after the other. */
+const saltVertex = /* glsl */`
+attribute float aOrder, aTone;
+uniform float uSalt;
+varying float vSalt, vTone;
+void main() {
+  vTone = aTone;
+  vSalt = smoothstep(aOrder * .78, aOrder * .78 + .22, uSalt);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+}
+`;
+const saltFragment = /* glsl */`
+uniform vec3 uWhite;
+varying float vSalt, vTone;
+void main() {
+  if (vSalt < .004) discard;
+  /* some basins still hold water, others have dried to salt */
+  gl_FragColor = vec4(mix(uWhite, vec3(.74, .8, .79), vTone * vTone * .8), vSalt * .9);
+}
+`;
+
+/* Sunlight broken up on the water, strongest when the sun is low. */
+const glitterVertex = /* glsl */`
+varying vec3 vSea;
+void main() {
+  vec4 world = modelMatrix * vec4(position, 1.);
+  vSea = world.xyz;
+  gl_Position = projectionMatrix * viewMatrix * world;
+}
+`;
+const glitterFragment = /* glsl */`
+uniform vec3 uSunDir, uSunColor;
+uniform float uGlitter, uTime;
+varying vec3 vSea;
+float seaHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float seaNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3. - 2. * f);
+  return mix(mix(seaHash(i), seaHash(i + vec2(1., 0.)), f.x), mix(seaHash(i + vec2(0., 1.)), seaHash(i + vec2(1., 1.)), f.x), f.y);
+}
+void main() {
+  vec3 toEye = cameraPosition - vSea;
+  float span = length(toEye);
+  vec3 view = toEye / span;
+  /* small ripples tilt the surface; where one of them throws the sun at the eye, it sparkles */
+  vec2 p = vSea.xz * 520.;
+  vec2 tilt = vec2(seaNoise(p + uTime * vec2(.9, .4)) - .5, seaNoise(p + 31.7 - uTime * vec2(.5, .8)) - .5) * .2
+    + vec2(seaNoise(p * .17 - uTime * .15) - .5, seaNoise(p * .17 + 7.3 + uTime * .12) - .5) * .1;
+  vec3 normal = normalize(vec3(tilt.x, 1., tilt.y));
+  float glint = pow(max(dot(reflect(-view, normal), uSunDir), 0.), 160.);
+  float light = glint * 1.5 * uGlitter * smoothstep(40., 6., span);
+  gl_FragColor = vec4(mix(uSunColor, vec3(1.), .35) * light, 1.);
 }
 `;
 
@@ -334,25 +461,204 @@ function bake(mesh, groundAt) {
   return geometry;
 }
 
-function ribbon(points, groundAt, width, lift) {
+function densify(points, step) {
   const fine = [];
   for (let i = 0; i < points.length - 1; i++) {
     const [x0, z0] = points[i], [x1, z1] = points[i + 1];
-    const pieces = Math.max(1, Math.round(Math.hypot(x1 - x0, z1 - z0) / .004));
+    const pieces = Math.max(1, Math.round(Math.hypot(x1 - x0, z1 - z0) / step));
     for (let k = 0; k < pieces; k++) fine.push([x0 + (x1 - x0) * k / pieces, z0 + (z1 - z0) * k / pieces]);
   }
   fine.push(points[points.length - 1]);
-  const position = [], index = [];
+  return fine;
+}
+
+/* A flat band laid along a line. uv.x runs from -1 to 1 across it, uv.y is kilometres along it. */
+function ribbon(points, groundAt, width, lift, step = .004) {
+  const fine = densify(points, step);
+  const position = [], uv = [], index = [];
+  let along = 0;
   fine.forEach(([x, z], i) => {
     const [px, pz] = fine[Math.max(0, i - 1)], [nx, nz] = fine[Math.min(fine.length - 1, i + 1)];
     const length = Math.hypot(nx - px, nz - pz) || 1, ox = -(nz - pz) / length * width / 2, oz = (nx - px) / length * width / 2;
     const y = groundAt(x, z) + lift;
+    if (i) along += Math.hypot(x - fine[i - 1][0], z - fine[i - 1][1]);
     position.push(x + ox, y, z + oz, x - ox, y, z - oz);
+    uv.push(-1, along, 1, along);
     if (i) index.push(i * 2 - 2, i * 2 - 1, i * 2, i * 2, i * 2 - 1, i * 2 + 1);
   });
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   geometry.setIndex(index);
+  geometry.userData.length = along;
+  return geometry;
+}
+
+/* The walls of 1541–1544 where they still stand, from the lines and outlines of OpenStreetMap:
+   a face down to the lower ground, a parapet a little above the higher. */
+function buildWalls(groundAt) {
+  const position = [], ground = [], turn = [];
+  const hx = toX(HEART[0]), hz = toZ(HEART[1]);
+  const bearing = (x, z) => Math.atan2(x - hx, hz - z);
+  const gate = BASTIONS.find(bastion => /Porte/.test(bastion.name) && !/Bastion/.test(bastion.name)).ring[0];
+  const start = bearing(toX(gate[0]), toZ(gate[1]));
+  const order = (x, z) => fract((bearing(x, z) - start) / (2 * Math.PI) + 2);
+  const put = (x, y, z, base, when) => { position.push(x, y, z); ground.push(base); turn.push(when); };
+  /* corners are [x, y, z, base, when] */
+  const quad = (a, b, c, d) => { for (const p of [a, b, c, a, c, d]) put(...p); };
+  const PARAPET = .011, CURTAIN = .0075, FOOT = .003, HALF = .002;
+
+  /* What still stands is drawn where OpenStreetMap has it. Between those pieces the circuit is
+     restored the simplest way: straight from one outwork to the next, around all of them. */
+  const standing = WALLS.map(line => line.map(([lon, lat]) => [toX(lon), toZ(lat)]));
+  const stones = [...standing.flat(), ...BASTIONS.flatMap(({ring}) => ring.map(([lon, lat]) => [toX(lon), toZ(lat)]))]
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const turnOf = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const half = points => {
+    const side = [];
+    for (const point of points) {
+      while (side.length > 1 && turnOf(side[side.length - 2], side[side.length - 1], point) <= 0) side.pop();
+      side.push(point);
+    }
+    return side.slice(0, -1);
+  };
+  const circuit = [...half(stones), ...half([...stones].reverse())];
+  circuit.push(circuit[0]);
+
+  for (const [line, parapet] of [[circuit, CURTAIN], ...standing.map(line => [line, PARAPET])]) {
+    const fine = densify(line, .004);
+    const cuts = fine.map(([x, z], i) => {
+      const [px, pz] = fine[Math.max(0, i - 1)], [nx, nz] = fine[Math.min(fine.length - 1, i + 1)];
+      const length = Math.hypot(nx - px, nz - pz) || 1, ox = -(nz - pz) / length, oz = (nx - px) / length;
+      const heights = [-.004, 0, .004].map(d => groundAt(x + ox * d, z + oz * d));
+      return {x, z, ox, oz, top: Math.max(...heights) + parapet, base: Math.min(...heights) - FOOT, when: order(x, z)};
+    });
+    /* the top of a wall does not follow every bump of the ground */
+    const tops = cuts.map((_, i) => {
+      let sum = 0, count = 0;
+      for (let k = Math.max(0, i - 2); k <= Math.min(cuts.length - 1, i + 2); k++) { sum += cuts[k].top; count++; }
+      return sum / count;
+    });
+    cuts.forEach((cut, i) => { cut.top = tops[i]; });
+    const corner = (cut, side, high) => [cut.x + cut.ox * HALF * side, high ? cut.top : cut.base, cut.z + cut.oz * HALF * side, cut.base, cut.when];
+    for (let i = 0; i < cuts.length - 1; i++) {
+      const a = cuts[i], b = cuts[i + 1];
+      quad(corner(a, 1, false), corner(b, 1, false), corner(b, 1, true), corner(a, 1, true));
+      quad(corner(b, -1, false), corner(a, -1, false), corner(a, -1, true), corner(b, -1, true));
+      quad(corner(a, 1, true), corner(b, 1, true), corner(b, -1, true), corner(a, -1, true));
+    }
+    for (const end of [cuts[0], cuts[cuts.length - 1]]) quad(corner(end, -1, false), corner(end, 1, false), corner(end, 1, true), corner(end, -1, true));
+  }
+
+  for (const {ring} of BASTIONS) {
+    const points = ring.map(([lon, lat]) => [toX(lon), toZ(lat)]);
+    const cx = points.reduce((sum, p) => sum + p[0], 0) / points.length, cz = points.reduce((sum, p) => sum + p[1], 0) / points.length;
+    const heights = [...points, [cx, cz]].map(([x, z]) => groundAt(x, z));
+    const top = Math.max(...heights) + PARAPET, base = Math.min(...heights) - FOOT, when = order(cx, cz);
+    const corner = ([x, z], high) => [x, high ? top : base, z, base, when];
+    points.forEach((point, i) => {
+      const next = points[(i + 1) % points.length];
+      quad(corner(point, false), corner(next, false), corner(next, true), corner(point, true));
+    });
+    for (const face of THREE.ShapeUtils.triangulateShape(points.map(([x, z]) => new THREE.Vector2(x, z)), [])) {
+      for (const i of face) put(...corner(points[i], true));
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+  geometry.setAttribute('aGround', new THREE.Float32BufferAttribute(ground, 1));
+  geometry.setAttribute('aTurn', new THREE.Float32BufferAttribute(turn, 1));
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/* BD TOPO gives every building a flat lid. Over each lid goes a low hipped roof, the tiles of the
+   old town; and beside the church, the bell tower the survey leaves out. */
+function buildRoofs(flat, groundAt) {
+  const from = flat.attributes.position, low = flat.attributes.aGround, index = flat.index;
+  const position = [], ground = [], colour = [];
+  const tile = new THREE.Color('#cfa691'), shade = new THREE.Color();
+  const put = (x, y, z, base, tone) => { position.push(x, y, z); ground.push(base); colour.push(tone.r, tone.g, tone.b); };
+
+  const parent = new Int32Array(from.count).map((_, i) => i);
+  const find = i => { while (parent[i] !== i) i = parent[i] = parent[parent[i]]; return i; };
+  const edges = new Map();
+  for (let i = 0; i < index.count; i += 3) {
+    const corners = [index.getX(i), index.getX(i + 1), index.getX(i + 2)];
+    parent[find(corners[1])] = find(corners[0]);
+    parent[find(corners[2])] = find(corners[0]);
+    for (let k = 0; k < 3; k++) {
+      const a = corners[k], b = corners[(k + 1) % 3], key = a < b ? a * from.count + b : b * from.count + a;
+      edges.set(key, (edges.get(key) || 0) + 1);
+    }
+  }
+  const rims = new Map();
+  for (const [key, used] of edges) {
+    if (used !== 1) continue;
+    const a = Math.floor(key / from.count), b = key % from.count, lid = find(a);
+    let rim = rims.get(lid);
+    if (!rim) rims.set(lid, rim = new Map());
+    for (const [p, q] of [[a, b], [b, a]]) { if (!rim.has(p)) rim.set(p, []); rim.get(p).push(q); }
+  }
+  let lids = 0;
+  for (const [lid, rim] of rims) {
+    if (rim.size < 3 || [...rim.values()].some(next => next.length !== 2)) continue;
+    const loop = [];
+    for (let at = rim.keys().next().value, before = -1; loop.length <= rim.size;) {
+      loop.push(at);
+      const [one, two] = rim.get(at), next = one !== before ? one : two;
+      before = at; at = next;
+      if (at === loop[0]) break;
+    }
+    if (loop.length !== rim.size) continue;
+    const points = loop.map(i => [from.getX(i), from.getZ(i), low.getX(i)]);
+    const y = Math.max(...loop.map(i => from.getY(i)));
+    /* the ridge runs along the longest side */
+    let ax = 1, az = 0, longest = 0;
+    points.forEach(([x, z], i) => {
+      const [nx, nz] = points[(i + 1) % points.length], length = Math.hypot(nx - x, nz - z);
+      if (length > longest) { longest = length; ax = (nx - x) / length; az = (nz - z) / length; }
+    });
+    let alongs = points.map(([x, z]) => x * ax + z * az), acrosses = points.map(([x, z]) => -x * az + z * ax);
+    let length = Math.max(...alongs) - Math.min(...alongs), width = Math.max(...acrosses) - Math.min(...acrosses);
+    if (width > length) { [ax, az] = [-az, ax]; [alongs, acrosses] = [acrosses, alongs.map(v => -v)]; [length, width] = [width, length]; }
+    if (width < .003 || width > .022) continue;
+    const middle = (Math.max(...alongs) + Math.min(...alongs)) / 2, centre = (Math.max(...acrosses) + Math.min(...acrosses)) / 2;
+    const half = Math.max(0, (length - width * .8) / 2), rise = Math.min(.3 * width / 2, .0024) * EXAGGERATION;
+    const ridge = alongs.map(along => {
+      const s = middle + clamp(along - middle, -half, half);
+      return [s * ax - centre * az, s * az + centre * ax];
+    });
+    shade.copy(tile).offsetHSL(0, 0, ((lid * 2654435761 >>> 0) / 4294967296 - .5) * .09);
+    points.forEach(([x, z, base], i) => {
+      const j = (i + 1) % points.length, [nx, nz, nextBase] = points[j], [rx, rz] = ridge[i], [sx, sz] = ridge[j];
+      put(x, y, z, base, shade); put(nx, y, nz, nextBase, shade); put(sx, y + rise, sz, nextBase, shade);
+      if (Math.hypot(sx - rx, sz - rz) < 1e-6) return;
+      put(x, y, z, base, shade); put(sx, y + rise, sz, nextBase, shade); put(rx, y + rise, rz, base, shade);
+    });
+    lids++;
+  }
+
+  /* the bell tower */
+  const {at, bearing, side, shaft, spire} = BELL_TOWER;
+  const tx = toX(at[0]), tz = toZ(at[1]), base = groundAt(tx, tz), half = side / 2000;
+  const cos = Math.cos(bearing * DEG), sin = Math.sin(bearing * DEG);
+  const corners = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([u, v]) => [tx + (u * cos - v * sin) * half, tz + (u * sin + v * cos) * half]);
+  const top = base + shaft * EXAGGERATION / 1000, tip = top + spire * EXAGGERATION / 1000;
+  const stone = new THREE.Color('#dccdb2'), cap = new THREE.Color('#c39680');
+  corners.forEach(([x, z], i) => {
+    const [nx, nz] = corners[(i + 1) % 4];
+    put(x, base, z, base, stone); put(nx, base, nz, base, stone); put(nx, top, nz, base, stone);
+    put(x, base, z, base, stone); put(nx, top, nz, base, stone); put(x, top, z, base, stone);
+    put(x, top, z, base, cap); put(nx, top, nz, base, cap); put(tx, tip, tz, base, cap);
+  });
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+  geometry.setAttribute('aGround', new THREE.Float32BufferAttribute(ground, 1));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colour, 3));
+  geometry.computeVertexNormals();
+  geometry.userData.lids = lids;
   return geometry;
 }
 
@@ -417,16 +723,23 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   blank.needsUpdate = true;
   const era = {
     uMapA: {value: blank}, uMapB: {value: blank}, uUseA: {value: 0}, uUseB: {value: 0}, uMix: {value: 0},
-    uHeart: {value: heart}, uInk: {value: new THREE.Color('#5d3a25')}, uLiftA: {value: 1}, uLiftB: {value: 1}, uBox: {value: new THREE.Vector4()}
+    uHeart: {value: heart}, uInk: {value: new THREE.Color('#5d3a25')}, uLiftA: {value: 1}, uLiftB: {value: 1}, uBox: {value: new THREE.Vector4()},
+    uStretch: {value: 1}
   };
   const built = {uRise: {value: 0}, uCore: {value: 0}, uHeart: {value: heart}, uNight: {value: 0}};
+  const rampart = {uWalls: {value: 0}};
+
+  /* Everything that stands on the ground hangs from one group, so that heights can be shown
+     doubled (the maquette) or true (where the page lines up with a photograph). */
+  const world = new THREE.Group();
+  scene.add(world);
 
   function graftEra(material, side, printed) {
     material.onBeforeCompile = shader => {
       Object.assign(shader.uniforms, era, {uSide: side, uPrint: {value: printed ? 1 : 0}, uPatina: {value: material.name === 'Patine du relief' ? 1 : material.name === 'Eau du golfe' ? 2 : 0}});
       shader.vertexShader = shader.vertexShader
-        .replace('#include <common>', '#include <common>\nvarying vec2 vEraUv;\nvarying vec3 vEraPos;')
-        .replace('#include <begin_vertex>', '#include <begin_vertex>\nvEraUv = uv;\nvEraPos = (modelMatrix * vec4(transformed, 1.)).xyz;');
+        .replace('#include <common>', '#include <common>\nuniform float uStretch;\nvarying vec2 vEraUv;\nvarying vec3 vEraPos;')
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\nvEraUv = uv;\nvEraPos = (modelMatrix * vec4(transformed, 1.)).xyz;\nvEraPos.y /= uStretch;');
       shader.fragmentShader = shader.fragmentShader
         .replace('#include <common>', '#include <common>\n' + eraHead)
         .replace('#include <color_fragment>', '#include <color_fragment>\n' + eraBody);
@@ -461,6 +774,16 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     material.customProgramCacheKey = () => 'rise-' + (windows ? 'walls' : 'plain');
     return material;
   }
+  function graftWalls(material) {
+    material.onBeforeCompile = shader => {
+      Object.assign(shader.uniforms, rampart);
+      shader.vertexShader = shader.vertexShader
+        .replace('#include <common>', '#include <common>\n' + wallHead)
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\n' + wallBody);
+    };
+    material.customProgramCacheKey = () => 'rampart';
+    return material;
+  }
 
   /* load everything the first scenes need */
   const [gltf, region] = await Promise.all([
@@ -469,7 +792,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   ]);
   const model = gltf.scene;
   model.updateMatrixWorld(true);
-  scene.add(model);
+  world.add(model);
 
   const terrain = model.getObjectByName('Terrain');
   const reference = model.getObjectByName('RiveDeReference');
@@ -537,10 +860,28 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     copy.castShadow = copy.receiveShadow = true;
     copy.frustumCulled = false;
     town.add(copy);
+    if (walls) return;
+    const roofs = new THREE.Mesh(buildRoofs(copy.geometry, townHeight), graftRise(new THREE.MeshStandardMaterial({
+      vertexColors: true, roughness: .86, metalness: 0, side: THREE.DoubleSide
+    }), false));
+    roofs.customDepthMaterial = depth;
+    roofs.castShadow = roofs.receiveShadow = true;
+    roofs.frustumCulled = false;
+    town.add(roofs);
   });
   houses.visible = false;
   town.visible = false;
-  scene.add(town);
+  world.add(town);
+
+  /* the walls of the citadel */
+  const walls = new THREE.Mesh(buildWalls(townHeight), graftWalls(new THREE.MeshStandardMaterial({
+    color: '#bfae8e', roughness: .95, metalness: 0, side: THREE.DoubleSide
+  })));
+  walls.customDepthMaterial = graftWalls(new THREE.MeshDepthMaterial({depthPacking: THREE.RGBADepthPacking}));
+  walls.castShadow = walls.receiveShadow = true;
+  walls.frustumCulled = false;
+  walls.visible = false;
+  world.add(walls);
 
   /* the country around the tile */
   const hole = box.clone();
@@ -549,14 +890,71 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     buildRegion(region, low ? 3 : 2, hole, box, townHeight),
     graftLevels(new THREE.MeshStandardMaterial({vertexColors: true, roughness: .92, metalness: 0}))
   );
-  scene.add(land);
+  world.add(land);
   const outline = new THREE.Shape([[-220, -220], [220, -220], [220, 220], [-220, 220]].map(([x, y]) => new THREE.Vector2(x, y)));
   const inner = [[box.min.x + .03, -box.max.z + .03], [box.min.x + .03, -box.min.z - .03], [box.max.x - .03, -box.min.z - .03], [box.max.x - .03, -box.max.z + .03]];
   outline.holes.push(new THREE.Path(inner.map(([x, y]) => new THREE.Vector2(x, y))));
   const water = new THREE.Mesh(new THREE.ShapeGeometry(outline), new THREE.MeshStandardMaterial({color: SEA, roughness: .92, metalness: 0}));
   water.rotation.x = -Math.PI / 2;
   water.position.y = -.004;
-  scene.add(water);
+  world.add(water);
+
+  /* light on the water */
+  const glitter = new THREE.Mesh(new THREE.PlaneGeometry(150, 150), new THREE.ShaderMaterial({
+    vertexShader: glitterVertex, fragmentShader: glitterFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false,
+    /* the shores are drawn with the same offset: the light stays above their water and under their land */
+    polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2,
+    uniforms: {uSunDir: {value: new THREE.Vector3(0, 1, 0)}, uSunColor: {value: new THREE.Color()}, uGlitter: {value: 0}, uTime: {value: 0}}
+  }));
+  glitter.rotation.x = -Math.PI / 2;
+  glitter.position.y = .0007;
+  glitter.renderOrder = 3;
+  world.add(glitter);
+
+  /* the salt pans: a grid inside the field, split in two by the main dyke */
+  const salt = (() => {
+    const [north, east, south, west] = SALT_FIELD.map(([lon, lat]) => [toX(lon), toZ(lat)]);
+    const at = (u, v) => {
+      const ax = north[0] + (east[0] - north[0]) * u, az = north[1] + (east[1] - north[1]) * u;
+      const bx = west[0] + (south[0] - west[0]) * u, bz = west[1] + (south[1] - west[1]) * u;
+      const x = ax + (bx - ax) * v, z = az + (bz - az) * v;
+      return [x, townHeight(x, z) + .0022, z];
+    };
+    const columns = [[.02, .19], [.21, .38], [.44, .61], [.63, .8], [.82, .98]], rows = 7;
+    const position = [], order = [], tone = [];
+    columns.forEach(([u0, u1], column) => {
+      for (let row = 0; row < rows; row++) {
+        const v0 = (row + .06) / rows, v1 = (row + .94) / rows;
+        const when = clamp((row + (column * 7 + row * 3) % 5 * .45) / (rows + 1.4));
+        const grey = ((column * 5 + row * 3) % 7) / 6;
+        for (const [u, v] of [[u0, v0], [u1, v0], [u1, v1], [u0, v0], [u1, v1], [u0, v1]]) { position.push(...at(u, v)); order.push(when); tone.push(grey); }
+      }
+    });
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+    geometry.setAttribute('aOrder', new THREE.Float32BufferAttribute(order, 1));
+    geometry.setAttribute('aTone', new THREE.Float32BufferAttribute(tone, 1));
+    const mesh = new THREE.Mesh(geometry, new THREE.ShaderMaterial({
+      vertexShader: saltVertex, fragmentShader: saltFragment, transparent: true, depthTest: false, depthWrite: false, side: THREE.DoubleSide,
+      uniforms: {uSalt: {value: 0}, uWhite: {value: paint('#f3efe4')}}
+    }));
+    mesh.renderOrder = 4;
+    mesh.visible = false;
+    world.add(mesh);
+    return mesh;
+  })();
+
+  /* the railway of 1935, from the northern edge of the map down to the station */
+  const rail = new THREE.Mesh(
+    ribbon(RAIL.map(([lon, lat]) => [toX(lon), toZ(lat)]), (x, z) => heightAt(toLon(x), toLat(z)), .06, .006, .02),
+    new THREE.ShaderMaterial({
+      vertexShader: railVertex, fragmentShader: railFragment, transparent: true, depthTest: false, depthWrite: false, side: THREE.DoubleSide,
+      uniforms: {uDrawn: {value: 0}, uFade: {value: 0}, uInk: {value: paint('#3a2a22')}}
+    })
+  );
+  rail.renderOrder = 5;
+  rail.visible = false;
+  world.add(rail);
 
   /* the two streets, and the fire of the last night of July */
   const streets = [[STREET_HOME, '#ffd08a'], [STREET_ABBATUCCI, '#ff9d6b']].map(([path, colour]) => {
@@ -572,7 +970,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
       group.add(line);
     }
     group.visible = false;
-    scene.add(group);
+    world.add(group);
     return group;
   });
   const glow = glowTexture();
@@ -588,13 +986,100 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   };
   const fire = spark('#ff8a3c', .05);
   const fireAt = [9.2796, 41.5911];
-  fire.position.set(toX(fireAt[0]), heightAt(...fireAt) + .012, toZ(fireAt[1]));
+  fire.position.set(toX(fireAt[0]), 0, toZ(fireAt[1]));
+  fire.userData.high = heightAt(...fireAt) + .012;
   const fireLight = new THREE.PointLight('#ff8a3c', 0, .5, 1.6);
-  fireLight.position.copy(fire.position);
   scene.add(fireLight);
   const lamp = spark('#ffc27a', .026);
   const lampAt = STREET_HOME[3];
-  lamp.position.set(toX(lampAt[0]), heightAt(...lampAt) + .012, toZ(lampAt[1]));
+  lamp.position.set(toX(lampAt[0]), 0, toZ(lampAt[1]));
+  lamp.userData.high = heightAt(...lampAt) + .012;
+
+  /* Beads that travel: the people of the mountain, one ship, the summer crowd, a train.
+     The paths are the gentlest way over the relief, not surveyed roads. */
+  const trackOf = (line, lift) => {
+    const count = line.length, at = new Float32Array(count * 3), along = new Float32Array(count);
+    line.forEach(([lon, lat], i) => {
+      at.set([toX(lon), heightAt(lon, lat) + lift, toZ(lat)], i * 3);
+      if (i) along[i] = along[i - 1] + Math.hypot(at[i * 3] - at[i * 3 - 3], at[i * 3 + 2] - at[i * 3 - 1]);
+    });
+    return {at, along, count};
+  };
+  const beads = [];
+  const bead = (group, track, phase, size, colour, extra = {}) => beads.push({group, track, phase, size, colour: paint(colour), lag: 0, fade: 1, kind: 0, ...extra});
+  Object.values(PATHS).forEach((line, p) => {
+    const track = trackOf(line, .012);
+    for (let k = 0; k < 22; k++) bead('folk', track, fract((k + p * .37) / 22 + .012 * ((k * 7) % 5)), 7.5, '#b8442b');
+  });
+  const seaway = trackOf(SEAWAY, .004);
+  bead('ship', seaway, 0, 30, '#fff8ea', {kind: 1});
+  for (let k = 1; k <= 14; k++) bead('ship', seaway, 0, 6 - k * .22, '#ffffff', {lag: .006 + k * .011, fade: .9 * (1 - k / 15)});
+  /* the summer comes by two roads and by sea; only the last few kilometres are in the picture */
+  const lastOf = (line, km) => {
+    let i = line.length - 1;
+    for (let length = 0; i > 0 && length < km; i--) length += Math.hypot((line[i][0] - line[i - 1][0]) * 83.3, (line[i][1] - line[i - 1][1]) * 111.2);
+    return line.slice(i);
+  };
+  [lastOf(ROADS.nord, 9), lastOf(ROADS.sud, 9), lastOf([...SEAWAY].reverse(), 7)].forEach((line, p) => {
+    const track = trackOf(line, p === 2 ? .004 : .012);
+    const count = p === 2 ? 12 : 56;
+    for (let k = 0; k < count; k++) bead('guests', track, fract((k + p * .29) / count + .004 * ((k * 5) % 7)), 8.5, '#b8442b');
+  });
+  const railway = trackOf(RAIL, .014);
+  for (let k = 0; k < 4; k++) bead('train', railway, 0, k ? 8.5 : 10.5, k ? '#4a372c' : '#8c2f1f', {lag: k * .0075});
+  const beadSpots = new Float32Array(beads.length * 3), beadAlpha = new Float32Array(beads.length);
+  const beadGeometry = new THREE.BufferGeometry();
+  beadGeometry.setAttribute('position', new THREE.BufferAttribute(beadSpots, 3));
+  beadGeometry.setAttribute('aAlpha', new THREE.BufferAttribute(beadAlpha, 1));
+  beadGeometry.setAttribute('aColour', new THREE.Float32BufferAttribute(beads.flatMap(b => [b.colour.r, b.colour.g, b.colour.b]), 3));
+  beadGeometry.setAttribute('aSize', new THREE.Float32BufferAttribute(beads.map(b => b.size), 1));
+  beadGeometry.setAttribute('aKind', new THREE.Float32BufferAttribute(beads.map(b => b.kind), 1));
+  const dots = new THREE.Points(beadGeometry, new THREE.ShaderMaterial({
+    vertexShader: beadVertex, fragmentShader: beadFragment, transparent: true, depthTest: false, depthWrite: false, uniforms: {uScale: {value: 1}}
+  }));
+  dots.frustumCulled = false;
+  dots.renderOrder = 8;
+  dots.visible = false;
+  scene.add(dots);
+  const ends = share => smooth(0, .05, share) * (1 - smooth(.95, 1, share));
+
+  function travel(time) {
+    const {folk, tide, sail, guests, stretch} = state;
+    const train = clamp(1 - Math.abs(state.rail - 1) * 2.5);
+    let any = false;
+    beads.forEach((one, i) => {
+      let share = 0, alpha = 0;
+      if (one.group === 'folk' && folk > .01) {
+        /* either a steady descent, or the year: up for the summer, down again in the autumn */
+        const down = 1 - fract(one.phase + time * .04);
+        const season = .5 - .5 * Math.cos(time * .3);
+        share = down + (clamp(season * 1.6 - one.phase * .6) - down) * tide;
+        alpha = folk * ends(share);
+      } else if (one.group === 'ship' && sail > .01) {
+        share = fract(time * .03) ** 1.25 * 1.2 - one.lag;
+        alpha = sail * ends(share) * one.fade;
+      } else if (one.group === 'guests' && guests > .01) {
+        share = fract(one.phase + time * .034);
+        alpha = guests * ends(share);
+      } else if (one.group === 'train' && train > .01) {
+        /* only the last two thirds of the line are ever in the picture */
+        share = .34 + fract(time * .055) * .74 - one.lag;
+        alpha = train * ends(share);
+      }
+      beadAlpha[i] = alpha;
+      if (alpha < .004) return;
+      any = true;
+      const {at, along, count} = one.track, want = clamp(share) * along[count - 1];
+      let lo = 1, hi = count - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (along[mid] < want) lo = mid + 1; else hi = mid; }
+      const t = (want - along[lo - 1]) / (along[lo] - along[lo - 1] || 1), a = (lo - 1) * 3, b = lo * 3;
+      beadSpots[i * 3] = at[a] + (at[b] - at[a]) * t;
+      beadSpots[i * 3 + 1] = (at[a + 1] + (at[b + 1] - at[a + 1]) * t) * stretch;
+      beadSpots[i * 3 + 2] = at[a + 2] + (at[b + 2] - at[a + 2]) * t;
+    });
+    dots.visible = any;
+    if (any) { beadGeometry.attributes.position.needsUpdate = true; beadGeometry.attributes.aAlpha.needsUpdate = true; }
+  }
 
   /* period maps arrive in the background */
   const maps = new Map();
@@ -619,6 +1104,7 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     renderer.setPixelRatio(ratio);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
+    dots.material.uniforms.uScale.value = ratio * (w < 760 ? .85 : 1);
     dirty = true;
   }
 
@@ -647,17 +1133,20 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
   function apply(next, time = 0) {
     Object.assign(state, next);
     const {cam, look} = state;
+    const stretch = state.stretch;
+    world.scale.y = stretch;
+    era.uStretch.value = stretch;
 
     /* camera */
     const az = (cam.az + Math.sin(time * .11) * cam.sway) * DEG, el = (cam.el + Math.sin(time * .083 + 1.3) * cam.sway * .22) * DEG;
     target.set(toX(cam.lon), cam.y, toZ(cam.lat));
     offset.set(Math.cos(el) * Math.sin(az), Math.sin(el), -Math.cos(el) * Math.cos(az)).multiplyScalar(cam.dist);
     camera.position.copy(target).add(offset);
-    const floor = heightAt(toLon(camera.position.x), toLat(camera.position.z)) + .012;
+    const floor = heightAt(toLon(camera.position.x), toLat(camera.position.z)) * stretch + cam.floor;
     if (camera.position.y < floor) camera.position.y = floor;
     camera.fov = cam.fov;
-    camera.near = Math.max(.003, cam.dist * .02);
-    camera.far = 330;
+    camera.near = cam.near;
+    camera.far = cam.near < .002 ? 120 : 330;
     camera.lookAt(target);
     if (state.shiftX || state.shiftY) camera.setViewOffset(width, height, -state.shiftX * width, -state.shiftY * height, width, height);
     else camera.clearViewOffset();
@@ -695,6 +1184,20 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     built.uCore.value = state.core;
     built.uNight.value = look.night;
     town.visible = state.rise > .001 || state.core > .001;
+    rampart.uWalls.value = state.walls;
+    walls.visible = state.walls > .001;
+    salt.visible = state.salt > .001;
+    salt.material.uniforms.uSalt.value = state.salt;
+    const railFade = clamp(2 - state.rail);
+    rail.visible = state.rail > .001 && railFade > .001;
+    rail.material.uniforms.uDrawn.value = clamp(state.rail) * rail.geometry.userData.length;
+    rail.material.uniforms.uFade.value = railFade * .9;
+    glitter.visible = look.glitter > .01;
+    glitter.material.uniforms.uGlitter.value = look.glitter;
+    glitter.material.uniforms.uTime.value = time;
+    glitter.material.uniforms.uSunDir.value.copy(sunDir);
+    glitter.material.uniforms.uSunColor.value.copy(look.sun);
+    travel(time);
     streets.forEach((group, i) => {
       const drawn = Math.min(1, Math.max(0, state.streets - i));
       group.visible = drawn > .001;
@@ -708,11 +1211,14 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     fire.visible = flame > .01;
     fire.material.opacity = flame;
     fire.scale.setScalar(.05 + .012 * Math.sin(time * 7.7));
+    fire.position.y = fire.userData.high * stretch;
+    fireLight.position.copy(fire.position);
     fireLight.intensity = flame * .012;
     lamp.visible = state.lamp > .01;
     lamp.material.opacity = state.lamp;
+    lamp.position.y = lamp.userData.high * stretch;
 
-    const key = [look.sunAz.toFixed(1), look.sunEl.toFixed(1), state.rise.toFixed(3), state.core.toFixed(3)].join();
+    const key = [look.sunAz.toFixed(1), look.sunEl.toFixed(1), state.rise.toFixed(3), state.core.toFixed(3), state.walls.toFixed(3), stretch.toFixed(3)].join();
     if (key !== shadowKey) { shadowKey = key; renderer.shadowMap.needsUpdate = true; }
   }
 
@@ -721,9 +1227,9 @@ export async function createStage(canvas, {quality = 'high', onLost} = {}) {
     dirty = false;
   }
 
-  /* Where a place falls on screen, in CSS pixels. */
-  function project(lon, lat, y) {
-    probe.set(toX(lon), y, toZ(lat)).project(camera);
+  /* Where a place falls on screen, in CSS pixels. ground is its height on the maquette, lift what is added above. */
+  function project(lon, lat, ground, lift) {
+    probe.set(toX(lon), (ground + lift) * state.stretch, toZ(lat)).project(camera);
     return {x: (probe.x * .5 + .5) * width, y: (.5 - probe.y * .5) * height, visible: probe.z > -1 && probe.z < 1};
   }
 
