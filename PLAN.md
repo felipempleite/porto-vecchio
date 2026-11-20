@@ -27,7 +27,7 @@ A stunning, moving, French-language single-page site about Porto-Vecchio (Corse-
 10. [ ] Push / deploy — waiting for Felipe's go.
 
 ## Status
-Published 2026-11-19 on GitHub Pages.
+Published 2026-11-19 on GitHub Pages. Round 2 (narration, OSM map, 'La maison') live 2026-11-20. Kling hero loop live 2026-11-20 (073d22d).
 
 ## Next step
-Live at https://felipempleite.github.io/porto-vecchio/ (public repo felipempleite/porto-vecchio, GitHub Pages from main). Await Felipe's feedback; iterate on workflow/models.
+Live at https://felipempleite.github.io/porto-vecchio/ (public repo felipempleite/porto-vecchio, GitHub Pages from main). Waiting on personal family material (photos, names, stories) for idea 1; iterate on workflow/models.
