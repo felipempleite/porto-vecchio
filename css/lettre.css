@@ -168,7 +168,7 @@ html[data-side='right'] .veil {
 .film__words.is-on { opacity: 1; transform: none; }
 .film__words p { margin: 0; text-wrap: balance; }
 .film__chapter { font: 600 .72rem/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
-.film__line { font: 400 clamp(1.3rem, 2.5vw, 1.95rem)/1.32 var(--serif); }
+.film__line { font: 500 clamp(1.3rem, 2.5vw, 1.95rem)/1.32 var(--serif); }
 .film__sub { margin-top: .35rem !important; font: 400 .92rem/1.4 var(--sans); color: #ddd6c8; }
 .film__words[data-kind='chapter'] .film__line { font-size: clamp(2.4rem, 5.4vw, 4.2rem); font-style: italic; font-weight: 300; line-height: 1.05; margin-top: .4rem; }
 .film__words[data-kind='proverb'] .film__line { font-style: italic; color: var(--accent); }
@@ -192,7 +192,7 @@ html[data-side='right'] .veil {
 [data-film='on'] .veil, html[data-film='on'][data-side='right'] .veil {
   background:
     linear-gradient(180deg, rgba(14, 17, 20, .4) 0, rgba(14, 17, 20, 0) 14%),
-    linear-gradient(0deg, rgba(14, 17, 20, .94) 0, rgba(14, 17, 20, .74) 15%, rgba(14, 17, 20, .3) 32%, rgba(14, 17, 20, 0) 50%);
+    linear-gradient(0deg, rgba(14, 17, 20, .95) 0, rgba(14, 17, 20, .80) 17%, rgba(14, 17, 20, .38) 36%, rgba(14, 17, 20, 0) 54%);
 }
 
 /* ---------- the letter ---------- */

@@ -395,7 +395,18 @@ const reveal = new IntersectionObserver(entries => {
 }, {rootMargin: '-12% 0px -12% 0px'});
 steps.forEach(step => reveal.observe(step));
 
-document.querySelectorAll('.toc a').forEach(link => link.addEventListener('click', () => link.closest('details')?.removeAttribute('open')));
+document.querySelectorAll('.toc a, .brand').forEach(link => link.addEventListener('click', event => {
+  link.closest('details')?.removeAttribute('open');
+  if (!cinema?.playing) return;
+  const target = document.querySelector(link.getAttribute('href'));
+  const firstStep = target?.matches('[data-scene]') ? target : target?.querySelector('[data-scene]');
+  if (firstStep) {
+    event.preventDefault();
+    cinema.jump(steps.indexOf(firstStep));
+  } else {
+    cinema.pause();
+  }
+}));
 
 addEventListener('resize', arrange);
 addEventListener('load', arrange);

@@ -36,7 +36,7 @@
 
   <!-- Le film : la même lettre, dite à voix haute ; la page défile seule tant qu’on ne la touche pas. -->
   <div class="film" id="film" hidden>
-    <div class="film__words">
+    <div class="film__words" aria-live="polite" aria-atomic="true">
       <p class="film__chapter"></p>
       <p class="film__line"></p>
       <p class="film__sub"></p>
@@ -81,8 +81,8 @@
         <div class="card card--bare">
           <p class="kicker">Lettre à ceux qui reviennent</p>
           <h1 id="titre">Portivechju</h1>
-          <p class="lede">À vous qui portez ce pays dans un nom, dans une maison, ou seulement dans une façon de dire «&nbsp;là-bas&nbsp;».</p>
-          <p class="start"><button type="button" class="play" data-film="start"><span>Regarder le film</span> <small><span data-film-length>8 min</span>, avec le son</small></button></p>
+          <p class="lede">À vous qui portez ce pays dans un nom, dans une maison, ou simplement dans une façon de dire «&nbsp;là-bas&nbsp;».</p>
+          <p class="start"><button type="button" class="play" data-film="start"><span>Regarder le film</span> <small><span data-film-length>9 min</span>, avec le son</small></button></p>
           <p class="hint"><span class="hint__or">ou faites défiler pour lire à votre rythme&nbsp;:</span> le jour va se lever, passer, puis tomber sur la ville.</p>
           <p class="credit">La vieille ville vue des salines. Photographie&nbsp;: Annacquaghjolu, CC0.</p>
         </div>
@@ -90,8 +90,8 @@
 
       <div class="step" data-scene="maquette" data-side="right">
         <div class="card">
-          <p>Voici la même ville, du même endroit et sous le même angle&nbsp;: en plâtre. Le relief est celui qu’a mesuré l’IGN, les volumes sont ceux des bâtiments d’aujourd’hui.</p>
-          <p>Pour dire comment elle est venue là, il faut d’abord l’ôter. Puis, à mesure que vous lirez, une carte du <span class="sc">XVIII</span><sup>e</sup>&nbsp;siècle viendra s’imprimer sur le plâtre, et trois photographies prises du ciel. La maquette ne montre que ce que montrent les sources.</p>
+          <p>Regardez-la une dernière fois avant que le temps ne remonte. Pour comprendre comment cette ville est née, il faut d’abord l’effacer — ôter les maisons, les quais, et revenir à la pierre nue.</p>
+          <p>À mesure que vous lirez, le jour passera sur le golfe, les cartes anciennes viendront recouvrir le relief, et le rivage changera sous vos yeux jusqu’au soir.</p>
           <blockquote class="proverb" lang="co">
             <p>Chì và è volta, bon viaghju face.</p>
             <footer lang="fr">Celui qui part et revient a fait un bon voyage.</footer>
@@ -107,16 +107,16 @@
         <div class="card">
           <p class="kicker"><span>I</span> Avant la ville</p>
           <h2 id="t-rocher">Le rocher</h2>
-          <p>Un golfe profond, refermé sur lui-même. Au fond, une butte de porphyre rose&nbsp;; derrière elle, presque aussitôt, la montagne.</p>
-          <p>Le nom dit l’âge du lieu&nbsp;: <i lang="co">Portivechju</i>, le port vieux. Des Grecs de Syracuse l’auraient fondé, ou repris, six siècles avant notre ère&nbsp;; Rome l’appelait <i lang="la">Portus Syracusanus</i>.</p>
+          <p>Au commencement, il n’y a qu’un golfe profond, refermé sur lui-même. Au fond de l’eau se dresse un éperon de porphyre rose&nbsp;; derrière lui, la montagne se lève presque aussitôt.</p>
+          <p>Son nom vient de loin&nbsp;: <i lang="co">Portivechju</i>, le port vieux. Six siècles avant notre ère, dit-on, des Grecs de Syracuse y mouillaient déjà&nbsp;; Rome l’appelait <i lang="la">Portus Syracusanus</i>.</p>
         </div>
       </div>
 
       <div class="step" data-scene="port-vieux">
         <div class="card">
-          <p>Un port, mais pas de ville. La plaine est fertile et presque déserte&nbsp;: les marais y donnent la fièvre. Seuls y descendent, l’hiver, les bergers de la montagne avec leurs troupeaux.</p>
+          <p>Un port, donc, mais pas de ville. La plaine a beau être fertile, personne n’ose y dormir&nbsp;: les marais donnent la fièvre. L’hiver seulement, les bergers descendent des hauteurs avec leurs troupeaux.</p>
           <p>Le reste du temps, écrit l’évêque Giustiniani au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle, «&nbsp;les fustes des corsaires trouvaient dans ce canal un endroit excellent pour se cacher&nbsp;».</p>
-          <p>Descendre l’hiver, remonter l’été&nbsp;: c’est le premier va-et-vient de cette histoire. Il y en aura d’autres.</p>
+          <p>Descendre l’hiver, remonter dès les chaleurs&nbsp;: ce va-et-vient entre la montagne et la mer est le premier battement de ce pays. Il y en aura d’autres.</p>
         </div>
       </div>
     </section>
@@ -127,9 +127,8 @@
         <div class="card">
           <p class="kicker"><span>II</span> 1539 – 1589</p>
           <h2 id="t-citadelle">La citadelle</h2>
-          <p>«&nbsp;C’est pour leur fermer cet asile que l’Office de Saint Georges fit bâtir là un village qu’il peupla lui-même.&nbsp;» En 1539, Gênes fonde une colonie. Ses envoyés débarquent l’été suivant, cherchent un site et choisissent la hauteur.</p>
-          <p>Les murs montent de 1541 à 1544, sur un plan d’Olgiati. Cinq bastions&nbsp;: de France, Saint-Georges, du Palais, San Antonio, de la Porte.</p>
-          <p class="aside">Sur la maquette, les bastions et les pans de mur conservés sont à leur place&nbsp;; entre eux, l’enceinte est restituée en ligne droite. La ville haute est figurée par ses volumes actuels.</p>
+          <p>«&nbsp;C’est pour leur fermer cet asile que l’Office de Saint Georges fit bâtir là un village qu’il peupla lui-même.&nbsp;» En 1539, Gênes décide de fermer ce refuge. Ses envoyés débarquent l’été suivant, cherchent un site et choisissent la hauteur du rocher.</p>
+          <p>De 1541 à 1544, les remparts montent sur un plan d’Olgiati, défendus par cinq bastions&nbsp;: de France, Saint-Georges, du Palais, San Antonio et de la Porte.</p>
           <figure>
             <img src="assets/img/bastion-de-france-960.webp" width="960" height="720" loading="lazy" decoding="async" alt="Un bastion de pierre claire dominant le golfe.">
             <figcaption>Le bastion de France aujourd’hui. Photographie&nbsp;: Air fans, CC0.</figcaption>
@@ -139,9 +138,8 @@
 
       <div class="step" data-scene="ventimiglia">
         <div class="card">
-          <p>La ville, elle, ne tient pas. Sampiero Corso la prend à l’été 1564&nbsp;; elle est rasée l’année suivante. En 1578, plus de cent familles venues de Vintimille la relèvent et la rebaptisent <i lang="it">Ventimiglia la Nuova</i>. Quelques années plus tard, elles sont reparties.</p>
-          <p>La commune compte trois destructions avant 1589. Les murs, jamais modernisés, sont restés ceux du <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle&nbsp;: on voit encore le bastion de France et la porte génoise.</p>
-          <p>Il ne manquait que des gens pour rester.</p>
+          <p>Mais la ville ne tient pas. Sampiero Corso s’en empare à l’été 1564&nbsp;; l’année suivante, tout est rasé. En 1578, plus de cent familles venues de Vintimille la relèvent et la rebaptisent <i lang="it">Ventimiglia la Nuova</i>. Quelques années plus tard, elles repartent à leur tour.</p>
+          <p>Les pierres résistent, trois fois reconstruites avant 1589, jamais modernisées depuis — on voit encore aujourd’hui le bastion de France et la porte génoise. Ce qui manque encore, ce sont des gens pour y rester.</p>
         </div>
       </div>
     </section>
@@ -152,15 +150,15 @@
         <div class="card">
           <p class="kicker"><span>III</span> <span class="sc">XVII</span><sup>e</sup> siècle</p>
           <h2 id="t-montagne">Ceux d’en haut</h2>
-          <p>Alors Gênes se tourne vers la montagne. Des familles descendent s’installer dans la citadelle, de Quenza surtout. Au <span class="sc">XVII</span><sup>e</sup>&nbsp;siècle, Porto-Vecchio est une ville de montagnards.</p>
-          <p>Les deux noms de cette lettre viennent aussi de là-haut&nbsp;: les Rocca Serra de Serra-di-Scopamène, dans l’Alta Rocca&nbsp;; les Abbatucci de Zicavo, au pied de l’Incudine.</p>
+          <p>Alors Gênes lève les yeux vers la montagne. Ce sont des familles d’en haut, de Quenza surtout, qui descendent enfin habiter la citadelle. Au <span class="sc">XVII</span><sup>e</sup>&nbsp;siècle, Porto-Vecchio devient une ville de montagnards.</p>
+          <p>Les deux noms de cette lettre viennent eux aussi de ces sommets&nbsp;: les Rocca Serra, de Serra-di-Scopamène dans l’Alta Rocca&nbsp;; les Abbatucci, de Zicavo, au pied de l’Incudine.</p>
         </div>
       </div>
 
       <div class="step" data-scene="estive">
         <div class="card">
-          <p>Mais ils ne restent pas toute l’année. Chaque été, quand revient la fièvre, la ville se vide&nbsp;: on remonte à Quenza, à Zonza, à Levie, à l’Ospédale. On redescend à l’automne. Cela dure des générations.</p>
-          <p>Une ville qui tient parce qu’elle sait se vider. Ici, partir n’a jamais été le contraire d’appartenir.</p>
+          <p>Ils tiennent la ville, mais jamais toute l’année. Chaque été, quand la fièvre revient sur la plaine, on ferme les volets et l’on remonte vers la fraîcheur — vers Quenza, Zonza, Levie, l’Ospédale. À l’automne, on redescend. Des générations vivent sur ce souffle.</p>
+          <p>Une ville qui survit parce qu’elle accepte de se vider. Ici, partir n’a jamais été le contraire d’appartenir.</p>
           <blockquote class="proverb" lang="co">
             <p>L’acqua và à u mare.</p>
             <footer lang="fr">L’eau va à la mer.</footer>
@@ -175,15 +173,15 @@
         <div class="card">
           <p class="kicker"><span>IV</span> Le départ</p>
           <h2 id="t-paoli">13 juin 1769</h2>
-          <p>La carte qui vient de s’imprimer est le Plan Terrier, levé entre 1769 et 1791&nbsp;: le premier relevé précis de ce rivage. Il commence l’année d’un départ.</p>
-          <p>Le 13&nbsp;juin 1769, vaincu à Ponte Novu, Pasquale Paoli embarque ici sur un navire anglais, pour Livourne et pour l’exil. Quelque trois cents fidèles le suivent.</p>
+          <p>1769&nbsp;: l’année même où l’on commence à dresser le Plan Terrier, première carte précise de ce rivage, le golfe voit le plus célèbre de ses départs.</p>
+          <p>Le 13&nbsp;juin, vaincu à Ponte Novu, Pasquale Paoli embarque ici sur un navire anglais, direction Livourne et l’exil. Quelque trois cents fidèles prennent la mer avec lui.</p>
         </div>
       </div>
 
       <div class="step" data-scene="abbatucci">
         <div class="card">
-          <p>L’homme qui a couvert sa retraite vient de Zicavo&nbsp;: Jacques Pierre Abbatucci, médecin, que Paoli avait fait emprisonner avant de lui confier le Sud. Selon la tradition familiale, c’est lui qui l’escorte jusqu’à ce port.</p>
-          <p>Paoli reviendra en juillet 1790, après vingt et un ans&nbsp;; puis une dernière fois en 1889, quand ses cendres regagnent Morosaglia. Jean-Charles, le fils du vieux général, ne reviendra pas&nbsp;: général à son tour, il est tué à vingt-six ans en défendant Huningue, en 1796. Son nom est gravé sous l’Arc de triomphe.</p>
+          <p>L’homme qui a protégé sa retraite descend de Zicavo. C’est Jacques Pierre Abbatucci — un médecin devenu général, que Paoli avait autrefois fait emprisonner avant de lui confier tout le Sud. Dans la mémoire de la famille, c’est lui qui l’a escorté jusqu’à ce port.</p>
+          <p>Paoli reviendra en juillet 1790, vingt et un ans plus tard, puis une dernière fois en 1889 quand ses cendres regagnent Morosaglia. Mais le fils du vieux général, Jean-Charles, ne rentrera jamais&nbsp;: général à son tour, il tombe à vingt-six ans devant Huningue, en 1796. Son nom est gravé sous l’Arc de triomphe.</p>
           <details class="note">
             <summary>En marge&nbsp;: les Abbatucci de Zicavo</summary>
             <ul>
@@ -203,8 +201,8 @@
         <div class="card">
           <p class="kicker"><span>V</span> 1795 – 2000</p>
           <h2 id="t-sel">Le sel</h2>
-          <p>Au pied de la ville, là où le Stabiacciu rejoint le golfe, la carte dessine des marais. En 1795, l’autorisation d’y faire du sel est accordée à la famille Rocca Serra.</p>
-          <p>Gênes, qui tenait le monopole du sel, n’en avait jamais voulu ici. Ces salines viennent donc tard, et seront les dernières de Corse à travailler.</p>
+          <p>Au pied du rocher, là où le Stabiacciu se jette dans le golfe, l’eau dort dans les marais. Gênes, qui gardait le monopole du sel, n’en avait jamais voulu ici.</p>
+          <p>En 1795, les Rocca Serra reçoivent enfin le droit d’y aménager des salines. Elles viennent tard, et seront les dernières de toute l’île à travailler.</p>
         </div>
       </div>
 
@@ -214,8 +212,8 @@
             <img src="assets/relief/salines-1802-detail.webp" width="520" height="600" loading="lazy" decoding="async" alt="Détail d’un plan ancien : la ville en rose et deux damiers au bord de l’eau portant la mention Salines.">
             <figcaption>Petrucy et Charrier, <i>Plan de la baye de Porto-Vecchio</i>, an&nbsp;XI (1802–03), détail. BnF.</figcaption>
           </figure>
-          <p>Le plan levé en l’an&nbsp;XI les montre déjà&nbsp;: deux damiers au bord de l’eau. On y travaillera deux siècles, jusqu’en 2000&nbsp;; deux mille tonnes par an dans les années 1950.</p>
-          <p>C’est aussi le moment où le nom entre à la mairie&nbsp;: en 1803, Vincente Maria Rocca Serra devient maire. La photographie qui ouvre cette lettre est prise du bord de ces bassins.</p>
+          <p>Sur le plan levé en l’an&nbsp;XI, elles dessinent déjà deux damiers au bord de l’eau. On y récolte le sel pendant deux siècles, jusqu’en 2000 — jusqu’à deux mille tonnes par an dans les années 1950.</p>
+          <p>C’est le même temps où le nom entre à la mairie, en 1803, avec Vincente Maria Rocca Serra, pour y rester presque sans interruption. Le sel conserve ce qu’on lui confie&nbsp;: et l’eau calme qui ouvre cette lettre, où la vieille ville se regarde à l’aube, est celle de ces bassins.</p>
           <details class="note">
             <summary>En marge&nbsp;: les Rocca Serra</summary>
             <ul>
@@ -234,15 +232,15 @@
         <div class="card">
           <p class="kicker"><span>VI</span> 1876 – 1975</p>
           <h2 id="t-liege">Le liège</h2>
-          <p>La carte s’efface. Voici la première photographie prise du ciel, en 1951. Sur la Marine travaille alors l’usine Saint-Joseph, fondée en 1876&nbsp;: bouchons, flotteurs de filets, isolants.</p>
-          <p>Le liège se lève au cœur de l’été. Juillet est le mois le plus dur de l’année, et c’est justement celui où il faudrait être parti.</p>
+          <p>Un siècle passe, et la ville change de métier. Sur la Marine, depuis 1876, l’usine Saint-Joseph travaille le liège des collines — bouchons, flotteurs de filets, plaques d’isolant.</p>
+          <p>On lève l’écorce au cœur de juillet, sous la chaleur lourde, au moment même où il faudrait déjà avoir gagné la montagne.</p>
         </div>
       </div>
 
       <div class="step" data-scene="ecorce">
         <div class="card">
-          <p>Le chêne-liège a ceci de rare qu’on peut le dépouiller sans le tuer. Sous l’écorce levée, le tronc est rouge orangé&nbsp;; dix à douze ans plus tard, l’écorce est revenue.</p>
-          <p>L’usine ferme en 1975, vaincue par le plastique&nbsp;; elle abrite aujourd’hui un théâtre.</p>
+          <p>Le chêne-liège a ceci de rare qu’on le dépouille sans jamais le tuer. Nu, son tronc rouge orangé affronte le soleil&nbsp;; dix à douze ans plus tard, l’écorce est revenue.</p>
+          <p>L’usine ferme en 1975, vaincue par le plastique. Aujourd’hui, entre ses murs, on joue du théâtre.</p>
           <p class="credit">Chêne-liège en Corse. Photographie&nbsp;: JCMEL, CC BY-SA 4.0.</p>
           <details class="note">
             <summary>En marge&nbsp;: les mûriers</summary>
@@ -256,8 +254,8 @@
       <div class="step" data-scene="train">
         <div class="card">
           <p class="year">1935</p>
-          <p>Le train aura duré moins encore. Le 21&nbsp;septembre 1935, la ligne de la côte orientale atteint enfin Porto-Vecchio, son terminus&nbsp;: Bastia est à cent cinquante kilomètres, et à cinq heures de voyage.</p>
-          <p>Au soir du 8&nbsp;septembre 1943, les bombardements l’interrompent. Elle ne sera jamais rouverte. Huit étés, pas un de plus.</p>
+          <p>En septembre 1935, même le train finit par descendre jusqu’ici, reliant Porto-Vecchio, terminus de la côte orientale, à Bastia — cent cinquante kilomètres et cinq heures de voyage.</p>
+          <p>Il ne connaîtra que huit étés. Au soir du 8&nbsp;septembre 1943, les bombardements coupent la voie. Elle ne rouvrira jamais.</p>
         </div>
       </div>
     </section>
@@ -268,24 +266,24 @@
         <div class="card">
           <p class="kicker"><span>VII</span> 1925 – 1953</p>
           <h2 id="t-fievre">La fièvre</h2>
-          <p>Regardez l’anse en 1951&nbsp;: encore ouverte, presque nue. Ce qui vidait cette plaine depuis des siècles vient à peine de céder.</p>
-          <p>Entre les deux guerres, une mission financée par la fondation Rockefeller étudie le paludisme de l’île et relève des gîtes de moustiques jusque dans les bras du Stabiacciu. Le maire est alors un médecin&nbsp;: Camille de Rocca Serra, député, soutient cette lutte à la Chambre.</p>
+          <p>Voici l’anse de la Marine au lendemain de la guerre, encore sauvage, presque nue. Pourtant, le vieux mal qui vidait cette plaine depuis quatre siècles vient tout juste de reculer.</p>
+          <p>Entre les deux guerres déjà, une mission financée par la fondation Rockefeller avait étudié le paludisme jusque dans les bras du Stabiacciu. Le maire d’alors était un médecin, Camille de Rocca Serra, qui appuyait cette lutte à la Chambre.</p>
         </div>
       </div>
 
       <div class="step" data-scene="rivage-1975">
         <div class="card">
           <p class="year">1975</p>
-          <p>Au printemps 1949, la campagne contre les moustiques commence par le secteur de Porto-Vecchio. D’après un rapport de 1950, les analyses de sang positives y tombent d’environ deux cents en 1947 à quatre en 1949. En 1953, l’île ne compte plus un seul cas nouveau.</p>
-          <p>En juin 1950, un autre médecin devient maire&nbsp;: Jean-Paul de Rocca Serra, fils de Camille. Il le restera quarante-sept ans. Le rivage, lui, se couvre de digues et de pontons.</p>
+          <p>Au printemps 1949, l’État lance sa grande campagne contre les moustiques et commence par le secteur de Porto-Vecchio. D’après un rapport de 1950, les analyses positives y tombent d’environ deux cents en 1947 à quatre en 1949. En 1953, l’île ne compte plus un seul cas nouveau.</p>
+          <p>En juin 1950, le fils de Camille devient maire à son tour, médecin lui aussi&nbsp;: Jean-Paul de Rocca Serra. Il restera quarante-sept ans à la tête de la ville, tandis que le rivage se couvre de digues et de pontons.</p>
         </div>
       </div>
 
       <div class="step" data-scene="rivage-2024">
         <div class="card">
           <p class="year">2024</p>
-          <p>La marina, les quais. Trois photographies, une seule anse.</p>
-          <p>La fièvre n’a pas cédé devant un homme, mais devant une campagne d’État. Elle laisse pourtant une chose que la ville n’avait jamais eue&nbsp;: on peut désormais y passer l’été.</p>
+          <p>Les digues s’avancent, les quais se dessinent, la marina s’ouvre. Une même anse, méconnaissable.</p>
+          <p>Pour la première fois de son histoire, on n’a plus besoin de fuir Porto-Vecchio quand vient la chaleur. On peut enfin y passer l’été.</p>
         </div>
       </div>
     </section>
@@ -296,20 +294,20 @@
         <div class="card">
           <p class="kicker"><span>VIII</span> Depuis 1950</p>
           <h2 id="t-ete">L’été</h2>
-          <p>Alors la saison change de sens. Pendant trois siècles, l’été vidait la ville&nbsp;; désormais, il la remplit.</p>
+          <p>Alors les saisons se retournent. Pendant trois siècles, l’été chassait les habitants vers les hauteurs&nbsp;; désormais, c’est l’été qui les ramène vers la mer. En une vie d’homme, la ville fait plus que tripler.</p>
           <dl class="figures">
             <div><dt>1946</dt><dd>3&nbsp;339</dd></div>
             <div><dt>1975</dt><dd>7&nbsp;510</dd></div>
             <div><dt>2023</dt><dd>11&nbsp;198</dd></div>
           </dl>
-          <p class="aside">Habitants de la commune. Les volumes qui se lèvent sont les bâtiments d’aujourd’hui&nbsp;; leur montée est une image, non une chronologie.</p>
+          <p class="aside">Habitants de la commune (recensements).</p>
         </div>
       </div>
 
       <div class="step" data-scene="plages">
         <div class="card">
-          <p>Palombaggia, Santa Giulia, Cala Rossa. Là-haut, à l’Ospédale, un lac retient depuis 1979 l’eau qui descend vers la côte&nbsp;: la montagne continue de faire vivre la plaine.</p>
-          <p>Ceux qui arrivent chaque été refont, sans le savoir, un très vieux chemin. Vous, vous le savez.</p>
+          <p>Palombaggia, Santa Giulia, Cala Rossa. Là-haut, à l’Ospédale, un lac retient depuis 1979 l’eau qui descend abreuver la côte&nbsp;: aujourd’hui encore, c’est la montagne qui fait vivre la plaine.</p>
+          <p>Chaque été, des milliers de gens refont sans le savoir un très vieux chemin. Mais vous, vous ne venez pas voir cette mer. Vous venez la retrouver.</p>
           <blockquote class="proverb" lang="co">
             <p>Hè megliu ghjente cà arghjentu.</p>
             <footer lang="fr">Mieux vaut des siens que de l’argent.</footer>
@@ -325,8 +323,8 @@
         <div class="card">
           <p class="kicker"><span>IX</span> La nuit du 31 juillet</p>
           <h2 id="t-soir">Le soir</h2>
-          <p>Le dernier soir de juillet, on promène dans la vieille ville un mannequin de paille et de liège vêtu de velours&nbsp;: <i lang="co">Luddareddu</i>, «&nbsp;petit juillet&nbsp;». On le juge, on le pend, et à minuit on le brûle sur la place de l’église.</p>
-          <p>Juillet était le mois du liège, des foins, du battage et du sel. Les hommes restaient en plaine pendant que les familles étaient déjà au frais. Brûler juillet, c’était fêter le jour où l’on pouvait enfin partir.</p>
+          <p>Le soir du 31&nbsp;juillet, la vieille ville allume encore un vieux feu. On y promène <i lang="co">Luddareddu</i>, «&nbsp;petit juillet&nbsp;», un mannequin de paille et de liège vêtu de velours. On le juge, on le pend, et à minuit on le brûle devant l’église.</p>
+          <p>Autrefois, juillet était le mois le plus dur — celui du liège, des foins, du battage et du sel, où les hommes restaient seuls en plaine pendant que les familles étaient déjà au frais. Brûler juillet, c’était fêter le jour où l’on pouvait enfin remonter.</p>
           <p class="cry" lang="co">«&nbsp;O Luddareddu chì ti ni vai&nbsp;!&nbsp;»</p>
           <p>On le brûle toujours, dans une ville où l’on vient désormais passer l’été.</p>
         </div>
@@ -339,16 +337,16 @@
         <div class="card">
           <p class="kicker"><span>X</span> Deux rues</p>
           <h2 id="t-maison">La maison</h2>
-          <p>Descendez encore. Dans la vieille ville, le long des murs génois, une rue — <i lang="co">un carrughju</i> — porte le nom du docteur Camille de Rocca Serra. Au bout, elle ne s’arrête pas&nbsp;: elle change seulement de nom, et devient la rue du Général-Abbatucci.</p>
-          <p>La voirie n’y a peut-être pas songé, mais elle dit vrai. Le docteur de la première rue est né le 16&nbsp;août 1880 à Zicavo, le village de la seconde, et sa mère était une Abbatucci.</p>
-          <p>Les deux noms sont une seule famille. La montagne et la mer, que cette lettre tenait séparées, s’étaient épousées.</p>
+          <p>Approchez-vous encore. Là-haut, le long des vieux murs génois, une ruelle — <i lang="co">un carrughju</i> — porte le nom du docteur Camille de Rocca Serra. Marchez jusqu’au bout. Elle ne s’arrête pas&nbsp;: sans même tourner, elle devient la rue du Général-Abbatucci.</p>
+          <p>Ce n’est pas un hasard de pierre. Le docteur Camille est né le 16&nbsp;août 1880 à Zicavo, le village des Abbatucci — sa mère portait leur nom.</p>
+          <p>Les deux noms de cette lettre ne font qu’une seule histoire. Depuis longtemps déjà, la montagne et la mer s’étaient épousées.</p>
         </div>
       </div>
 
       <div class="step" data-scene="rue">
         <div class="card">
-          <p>La voici à hauteur d’homme. La maquette s’arrête sur le seuil&nbsp;: ce qui se passe derrière les volets n’appartient pas aux cartes.</p>
-          <p>Certains sont déjà revenus&nbsp;: dans la rue, des volets se sont rouverts.</p>
+          <p>La voici, à hauteur de pas. Ici, les cartes s’arrêtent sur le seuil&nbsp;: ce qui se vit derrière ces pierres n’appartient qu’à ceux qui y entrent.</p>
+          <p>Déjà, dans cette rue, des volets se sont rouverts.</p>
           <blockquote class="proverb" lang="co">
             <p>A casa piglia, a casa rende.</p>
             <footer lang="fr">La maison rend toujours ce qu’elle prend.</footer>
@@ -370,9 +368,9 @@
         <div class="card">
           <p class="kicker"><span>—</span> La nuit</p>
           <h2 id="t-envoi">Envoi</h2>
-          <p>La nuit est tombée sur la maquette. Les fenêtres allumées sont une image, les étoiles aussi. Le reste est vrai&nbsp;: le rocher, les bastions, le sel, l’écorce qui repousse, la fièvre vaincue, les deux rues qui n’en font qu’une.</p>
-          <p>Ici, tout le monde est parti, chaque année, et tout le monde est revenu&nbsp;: les bergers, les montagnards, Paoli lui-même. Si vous lisez ceci de loin, vous n’êtes pas un visiteur. Vous êtes le prochain retour.</p>
-          <p>Vous ne reconnaîtrez rien, et tout vous reconnaîtra.</p>
+          <p>La nuit est tombée sur Portivechju. Des fenêtres s’allument au-dessus des salines.</p>
+          <p>Ici, tout le monde est parti, et tout le monde a retrouvé le chemin — les bergers, les gens d’en haut, Paoli lui-même. Alors si vous lisez ceci de loin, ne vous croyez pas de passage. Vous êtes simplement le prochain retour.</p>
+          <p>Un jour, vous arriverez ici. Vous ne reconnaîtrez rien, et tout vous reconnaîtra.</p>
         </div>
       </div>
 
@@ -399,7 +397,7 @@
           <p><a href="https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes">Plan Terrier de Corse</a> (1769–1791), Archives de la Collectivité de Corse&nbsp;; son calage peut s’écarter du terrain de 50 à 100&nbsp;m.</p>
           <p>Petrucy et Charrier, <i>Plan de la baye de Porto-Vecchio</i>, an&nbsp;XI (1802–03). BnF, Cartes et plans, GE SH 19 PF 79 DIV 14 P 12/1 D. <a href="https://catalogue.bnf.fr/ark:/12148/cb45412814f">Notice</a>.</p>
           <p>Tracé des deux rues, des bastions et des murs conservés, de l’église et de l’ancienne voie ferrée&nbsp;: © les contributeurs d’<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, licence ODbL.</p>
-          <p>Ce qui est une image et non un document&nbsp;: la montée des maisons et leurs toits, que le relevé ne donne pas&nbsp;; le clocher, placé d’après les photographies&nbsp;; l’enceinte entre les bastions&nbsp;; le damier des salines, dessiné dans l’emprise visible en 2024&nbsp;; les points qui voyagent, le navire et le train, qui suivent la pente la plus douce et non des chemins relevés&nbsp;; les fenêtres allumées, le feu du 31&nbsp;juillet, les reflets sur l’eau, les étoiles.</p>
+          <p>Ce qui est une image et non un document&nbsp;: la ville haute du <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle, figurée par ses volumes actuels&nbsp;; la montée des bâtiments (une évocation, non une chronologie) et leurs toits, que le relevé ne donne pas&nbsp;; le clocher, placé d’après les photographies&nbsp;; l’enceinte restituée en ligne droite entre les bastions conservés&nbsp;; le damier des salines, dessiné dans l’emprise visible en 2024&nbsp;; les points qui voyagent, le navire et le train, qui suivent la pente la plus douce et non des chemins relevés&nbsp;; les fenêtres allumées, le feu du 31&nbsp;juillet, les reflets sur l’eau, les étoiles.</p>
         </section>
 
         <section aria-labelledby="t-photos">
@@ -427,14 +425,14 @@
             <li>Le liège et le train&nbsp;: <a href="https://pop.culture.gouv.fr/notice/merimee/IA2A001310">Inventaire général, IA2A001310</a>&nbsp;; <a href="https://corse.cnpf.fr/sites/corse/files/2022-01/guide_chene_liege.pdf">CNPF Corse</a>&nbsp;; <a href="https://fr.wikipedia.org/wiki/Ligne_de_la_c%C3%B4te_orientale_corse">ligne de la côte orientale corse</a>.</li>
             <li>La fièvre&nbsp;: <a href="https://revuemtsi.societe-mtsi.fr/index.php/bspe-articles/article/view/309">Revue MTSI, 2023</a>&nbsp;; <a href="https://www.parasite-journal.org/articles/parasite/pdf/1927/02/parasite1927052p97.pdf">Annales de parasitologie, 1927</a>&nbsp;; <a href="https://horizon.documentation.ird.fr/exl-doc/pleins_textes/divers09-11/28659.pdf">rapport au Conseil général, février 1950</a>.</li>
             <li>Population, Luddareddu, proverbes&nbsp;: <a href="https://fr.wikipedia.org/wiki/Porto-Vecchio">Wikipédia</a>, <a href="https://fr.wiktionary.org/">Wiktionnaire</a>.</li>
-            <li>Mûriers et soie&nbsp;: ARTE, <cite>Invitation au voyage</cite>, «&nbsp;Quand la route de la soie passait par la Corse&nbsp;» (2024)&nbsp;; <a href="https://www.corsematin.com/articles/au-temps-ou-la-route-de-la-soie-traversait-la-corse-125665">Corse-Matin</a>&nbsp;; <a href="https://pdn-patrimonia.unicaen.fr/iejp/france/archives/Corse/Corse-du-Sud/FRIEJP_ADCorse-Sud_ead.xml/FRIEJP_ADCorse-du-Sud_Arch2.html">Archives de la Corse-du-Sud</a>.</li>
+            <li>Mûriers et soie&nbsp;: ARTE, <cite>Invitation au voyage</cite>, «&nbsp;Quand la route de la soie passait par la Corse&nbsp;» (2024)&nbsp;; <a href="https://www.corsematin.com/articles/au-temps-ou-la-route-de-la-soie-traversait-la-corse-125665">Corse-Matin</a>&nbsp;; <a href="https://pdn-patrimonia.unicaen.fr/iejp/france/archives/Corse/Corse-du-Sud/FRIEJP_ADCorse-Sud_ead.xml/FRIEJP_ADCorse-Sud_Arch2.html">Archives de la Corse-du-Sud</a>.</li>
             <li>Maisons d’Américains&nbsp;: <a href="https://www.museudiacorsica.corsica/fr/expositions/palazzi-di-lamericani-les-palais-des-corses-americains/">Musée de la Corse</a>&nbsp;; <a href="https://journals.openedition.org/etudescaribeennes/11315">Études caribéennes</a>&nbsp;; C.&nbsp;Paoli, <cite>Les maisons d’Américains</cite> (Albiana, 2006).</li>
           </ul>
         </section>
 
         <section aria-labelledby="t-fabrique">
           <h3 id="t-fabrique">Fabrique</h3>
-          <p>Une seule scène en trois dimensions (three.js) reste derrière le texte&nbsp;; le défilement règle la caméra, l’époque et l’heure. Le film dit une version abrégée de la lettre et fait défiler la page à sa place&nbsp;; sa voix est une voix de synthèse (<a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a>, voix «&nbsp;siwis&nbsp;», tirée de la <a href="https://datashare.ed.ac.uk/handle/10283/2353">base SIWIS</a>, CC BY 4.0). Sans WebGL, ou si vous avez demandé moins de mouvement, la lettre se lit avec des images fixes rendues dans Blender.</p>
+          <p>Une seule scène en trois dimensions (three.js) reste derrière le texte&nbsp;; le défilement règle la caméra, l’époque et l’heure. Le film dit une version écrite pour l’oreille et fait défiler la page à sa place&nbsp;; sa voix provisoire est une voix de synthèse (<a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a>, voix «&nbsp;siwis&nbsp;», tirée de la <a href="https://datashare.ed.ac.uk/handle/10283/2353">base SIWIS</a>, CC BY 4.0). Sans WebGL, ou si vous avez demandé moins de mouvement, la lettre se lit avec des images fixes rendues dans Blender.</p>
           <p>Caractères&nbsp;: Cormorant Garamond et Manrope (Google Fonts). Aucune mesure d’audience.</p>
         </section>
       </div>

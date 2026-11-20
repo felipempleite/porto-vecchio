@@ -115,6 +115,12 @@ export function createCinema({root, scenes, headings, onStart, onStop}) {
     get time() { return clock; },
     get sounding() { return !!audio && !silent && !audio.paused && !audio.muted; },
     playFrom(time) { play(time); },
+    /* Jump straight to a step/chapter while keeping the film playing */
+    jump(index) {
+      const i = clamp(Math.round(index), 0, steps.length - 1);
+      const lead = headings[i] ? 1.4 : .6;
+      play(i ? Math.max(steps[i].from, steps[i].voice - lead) : 0);
+    },
     placeAt, stepAt,
     /* Called once per frame while playing: moves the clock and returns the place in the score. */
     frame(now) {
