@@ -78,7 +78,7 @@
 .relief-monuments figcaption {padding-top:1rem;}
 .relief-monuments h3 {font-size:clamp(1.7rem,2.8vw,2.35rem);margin:0;}
 @media(max-width:650px){.relief-monuments{grid-template-columns:1fr;gap:2rem;}}
-.relief-atlas,.relief-leaf,.maison-arrivee figure {scroll-margin-top:5.5rem;}
+.relief-atlas,.relief-intro,.relief-leaf,.maison-arrivee figure {scroll-margin-top:5.5rem;}
 .maison-plan {margin:1.5rem auto;max-width:54rem;text-align:center;}
 .maison-plan summary {font:600 .85rem/1.5 var(--font-sans);color:var(--ink-muted);min-height:44px;padding:.65rem;cursor:pointer;}
 .maison-plan .maison-map {text-align:left;}
@@ -91,3 +91,12 @@
 .maison-arrivee small {display:block;font:400 .75rem/1.5 var(--font-sans);color:var(--ink-muted);margin-top:.5rem;}
 .maison-arrivee a {color:inherit;}
 @media(max-width:700px){.maison-arrivee{grid-template-columns:1fr;gap:2.2rem;}}
+
+.survey {grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+.survey .relief-leaf__image {width:100%;max-width:29rem;justify-self:center;background:#e8dfc9;}
+.survey-text {font:400 var(--body-size)/1.6 var(--font-serif);margin:0 0 1rem;}
+@media(max-width:760px){.survey{grid-template-columns:1fr;}}
+@media(max-width:480px){
+ .relief-stage[data-view=port] #relief-hill {transform:translate(6px,calc(-100% - 14px));}
+ .relief-stage[data-view=port] #relief-hill::after {left:auto;right:100%;transform-origin:right;transform:rotate(-55deg);}
+}
