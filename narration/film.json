@@ -1,7 +1,7 @@
 {
   "note": "Le film : la lettre écrite pour l’oreille, une entrée par étape de la page. tools/build_film.mjs en tire assets/audio/film.mp3 et src/film.js. engine = piper (voix libre, publiable), takes (enregistrements humains ou ElevenLabs dans narration/takes/, voir narration/ELEVENLABS_HANDOFF.md) ou say (voix du Mac, essai local seulement). text = ce qui s’affiche ; say = ce que dit la voix quand il faut l’écrire autrement ; ear = réécritures phonétiques pour Piper ; quiet = dit mais pas affiché (la page le montre déjà) ; land = ligne sur laquelle la caméra doit être arrivée ; cue et pin déclenchent un élément sur la maquette.",
-  "engine": "piper",
-  "voice": "fr_FR-siwis-medium",
+  "engine": "takes",
+  "voice": "elevenlabs-atma",
   "pace": 1.12,
   "noiseScale": 0.6,
   "noiseW": 0.6,

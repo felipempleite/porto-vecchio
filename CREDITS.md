@@ -61,6 +61,10 @@ La page n’affiche plus que six photographies : les salines (Annacquaghjolu), l
 Les bastions, les pans de mur conservés, l’emprise de l’église et le tracé de l’ancienne voie ferrée viennent d’OpenStreetMap (© les contributeurs d’OpenStreetMap, ODbL), relevés par `tools/build_traces.mjs` dans `src/traces.js`. Aucune photographie n’a été ajoutée.
 
 ## Round 8 — le film
-- Voix : synthèse vocale [Piper](https://github.com/OHF-Voice/piper1-gpl), voix `fr_FR-siwis-medium`, entraînée sur la [SIWIS French Speech Synthesis Database](https://datashare.ed.ac.uk/handle/10283/2353) (Université d'Édimbourg et Idiap ; J. Yamagishi, P.-E. Honnet, P. Garner, A. Lazaridis), CC BY 4.0. Créditée sur la page, dans « Fabrique ». Aucune voix système d'Apple dans le fichier publié.
+- Voix provisoire (remplacée en round 10) : synthèse vocale [Piper](https://github.com/OHF-Voice/piper1-gpl), voix `fr_FR-siwis-medium`, entraînée sur la [SIWIS French Speech Synthesis Database](https://datashare.ed.ac.uk/handle/10283/2353) (Université d'Édimbourg et Idiap ; J. Yamagishi, P.-E. Honnet, P. Garner, A. Lazaridis), CC BY 4.0. Aucune voix système d'Apple dans le fichier publié.
 - Images épinglées sur la maquette, déjà créditées plus haut et sur la page : portraits de Jacques Pierre et de Jean-Charles Abbatucci (domaine public), bastion de France (Air fans, CC0), détail du plan de l'an XI (BnF).
 - `assets/audio/lettre.*` (voix ElevenLabs « Atma », round 2) reste dans le dépôt et n'est plus appelé.
+
+## Round 10 — voix du film (ElevenLabs)
+- Voix : synthèse vocale [ElevenLabs](https://elevenlabs.io), modèle `eleven_v4`, voix « Atma » (`vq479zipNPD44hpCdbIh`), 25 prises continues (une par étape de `narration/film.json`, sans lit sonore afin de préserver la clarté intime de la voix et un fichier léger de 3,8 Mo pour la lecture mobile). Alignement mot à mot vérifié via ElevenLabs Scribe (`eleven_scribe_v1`) et contrôle acoustique/ASR ; mixage normalisé à −17 LUFS (`assets/audio/film.mp3`, mono 24 kHz, 64 kb/s). Créditée sur la page, dans « Fabrique ».
+- `assets/audio/lettre.*` reste inchangé dans le dépôt.
