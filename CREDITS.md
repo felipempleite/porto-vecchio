@@ -56,3 +56,6 @@ Générées avec Higgsfield (modèle gpt_image_2_6), novembre 2026 — l'API Gem
 
 ## Round 6 — ce que la page utilise
 La page n’affiche plus que six photographies : les salines (Annacquaghjolu), le bastion de France (Air fans), le chêne-liège (JCMEL), Palombaggia (dronepicr), la rue du Docteur-Camille-de-Rocca-Serra (Patrick Nouhailler) et, dans la version en images fixes seulement, la Voie lactée (Jérémy Sauterel). Elles sont créditées sur la page. Les autres fichiers de `assets/img/`, les illustrations générées, la narration (`assets/audio/`) et la boucle vidéo (`assets/video/`) restent dans le dépôt mais ne sont plus appelés.
+
+## Round 7 — tracés
+Les bastions, les pans de mur conservés, l’emprise de l’église et le tracé de l’ancienne voie ferrée viennent d’OpenStreetMap (© les contributeurs d’OpenStreetMap, ODbL), relevés par `tools/build_traces.mjs` dans `src/traces.js`. Aucune photographie n’a été ajoutée.
