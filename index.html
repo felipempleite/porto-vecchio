@@ -28,12 +28,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/relief.css">
   <link rel="stylesheet" href="css/narration.css">
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/map.js" defer></script>
+  <script src="js/relief.js" defer></script>
   <script src="js/narration.js" defer></script>
   <script src="js/hero-video.js" defer></script>
 </head>
@@ -146,36 +148,51 @@
         <div class="prose prose--cols" data-stagger>
           <p class="reveal">Une plaine fertile, et pourtant désertée&nbsp;: au Moyen Âge, la malaria y régnait comme une saison qui ne finit jamais. Du <span class="sc">XIII</span><sup>e</sup> au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle, les seigneurs de la Rocca tenaient la contrée&nbsp;; seuls les bergers de la montagne y descendaient l’hiver, avec leurs troupeaux.</p>
           <p class="reveal">Puis la seigneurie de la Rocca passa sous l’administration de l’Office de Saint-Georges, à Gênes. En 1539, les Génois fondèrent ici une colonie et une forteresse, pour se garder des Barbaresques.</p>
-          <p class="reveal">Cinq bastions, une porte. La citadelle fut détruite, relevée, détruite encore&nbsp;; les murs que vous toucherez datent de 1589. Le Bastion de France et la Porte génoise sont toujours debout, et la pierre, sous la main, garde la tiédeur des siècles.</p>
+          <p class="reveal">Cinq bastions, une porte. Les premiers murs s’élevèrent au début des années 1540. La citadelle fut détruite, relevée, détruite encore. Le Bastion de France et la Porte génoise sont toujours debout, et la pierre, sous la main, garde la tiédeur des siècles.</p>
         </div>
       </div>
 
-      <figure class="figure figure--wide wrap reveal">
-        <img src="assets/img/memoire-citadelle-960.webp"
-             srcset="assets/img/memoire-citadelle-960.webp 960w, assets/img/memoire-citadelle-1920.webp 1344w"
-             sizes="(min-width: 1240px) 1112px, 100vw" width="1344" height="752"
-             loading="lazy" decoding="async"
-             alt="Évocation peinte d’une citadelle aux murs ocre sur un promontoire rocheux, au bord d’une baie calme bordée de marais, au coucher du soleil ; deux navires à voile croisent devant les montagnes.">
-        <figcaption><span class="tag">Évocation (illustration générée)</span> <span class="cap__desc">La citadelle génoise, telle qu’on peut l’imaginer au <span class="sc">XVI</span><sup>e</sup>&nbsp;siècle</span></figcaption>
-      </figure>
+      <div class="wrap"><figure class="relief-leaf relief-leaf--wide" id="rocher" data-leaf>
+        <div class="relief-leaf__image" style="--plate-ratio:1440/810">
+          <img src="assets/relief/ville-rocher.webp" width="1440" height="810" loading="lazy" decoding="async" alt="La maquette montre le rocher de la vieille ville débarrassé de ses bâtiments. La pente descend jusqu’au rivage.">
+        </div>
+        <figcaption>
+          <h3>Le choix du rocher</h3>
+          <div class="relief-switch" role="group" aria-label="Vues — Le choix du rocher" hidden>
+          <button type="button" data-image="assets/relief/ville-rocher.webp" data-alt="La maquette montre le rocher de la vieille ville débarrassé de ses bâtiments. La pente descend jusqu’au rivage." data-note="Nous avons effacé les maisons d’aujourd’hui pour vous laisser voir le rocher. À leur arrivée en juin 1540, les envoyés de Gênes trouvèrent le site proposé par l’ingénieur Olgiati trop près du rivage et sans eau. En juillet, ils aménagèrent un camp pour les ouvriers près du port. En septembre, ils choisirent pour la ville une hauteur qui domine le golfe." aria-pressed="true">Le rocher nu</button>
+          <button type="button" data-image="assets/relief/ville-terrier.webp" data-alt="Plan Terrier sur le relief. Les marques rouges se concentrent dans une petite enceinte au-dessus de la mer." data-note="Deux siècles plus tard, sur le plan Terrier, la petite ville tient encore dans ses murs. Nous avons donné un peu de relief aux signes rouges du cartographe pour que vous puissiez les distinguer." aria-pressed="false">Le plan du <span class="sc">XVIII</span><sup>e</sup>&nbsp;siècle</button>
+          <button type="button" data-image="assets/img/memoire-citadelle-960.webp" data-alt="Évocation peinte de la citadelle génoise sur une hauteur au bord du golfe." data-note="Évocation du XVIe siècle (illustration générée). Les maisons et les voiles dans le golfe sont imaginées." aria-pressed="false">La citadelle imaginée</button>
+          </div>
+          <p class="relief-leaf__note" aria-live="polite">Nous avons effacé les maisons d’aujourd’hui pour vous laisser voir le rocher. À leur arrivée en juin 1540, les envoyés de Gênes trouvèrent le site proposé par l’ingénieur Olgiati trop près du rivage et sans eau. En juillet, ils aménagèrent un camp pour les ouvriers près du port. En septembre, ils choisirent pour la ville une hauteur qui domine le golfe.</p>
+          <small>Relief actuel © IGN · Plan Terrier, Archives de la Collectivité de Corse. <a href="https://www.storiapatriagenova.eu/Docs/Biblioteca_Digitale/SB/396b22c37e8bbc6c44c30828fc127900/26f49cbd3530561b466aa07123226447.pdf#page=86">Correspondance génoise de 1540 (PDF, en italien)</a>.</small>
+        </figcaption>
+      </figure></div>
 
       <div class="wrap">
-        <div class="duo" data-stagger>
-          <figure class="figure reveal">
-            <img src="assets/img/porte-genoise-960.webp"
-                 srcset="assets/img/porte-genoise-960.webp 960w, assets/img/porte-genoise-1920.webp 1920w"
-                 sizes="(min-width: 720px) 46vw, 100vw" width="1920" height="1440"
-                 loading="lazy" decoding="async"
-                 alt="La Porte génoise : une arche de pierre percée dans l’épais mur de la citadelle, ouvrant sur une ruelle de la vieille ville.">
-            <figcaption><span class="cap__desc">La Porte génoise</span> <span class="cap__credit">Patrick Nouhailler · CC BY-SA 3.0</span></figcaption>
+        <div class="relief-monuments">
+          <figure class="relief-leaf" id="detail-porte" data-leaf>
+            <div class="relief-leaf__image" style="--plate-ratio:4/3"><img src="assets/img/porte-genoise-960.webp" width="960" height="720" loading="lazy" decoding="async" alt="La ruelle traverse une large porte de pierre, sous une arche de granit."></div>
+            <figcaption>
+              <h3>La Porte génoise</h3>
+              <div class="relief-switch" role="group" aria-label="Vues — La Porte génoise" hidden>
+                <button type="button" data-image="assets/img/porte-genoise-960.webp" data-alt="La ruelle traverse une large porte de pierre, sous une arche de granit." data-note="Avancez sous l’arche. Il faut plusieurs pas pour traverser toute l’épaisseur du rempart." aria-pressed="true">Photographie</button>
+                <button type="button" data-image="assets/relief/detail-porte.webp" data-alt="Maquette de détail. La ruelle traverse une large porte de pierre, sous une arche de granit." data-note="La maquette reprend l’arche et le passage que vous voyez sur la photographie. Les proportions sont approximatives." aria-pressed="false">Détail en relief</button>
+              </div>
+              <p class="relief-leaf__note" aria-live="polite">Avancez sous l’arche. Il faut plusieurs pas pour traverser toute l’épaisseur du rempart.</p>
+              <small>Patrick Nouhailler · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (photographie et étude dérivée).</small>
+            </figcaption>
           </figure>
-          <figure class="figure reveal">
-            <img src="assets/img/bastion-de-france-960.webp"
-                 srcset="assets/img/bastion-de-france-960.webp 960w, assets/img/bastion-de-france-1920.webp 1920w"
-                 sizes="(min-width: 720px) 46vw, 100vw" width="1920" height="1440"
-                 loading="lazy" decoding="async"
-                 alt="Le Bastion de France : murs de granit et tour crénelée de la citadelle, dans la lumière dorée de la fin du jour.">
-            <figcaption><span class="cap__desc">Le Bastion de France</span> <span class="cap__credit">Air fans · CC0</span></figcaption>
+          <figure class="relief-leaf" id="detail-bastion" data-leaf>
+            <div class="relief-leaf__image" style="--plate-ratio:4/3"><img src="assets/img/bastion-de-france-960.webp" width="960" height="720" loading="lazy" decoding="async" alt="Depuis la cour, une tour de pierre domine un mur arrondi et une terrasse."></div>
+            <figcaption>
+              <h3>Le Bastion de France</h3>
+              <div class="relief-switch" role="group" aria-label="Vues — Le Bastion de France" hidden>
+                <button type="button" data-image="assets/img/bastion-de-france-960.webp" data-alt="Depuis la cour, une tour de pierre domine un mur arrondi et une terrasse." data-note="Du côté de la cour, on reconnaît le bastion à son mur arrondi et à la tour qui dépasse la terrasse." aria-pressed="true">Photographie</button>
+                <button type="button" data-image="assets/relief/detail-bastion.webp" data-alt="Maquette de détail. Depuis la cour, une tour de pierre domine un mur arrondi et une terrasse." data-note="Retrouvez la courbe du mur et la tour qui la surplombe. Leurs proportions sont estimées d’après la photographie." aria-pressed="false">Détail en relief</button>
+              </div>
+              <p class="relief-leaf__note" aria-live="polite">Du côté de la cour, on reconnaît le bastion à son mur arrondi et à la tour qui dépasse la terrasse.</p>
+              <small>Air fans · CC0 (photographie de référence).</small>
+            </figcaption>
           </figure>
         </div>
 
@@ -243,15 +260,77 @@
       </figure>
 
       <div class="wrap">
-        <div class="split split--rev">
-          <figure class="figure reveal">
-            <img src="assets/img/saline-reflet-960.webp"
-                 srcset="assets/img/saline-reflet-960.webp 960w, assets/img/saline-reflet-1920.webp 1920w"
-                 sizes="(min-width: 900px) 46vw, 100vw" width="1920" height="1280"
-                 loading="lazy" decoding="async"
-                 alt="Depuis les salines, la vieille ville et sa colline verte se dédoublent dans l’eau calme ; quelques oiseaux blancs flottent à la surface.">
-            <figcaption><span class="cap__desc">Portivechju vu des salines</span> <span class="cap__credit">Annacquaghjolu · CC0</span></figcaption>
+        <div class="relief-atlas" id="relief" aria-labelledby="t-relief">
+          <header class="relief-intro">
+            <h3 id="t-relief">Le rivage au fil du temps</h3>
+            <p>Gardez la vieille ville comme point de repère. D’une époque à l’autre, regardez comment change l’anse à ses pieds.</p>
+          </header>
+          <figure>
+            <div class="relief-stage" id="relief-stage">
+              <img id="relief-plate" src="assets/relief/golfe-terrier.webp" width="1440" height="810" loading="lazy" decoding="async" alt="Le plan Terrier épouse le relief. Des signes rouges marquent la vieille ville sur son rocher. Le marais s’étend près de l’embouchure du Stabiacciu.">
+              <img id="relief-reference" class="relief-reference" alt="" hidden>
+              <span class="relief-pin" id="relief-hill" style="left:40.5%;top:41.4%" aria-hidden="true">La vieille ville</span>
+              <span class="relief-pin relief-pin--right" id="relief-water" style="left:44.5%;top:70.5%" aria-hidden="true">Le marais</span>
+              <div id="relief-divider" aria-hidden="true" hidden><span>↔</span></div>
+              <input id="relief-range" type="range" min="0" max="100" value="50" aria-label="Répartir les deux vues" hidden>
+              <span class="relief-date relief-date--left" id="relief-left" hidden></span>
+              <span class="relief-date relief-date--right" id="relief-right" hidden></span>
+              <div id="relief-canvas" hidden></div>
+              <button class="relief-camera" id="relief-camera" type="button" aria-pressed="false" hidden>Voir la vieille ville</button>
+            </div>
+            <div class="relief-periods" role="group" aria-label="Époque du rivage" hidden>
+              <button type="button" data-period="terrier" aria-pressed="true"><span class="sc">XVIII</span><sup>e</sup>&nbsp;siècle</button>
+              <button type="button" data-period="1951" aria-pressed="false">1951–52</button>
+              <button type="button" data-period="1975" aria-pressed="false">1975</button>
+              <button type="button" data-period="2024" aria-pressed="false">2024</button>
+              <button type="button" data-period="bati" aria-pressed="false">Maquette actuelle</button>
+            </div>
+            <figcaption>
+              <div class="relief-notes" id="relief-period-notes" aria-live="polite">
+              <div data-period-note="terrier"><h4>La ville dans ses murs</h4><p>Là où le Stabiacciu rejoint le golfe, le cartographe a écrit «&nbsp;Marais&nbsp;». Sur le rocher, ses marques rouges dessinent la petite ville.</p><small>Plan Terrier, campagne de levés de 1769 à 1791 · Archives de la Collectivité de Corse</small></div>
+              <div data-period-note="1951" hidden><h4>Une anse encore ouverte</h4><p>Au pied de la vieille ville, l’anse reste largement ouverte sur le golfe. Plus au sud s’étendent les marais de l’embouchure.</p><small>Photographies aériennes · IGN, mission Corse de 1951–52</small></div>
+              <div data-period-note="1975" hidden><h4>À l’abri des digues</h4><p>En bas de la pente, les digues abritent quelques pontons. Un peu plus au sud, les bassins des sauniers forment un damier sombre.</p><small>Photographie aérienne · IGN, 16 juillet 1975</small></div>
+              <div data-period-note="2024" hidden><h4>Le port gagne sur l’anse</h4><p>Les pontons occupent une grande partie de l’anse. Près de l’embouchure du Stabiacciu, on distingue encore les bassins des salines.</p><small>Photographie aérienne · IGN, BD ORTHO 2024</small></div>
+              <div data-period-note="bati" hidden><h4>De la vieille ville aux quais</h4><p>Les maisons se serrent sur le rocher tandis que le port s’étale en contrebas. D’un seul regard, vous mesurez la pente qui les sépare.</p><small>Bâtiments actuels · IGN, BD TOPO sur la photographie de 2024</small></div>
+              </div>
+              <div class="relief-actions" hidden>
+                <button type="button" id="relief-compare" aria-pressed="false">Comparer avec 2024</button>
+                <button type="button" id="relief-orbit" aria-pressed="false">Explorer en 3D</button>
+              </div>
+            </figcaption>
           </figure>
+          <p class="relief-feedback" id="relief-status" role="status"></p>
+          <p class="relief-help" id="relief-help" hidden>Faites glisser la maquette pour la tourner. Au clavier, utilisez les flèches pour tourner, + et − pour zoomer, et la touche Début pour retrouver la vue de départ.</p>
+          <p class="relief-help">Toutes les époques reposent sur le relief actuel. Les hauteurs sont doublées pour mieux voir la pente.</p>
+          <details class="relief-method" id="relief-prints"><summary>Voir les autres époques en images</summary>
+            <ul>
+              <li><a href="assets/relief/golfe-1951.webp">1951–52 · Une anse encore ouverte</a></li>
+              <li><a href="assets/relief/golfe-1975.webp">1975 · À l’abri des digues</a></li>
+              <li><a href="assets/relief/golfe-2024.webp">2024 · Le port gagne sur l’anse</a></li>
+              <li><a href="assets/relief/golfe-bati.webp">Maquette actuelle · De la vieille ville aux quais</a></li>
+            </ul>
+          </details>
+          <details class="relief-method"><summary>Cartes, dates et méthode</summary>
+            <p>Pour retrouver le rivage de chaque époque, suivez ses contours sur la carte ou sur la photographie. Le terrain qui les porte garde la forme qu’il a aujourd’hui, jusque sous les remblais du port.</p>
+            <p>Le plan Terrier peut présenter un décalage de 50 à 100 mètres selon les endroits. Quatorze de ses signes rouges ont été mis en relief. Leur épaisseur sert à les rendre visibles&nbsp;: le cartographe n’a pas mesuré la hauteur des maisons. <a href="https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes">Le plan Terrier</a> · <a href="https://draaf.corse.agriculture.gouv.fr/le-plan-terrier-geo-reference-disponible-a648.html">La précision du plan</a>.</p>
+            <p>Les vues de 1951–52 et de 1975 proviennent des <a href="https://www.data.gouv.fr/datasets/bd-ortho-r-historique">photographies aériennes historiques de l’IGN</a>. La maquette actuelle montre 2&nbsp;770 bâtiments à toits plats, d’après les contours et les hauteurs relevés par l’IGN. Nous avons laissé de côté ceux dont la hauteur manque, ceux qui entourent une cour et ceux que coupe le bord de la carte. <a href="https://www.data.gouv.fr/datasets/referentiel-a-grande-echelle-rge">Données de l’IGN</a>.</p>
+          </details>
+        </div>
+        <div class="split split--rev relief-return">
+          <figure class="relief-leaf" id="reflet-du-sel" data-leaf>
+        <div class="relief-leaf__image" style="--plate-ratio:960/640">
+          <img src="assets/img/saline-reflet-960.webp" width="960" height="640" loading="lazy" decoding="async" alt="Depuis les salines, la vieille ville se reflète dans l’eau.">
+        </div>
+        <figcaption>
+          <h3>Depuis les salines</h3>
+          <div class="relief-switch" role="group" aria-label="Vues — Depuis les salines" hidden>
+          <button type="button" data-image="assets/img/saline-reflet-960.webp" data-alt="Depuis les salines, la vieille ville se reflète dans l’eau." data-note="C’est le visage que vous avez découvert en ouvrant cette lettre. Depuis les salines, la vieille ville se dédouble dans l’eau immobile." aria-pressed="true">La photographie</button>
+          <button type="button" data-image="assets/relief/depuis-les-salines.webp" data-alt="Vue schématique depuis le bord des salines vers la ville et les crêtes en arrière-plan." data-note="Au ras de l’eau, les quais disparaissent derrière la rive. Depuis un point de vue voisin de celui de la photographie, retrouvez la vieille ville sur son rocher." aria-pressed="false">La maquette</button>
+          </div>
+          <p class="relief-leaf__note" aria-live="polite">C’est le visage que vous avez découvert en ouvrant cette lettre. Depuis les salines, la vieille ville se dédouble dans l’eau immobile.</p>
+          <small>Photographie d’Annacquaghjolu · CC0 · Relief et bâtiments © IGN.</small>
+        </figcaption>
+      </figure>
           <div class="prose" data-stagger>
             <p class="reveal">Au pied de la vieille ville, les marais salants couvrent une dizaine d’hectares. Entre 1795 et 1815, ils ont donné quelque mille tonnes de sel par an&nbsp;: mille tonnes de lumière arrachée à la mer, année après année.</p>
             <p class="reveal">Aujourd’hui, les salines sont à l’abandon. Mais l’eau y demeure, et elle a gardé son plus beau talent&nbsp;: depuis les marais du Stabiacciu, elle tend à la vieille ville son propre visage. C’est l’une des vues les plus célèbres de Portivechju — celle, peut-être, que l’on emporte en partant, et qui fait revenir.</p>
@@ -298,6 +377,20 @@
       </figure>
 
       <div class="wrap">
+        <figure class="relief-leaf" id="cour-saint-joseph" data-leaf>
+        <div class="relief-leaf__image" style="--plate-ratio:1250/860">
+          <img src="assets/relief/ateliers-ouverts.webp" width="1250" height="860" loading="lazy" decoding="async" alt="Deux ateliers autour d’une cour. Des plaques de liège sont empilées dans le hangar du fond, les machines occupent celui de devant.">
+        </div>
+        <figcaption>
+          <h3>Dans la cour de Saint-Joseph</h3>
+          <div class="relief-switch" role="group" aria-label="Vues — Dans la cour de Saint-Joseph" hidden>
+          <button type="button" data-image="assets/relief/ateliers-ouverts.webp" data-alt="Deux ateliers autour d’une cour. Des plaques de liège sont empilées dans le hangar du fond, les machines occupent celui de devant." data-note="Au XXe siècle, dans l’atelier nord, au fond, on préparait les plaques et l’on empilait le liège bouilli. De l’autre côté de la cour, au premier plan, le bâtiment sud abritait les bureaux et l’atelier des bouchons." aria-pressed="true">Les ateliers ouverts</button>
+          <button type="button" data-image="assets/relief/ateliers.webp" data-alt="Deux longs bâtiments de plain-pied couverts de toits à deux pans, de part et d’autre d’une cour." data-note="Deux hangars de granit et de moellons, de plain-pied, s’ouvraient sur la même cour. L’atelier nord couvrait 433 mètres carrés, l’atelier sud 590." aria-pressed="false">Les bâtiments</button>
+          </div>
+          <p class="relief-leaf__note" aria-live="polite">Au <span class="sc">XX</span><sup>e</sup>&nbsp;siècle, dans l’atelier nord, au fond, on préparait les plaques et l’on empilait le liège bouilli. De l’autre côté de la cour, au premier plan, le bâtiment sud abritait les bureaux et l’atelier des bouchons.</p>
+          <small>Les surfaces et les usages sont connus par <a href="https://pop.culture.gouv.fr/notice/merimee/IA2A001310">l’Inventaire général du patrimoine</a>. Les proportions des hangars et la place des machines sont approximatives.</small>
+        </figcaption>
+      </figure>
         <div class="prose prose--center" data-stagger>
           <p class="reveal">En 1975, l’usine ferme ses portes&nbsp;: le plastique a gagné. Mais les murs n’ont pas voulu se taire. L’ancienne usine abrite aujourd’hui une compagnie de théâtre, I&nbsp;Chjachjaroni — et il y a quelque justice à ce qu’un lieu qui fabriquait des bouchons serve désormais à libérer des voix.</p>
         </div>
@@ -326,16 +419,21 @@
         </div>
       </div>
 
-      <figure class="bleed reveal reveal--clip" data-parallax="7">
-        <div class="bleed__media">
-          <img src="assets/img/vue-ospedale-960.webp"
-               srcset="assets/img/vue-ospedale-960.webp 960w, assets/img/vue-ospedale-1920.webp 1920w"
-               sizes="100vw" width="1920" height="1440"
-               loading="lazy" decoding="async" style="object-position:50% 55%"
-               alt="Depuis la forêt de l’Ospédale, la plaine et le golfe de Porto-Vecchio s’étendent en contrebas, sous un ciel voilé.">
+      <div class="wrap"><figure class="relief-leaf relief-leaf--wide" id="regard-ospedale" data-leaf>
+        <div class="relief-leaf__image" style="--plate-ratio:1920/1440">
+          <img src="assets/img/vue-ospedale-1920.webp" width="1920" height="1440" loading="lazy" decoding="async" alt="Le golfe et la plaine vus de l’Ospédale, entre les branches des pins.">
+          <span class="relief-pin" style="left:53.15%;top:63.41%" data-on-view="1" hidden aria-hidden="true">L’Ospédale</span><span class="relief-pin relief-pin--right" style="left:58.45%;top:43.69%" data-on-view="1" hidden aria-hidden="true">Portivechju</span>
         </div>
-        <figcaption><span class="cap__desc">Porto-Vecchio vu de l’Ospédale</span> <span class="cap__credit">JAn Dudík · CC BY-SA 3.0</span></figcaption>
-      </figure>
+        <figcaption>
+          <h3>La mer vue de la montagne</h3>
+          <div class="relief-switch" role="group" aria-label="Vues — La mer vue de la montagne" hidden>
+          <button type="button" data-image="assets/img/vue-ospedale-1920.webp" data-alt="Le golfe et la plaine vus de l’Ospédale, entre les branches des pins." data-note="Depuis l’Ospédale, la vieille ville se perd dans la plaine. On reconnaît le golfe à la longue échancrure qu’il dessine dans la côte." aria-pressed="true">La photographie</button>
+          <button type="button" data-image="assets/relief/ospedale-golfe.webp" data-alt="Relief régional vu depuis les hauteurs de l’Ospédale vers la plaine et le golfe." data-note="Suivez la pente depuis les hauteurs de l’Ospédale jusqu’à la mer. Tout au fond du golfe, vous retrouvez Portivechju." aria-pressed="false">Le relief</button>
+          </div>
+          <p class="relief-leaf__note" aria-live="polite">Depuis l’Ospédale, la vieille ville se perd dans la plaine. On reconnaît le golfe à la longue échancrure qu’il dessine dans la côte.</p>
+          <small>Photo JAn Dudík · CC BY-SA 3.0 · Relief régional © IGN.</small>
+        </figcaption>
+      </figure></div>
 
       <div class="wrap">
         <div class="split split--water">
@@ -746,15 +844,9 @@
           <p class="reveal emphasis">Ainsi la mémoire de la ville et celle de la famille se croisent ici, sur quelques mètres de pavés&nbsp;: l’histoire qu’on lit dans les livres, et celle qu’on se raconte à table.</p>
         </div>
 
-        <figure class="figure maison-photo reveal">
-          <img src="assets/img/rue-camille-960.webp"
-               srcset="assets/img/rue-camille-960.webp 960w, assets/img/rue-camille-1280.webp 1280w"
-               sizes="(min-width: 960px) 54rem, 100vw" width="1280" height="960"
-               loading="lazy" decoding="async"
-               alt="La rue du Docteur-Camille-de-Rocca-Serra en plein été : façades de granit et d’enduit ocre, volets clairs, lanternes, balcons de fer forgé, et la ruelle qui descend en pente douce entre les maisons.">
-          <figcaption><span class="cap__desc">La rue du Docteur-Camille-de-Rocca-Serra, en juillet 2011</span> — Patrick Nouhailler, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a></figcaption>
-        </figure>
 
+
+        <details class="maison-plan"><summary>Voir le plan des deux rues</summary>
         <figure class="maison-map reveal">
           <!-- map:town --><svg class="map-town" viewBox="0 0 600 401" role="img" aria-labelledby="map-town-title map-town-desc">
 <title id="map-town-title">La vieille ville de Porto-Vecchio</title>
@@ -774,6 +866,17 @@
             Plan de la vieille ville dessiné d’après OpenStreetMap. Données © les contributeurs d’OpenStreetMap (<a href="https://opendatacommons.org/licenses/odbl/">ODbL</a>).
           </figcaption>
         </figure>
+        </details>
+        <div class="maison-arrivee">
+          <figure id="des-toits-a-la-rue">
+            <img src="assets/relief/deux-rues.webp" width="1260" height="840" loading="lazy" decoding="async" alt="Deux rues de la vieille ville se rejoignent au creux des maisons. L’ocre suit la rue du Docteur-Camille-de-Rocca-Serra, le vert celle du Général-Abbatucci.">
+            <figcaption><h3>Au-dessus des toits</h3><p>Entre les toits serrés, suivez la ligne ocre de la rue du Docteur-Camille-de-Rocca-Serra jusqu’à la ligne verte de la rue du Général-Abbatucci.</p><small>Maquette © IGN · Rues © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, ODbL.</small></figcaption>
+          </figure>
+          <figure id="dans-la-rue">
+            <img src="assets/img/rue-camille-960.webp" srcset="assets/img/rue-camille-960.webp 960w, assets/img/rue-camille-1280.webp 1280w" sizes="(min-width: 850px) 53vw, 92vw" width="1280" height="960" loading="lazy" decoding="async" alt="En juillet, la rue du Docteur-Camille-de-Rocca-Serra descend entre les façades aux volets clairs et les lanternes de la vieille ville.">
+            <figcaption><h3>Dans la rue</h3><p>Rue du Docteur-Camille-de-Rocca-Serra, en juillet 2011. Au bout du voyage, les volets clairs et la pente familière de la ruelle.</p><small>Photographie de Patrick Nouhailler · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</small></figcaption>
+          </figure>
+        </div>
 
         <div class="prose prose--center interlude" id="americains" data-stagger>
           <svg class="ornament ornament--wave reveal" viewBox="0 0 240 20" aria-hidden="true" focusable="false"><path d="M0 10 Q15 0 30 10 T60 10 T90 10 T120 10 T150 10 T180 10 T210 10 T240 10"/></svg>
@@ -816,10 +919,10 @@
 
   <!-- Lecteur « Écouter la lettre » — jamais de lecture automatique -->
   <div class="narrator" id="narrator" role="region" aria-label="Lecture de la lettre" hidden>
-    <script type="application/json" id="narration-chapters">[{"id":"ouverture","start":0.0,"end":8.16},{"id":"lettre","start":9.56,"end":79.94},{"id":"citadelle","start":81.34,"end":157.9},{"id":"paoli","start":159.3,"end":203.86},{"id":"sel","start":205.26,"end":251.9},{"id":"liege","start":253.3,"end":300.5},{"id":"montagne","start":301.9,"end":354.3},{"id":"mer","start":355.7,"end":393.54},{"id":"crepuscule","start":394.94,"end":442.3},{"id":"langue","start":443.7,"end":463.62},{"id":"rocca-serra","start":465.02,"end":503.82},{"id":"abbatucci","start":505.22,"end":563.46},{"id":"deux-lignees","start":564.86,"end":627.9},{"id":"maison","start":629.3,"end":694.26},{"id":"envoi","start":695.66,"end":741.34}]</script>
+    <script type="application/json" id="narration-chapters">[{"id":"ouverture","start":0.0,"end":8.16},{"id":"lettre","start":9.56,"end":79.94},{"id":"citadelle","start":81.34,"end":154.36},{"id":"paoli","start":155.76,"end":200.32},{"id":"sel","start":201.72,"end":248.36},{"id":"liege","start":249.76,"end":296.96},{"id":"montagne","start":298.36,"end":350.76},{"id":"mer","start":352.16,"end":390.0},{"id":"crepuscule","start":391.4,"end":438.76},{"id":"langue","start":440.16,"end":460.08},{"id":"rocca-serra","start":461.48,"end":500.28},{"id":"abbatucci","start":501.68,"end":559.92},{"id":"deux-lignees","start":561.32,"end":624.36},{"id":"maison","start":625.76,"end":690.72},{"id":"envoi","start":692.12,"end":737.8}]</script>
     <audio id="narration-audio" preload="none">
-      <source src="assets/audio/lettre.webm" type="audio/webm; codecs=opus">
-      <source src="assets/audio/lettre.mp3" type="audio/mpeg">
+      <source src="assets/audio/lettre.webm?v=2" type="audio/webm; codecs=opus">
+      <source src="assets/audio/lettre.mp3?v=2" type="audio/mpeg">
     </audio>
     <button class="narrator__play" type="button" data-narration-toggle aria-label="Lecture">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><g class="i-pause"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg>
@@ -827,11 +930,11 @@
     <div class="narrator__meta">
       <p class="narrator__now"><span class="narrator__kicker">Écouter la lettre</span> <span class="narrator__chapter" aria-live="polite">Ouverture</span></p>
       <div class="narrator__bar">
-        <input class="narrator__seek" type="range" min="0" max="741" step="1" value="0" aria-label="Position dans la lecture">
+        <input class="narrator__seek" type="range" min="0" max="738" step="1" value="0" aria-label="Position dans la lecture">
         <span class="narrator__ticks" aria-hidden="true"></span>
       </div>
     </div>
-    <p class="narrator__time"><span class="narrator__cur">0:00</span><span aria-hidden="true"> / </span><span class="narrator__dur">12:21</span></p>
+    <p class="narrator__time"><span class="narrator__cur">0:00</span><span aria-hidden="true"> / </span><span class="narrator__dur">12:17</span></p>
     <label class="narrator__follow"><input type="checkbox" checked> <span>Suivre</span></label>
     <button class="narrator__close" type="button" aria-label="Fermer le lecteur">×</button>
   </div>
@@ -934,6 +1037,12 @@
           <section aria-labelledby="t-cartes">
             <h3 id="t-cartes">Cartes</h3>
             <p>Côtes, rivières, lac de l’Ospédale, ruelles et bâtiments de la vieille ville&nbsp;: données © les contributeurs d’<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, sous licence <a href="https://opendatacommons.org/licenses/odbl/">ODbL</a>, redessinées à la main pour cette lettre.</p>
+          </section>
+
+          <section aria-labelledby="t-relief-sources">
+            <h3 id="t-relief-sources">Le paysage en relief</h3>
+            <p><a href="https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes">Plan Terrier de Corse</a>, Archives de la Collectivité de Corse. Relief, photographies aériennes et bâtiments&nbsp;: © IGN, RGE ALTI, BD ORTHO Historique, BD ORTHO 2024 et BD TOPO (consultée le 20 novembre 2026). Adaptation et rendus dans Blender. <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/">Licence Ouverte 2.0</a>.</p>
+            <p><a href="https://pop.culture.gouv.fr/notice/merimee/PA2A000043">L’enceinte de la citadelle</a> · <a href="https://www.storiapatriagenova.eu/Docs/Biblioteca_Digitale/SB/396b22c37e8bbc6c44c30828fc127900/26f49cbd3530561b466aa07123226447.pdf">Correspondance génoise de 1540</a> · <a href="https://pop.culture.gouv.fr/notice/merimee/IA2A001310">Les ateliers Saint-Joseph</a>.</p>
           </section>
 
           <section aria-labelledby="t-fabrique">

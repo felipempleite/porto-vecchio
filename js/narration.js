@@ -74,7 +74,14 @@
     if (!seek.matches(':active')) seek.value = Math.round(t);
     seek.style.setProperty('--p', (t / total * 100) + '%');
     curEl.textContent = fmt(t);
-    setChapter(chapterAt(t));
+    var index = chapterAt(t);
+    var chapter = chapters[index];
+    setChapter(index);
+    if (started && !audio.paused && follow.checked && Date.now() - lastUserScroll > 6000) {
+      document.dispatchEvent(new CustomEvent('lettre:suivre', {
+        detail: { chapter: chapter.id, elapsed: t - chapter.start }
+      }));
+    }
   }
 
   function visibleChapter() {

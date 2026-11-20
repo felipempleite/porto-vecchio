@@ -12,66 +12,66 @@
  {
   "id": "citadelle",
   "start": 81.34,
-  "end": 157.9
+  "end": 154.36
  },
  {
   "id": "paoli",
-  "start": 159.3,
-  "end": 203.86
+  "start": 155.76,
+  "end": 200.32
  },
  {
   "id": "sel",
-  "start": 205.26,
-  "end": 251.9
+  "start": 201.72,
+  "end": 248.36
  },
  {
   "id": "liege",
-  "start": 253.3,
-  "end": 300.5
+  "start": 249.76,
+  "end": 296.96
  },
  {
   "id": "montagne",
-  "start": 301.9,
-  "end": 354.3
+  "start": 298.36,
+  "end": 350.76
  },
  {
   "id": "mer",
-  "start": 355.7,
-  "end": 393.54
+  "start": 352.16,
+  "end": 390.0
  },
  {
   "id": "crepuscule",
-  "start": 394.94,
-  "end": 442.3
+  "start": 391.4,
+  "end": 438.76
  },
  {
   "id": "langue",
-  "start": 443.7,
-  "end": 463.62
+  "start": 440.16,
+  "end": 460.08
  },
  {
   "id": "rocca-serra",
-  "start": 465.02,
-  "end": 503.82
+  "start": 461.48,
+  "end": 500.28
  },
  {
   "id": "abbatucci",
-  "start": 505.22,
-  "end": 563.46
+  "start": 501.68,
+  "end": 559.92
  },
  {
   "id": "deux-lignees",
-  "start": 564.86,
-  "end": 627.9
+  "start": 561.32,
+  "end": 624.36
  },
  {
   "id": "maison",
-  "start": 629.3,
-  "end": 694.26
+  "start": 625.76,
+  "end": 690.72
  },
  {
   "id": "envoi",
-  "start": 695.66,
-  "end": 741.34
+  "start": 692.12,
+  "end": 737.8
  }
 ]
