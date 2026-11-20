@@ -43,3 +43,10 @@ Générées avec Higgsfield (modèle gpt_image_2_6), novembre 2026 — l'API Gem
 - Maps: drawn from OpenStreetMap data, © OpenStreetMap contributors, ODbL (https://www.openstreetmap.org/copyright).
 - Narration voice: ElevenLabs text-to-speech (eleven_v4, voice « Atma »).
 - Hero loop (round 3): AI animation generated with Kling 3.0 pro (Higgsfield, 10.5 credits) from the CC0 photo « Portivechju vistu da e saline » (Annacquaghjolu), used as first and last frame; tail crossfaded into head and pasted back into the still's 3:2 frame (tools/hero_loop_crossfade.py). Seedance 2.5 720p was tried side by side (42 credits) and not used.
+
+## Plans-reliefs et ateliers
+- Terrain © IGN, service altimétrique RGE ALTI ; photographies aériennes BD ORTHO Historique (mission Corse 1951–52, mosaïque de juillet 1975) et BD ORTHO 2024 ; emprises et hauteurs BD TOPO consultées le 20 novembre 2026. [IGN, référentiel à grande échelle](https://www.data.gouv.fr/datasets/referentiel-a-grande-echelle-rge), [BD ORTHO Historique](https://www.data.gouv.fr/datasets/bd-ortho-r-historique), Licence Ouverte 2.0.
+- [Plan Terrier](https://data.corsica/datasets/le-plan-terrier-de-la-corse-archive-de-corse-et-de-vincennes), Archives de la Collectivité de Corse, Licence Ouverte 2.0. Terrain actuel commun aux époques ; échelle verticale × 2 dans la comparaison du rivage. Quatorze signes du Terrier en léger relief conventionnel. Les maquettes ne restituent pas l’altitude des anciennes grèves.
+- Rues dessinées à partir du plan OSM déjà crédité ci-dessus. Le détail de la Porte génoise s’appuie sur la photo de Patrick Nouhailler (CC BY-SA 3.0, même licence pour l’adaptation). Le détail du Bastion de France s’appuie sur la photo d’Air fans (CC0). Études extérieures non métriques.
+- Maquettes des ateliers réalisées d’après l’Inventaire général, notice IA2A001310. Géométrie schématique, implantation du mobilier illustrative.
+- Rendu web optionnel : Three.js, OrbitControls, GLTFLoader et meshoptimizer, redistribués avec leurs [licences MIT](assets/relief/LICENSE-vendor.txt).
